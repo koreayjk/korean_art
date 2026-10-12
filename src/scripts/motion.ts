@@ -223,38 +223,50 @@ function text() {
     );
   });
 
+  // Headings: each line rises out of its own mask.
+  $$('h2.display').forEach((heading) => {
+    const split = SplitText.create(heading, { type: 'lines', mask: 'lines' });
+    gsap.from(split.lines, {
+      yPercent: 115,
+      duration: 1.8,
+      ease: 'expo.out',
+      stagger: 0.12,
+      scrollTrigger: { trigger: heading, start: 'top 92%', once: true },
+    });
+  });
+
   // Single elements.
   $$('[data-reveal]').forEach((el) => {
     gsap.from(el, {
-      y: 26,
+      y: 70,
       autoAlpha: 0,
-      duration: 1.5,
+      duration: 1.8,
       ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+      scrollTrigger: { trigger: el, start: 'top 96%', once: true },
     });
   });
 
   // Groups: children follow one another.
   $$('[data-reveal-group]').forEach((group) => {
     gsap.from(group.children, {
-      y: 26,
+      y: 80,
       autoAlpha: 0,
-      duration: 1.5,
+      duration: 1.8,
       ease: 'expo.out',
-      stagger: 0.09,
-      scrollTrigger: { trigger: group, start: 'top 78%', once: true },
+      stagger: 0.12,
+      scrollTrigger: { trigger: group, start: 'top 88%', once: true },
     });
   });
 
   // Process steps.
   $$('[data-steps]').forEach((list) => {
     gsap.from(list.children, {
-      y: 22,
+      y: 70,
       autoAlpha: 0,
-      duration: 1.4,
+      duration: 1.7,
       ease: 'expo.out',
-      stagger: 0.1,
-      scrollTrigger: { trigger: list, start: 'top 82%', once: true },
+      stagger: 0.14,
+      scrollTrigger: { trigger: list, start: 'top 90%', once: true },
     });
   });
 }
@@ -269,8 +281,8 @@ function images() {
     const scrollTrigger = { trigger: frame, start: 'top 92%', end: 'top 30%', scrub: 0.6 };
     gsap.fromTo(
       frame,
-      { clipPath: 'inset(100% 0% 0% 0%)' },
-      { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', scrollTrigger },
+      { clipPath: 'inset(100% 0% 0% 0%)', y: 120 },
+      { clipPath: 'inset(0% 0% 0% 0%)', y: 0, ease: 'power2.out', scrollTrigger },
     );
     if (img) {
       gsap.fromTo(
@@ -316,11 +328,11 @@ function works() {
   const cards = $$('[data-card]', section);
 
   gsap.from(cards, {
-    y: 40,
+    y: 100,
     autoAlpha: 0,
-    duration: 1.5,
+    duration: 1.8,
     ease: 'expo.out',
-    stagger: 0.08,
+    stagger: 0.1,
     scrollTrigger: { trigger: section, start: 'top 65%', once: true },
   });
 
