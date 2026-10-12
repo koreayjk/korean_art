@@ -1,0 +1,194 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { site, steps, works } from '../data/site';
+
+import hero from '../assets/images/hero.jpg';
+import master from '../assets/images/master.jpg';
+import making from '../assets/images/making.jpg';
+import closing from '../assets/images/closing.jpg';
+import work1 from '../assets/images/work1.jpg';
+import work2 from '../assets/images/work2.jpg';
+import work3 from '../assets/images/work3.jpg';
+import work4 from '../assets/images/work4.jpg';
+import work5 from '../assets/images/work5.jpg';
+
+const workImages = { work1, work2, work3, work4, work5 };
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title" data-hero>
+    <div class="hero__media" aria-hidden="true" data-hero-media>
+      <div class="hero__media-in" data-hero-image>
+        <Image src={hero} alt="" widths={[960, 1440, 1920, 2688]} sizes="100vw" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+
+    <div class="hero__content" data-hero-content>
+      <div class="hero__eyebrow" data-hero-item>Korean traditional embroidery</div>
+      <h1 id="hero-title" class="display h1 hero__title" data-hero-title>Silk embroidery by Mi-ae Park, made to commission</h1>
+      <a class="link" href="#inquiry" data-hero-item>Begin a commission</a>
+    </div>
+
+    <div class="hero__corner hero__corner--left" data-hero-item>Gochang, Korea</div>
+    <div class="hero__corner hero__corner--right" aria-hidden="true" data-hero-item>
+      Scroll <span class="hero__cue"><span></span></span>
+    </div>
+  </section>
+
+  <!-- The craft -->
+  <section id="jasu" class="statement" aria-label="The craft of jasu">
+    <div class="label statement__label" data-reveal>
+      <span>The craft</span>
+      <span lang="ko">자수</span>
+    </div>
+    <div class="statement__body">
+      <p class="statement__text" data-words>
+        <span>Jasu is the Korean art of stitching coloured silk thread onto silk.</span>
+        <span>Recorded since the Three Kingdoms period, it grew into two traditions: gungsu, made in the royal court, and minsu, made in homes and local workshops.</span>
+        <span>Mi-ae Park carries the minsu tradition into the present.</span>
+      </p>
+      <a class="link" href="#jasu" data-reveal>Read the Journal</a>
+    </div>
+  </section>
+
+  <!-- The master -->
+  <section id="master" class="split" aria-labelledby="master-title">
+    <div class="split__media" style="background: #10151f" data-image>
+      <div class="split__media-in" data-parallax>
+        <Image src={master} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 8% center" />
+      </div>
+    </div>
+    <div class="split__body split__body--indigo" data-reveal-group>
+      <div class="label">
+        <span>The master</span>
+        <span lang="ko">장인</span>
+      </div>
+      <div class="name">
+        <h2 id="master-title" class="display h2">Mi-ae Park</h2>
+        <div class="hangul" lang="ko">박미애 · 호 아람</div>
+      </div>
+      <p>
+        Mi-ae Park has practiced traditional embroidery for more than 45 years. She is the third generation of her
+        family in the craft and took over the family workshop in Gochang from her mother in 1990. She trained under
+        Han Sang-soo, the first embroidery master named a holder of Korea's national intangible heritage.
+      </p>
+      <dl class="facts">
+        <div><dt>Practice</dt><dd>More than 45 years</dd></div>
+        <div><dt>Workshop</dt><dd>Gochang, third generation</dd></div>
+        <div><dt>Recognition</dt><dd>Heritage holder, Jeonbuk, 2022</dd></div>
+      </dl>
+      <a class="link" href="#master">Read her story</a>
+    </div>
+  </section>
+
+  <!-- Interlude -->
+  <section class="interlude" aria-label="Stitch by stitch">
+    <p class="interlude__ko" lang="ko" data-syllables>
+      <span>한</span><span>땀,</span><span>한</span><span>땀</span>
+    </p>
+    <p class="interlude__en" data-reveal>Stitch by stitch</p>
+  </section>
+
+  <!-- Works -->
+  <section id="works" class="works" aria-labelledby="works-title" data-works>
+    <div class="works__head" data-reveal>
+      <div class="works__title">
+        <div class="label">
+          <span>Works</span>
+          <span lang="ko">작품</span>
+        </div>
+        <h2 id="works-title" class="display h2">Designs to commission</h2>
+      </div>
+      <div class="works__tools">
+        <span class="works__count" aria-hidden="true"><span data-works-current>01</span> — {pad(works.length)}</span>
+        <a class="link" href="#works">View all works</a>
+      </div>
+    </div>
+
+    <div class="works__viewport" role="region" aria-label="Works. Scroll horizontally." tabindex="0" data-works-viewport>
+      <div class="works__track" data-works-track>
+        {
+          works.map((work, i) => (
+            <article class="card" data-card>
+              <div class="card__media">
+                <Image src={workImages[work.key]} alt={work.alt} widths={[480, 800]} sizes="(max-width: 900px) 70vw, 30vw" />
+              </div>
+              <div>
+                <div class="card__row">
+                  <h3 class="card__title">{work.title}</h3>
+                  <span class="card__num" aria-hidden="true">{pad(i + 1)}</span>
+                </div>
+                <div class="card__meta">{work.meta}</div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- The making -->
+  <section class="split split--reverse" aria-labelledby="making-title">
+    <div class="split__body split__body--crimson" data-reveal-group>
+      <div class="label">
+        <span>The making</span>
+        <span lang="ko">제작</span>
+      </div>
+      <h2 id="making-title" class="display h2" style="max-width: 13em">About six months of handwork goes into every piece</h2>
+      <p>
+        The design is drawn onto silk stretched on a wooden frame, then filled stitch by stitch in silk thread.
+        Progress photographs are shared along the way.
+      </p>
+      <a class="link" href="#commission">How a commission works</a>
+    </div>
+    <div class="split__media" style="background: #241110" data-image>
+      <div class="split__media-in" data-parallax>
+        <Image src={making} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 66% center" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Commission -->
+  <section id="commission" class="process" aria-labelledby="commission-title">
+    <div class="process__intro" data-reveal-group>
+      <div class="label">
+        <span>Commission</span>
+        <span lang="ko">주문</span>
+      </div>
+      <h2 id="commission-title" class="display h2">How a commission works</h2>
+      <p>Every piece is made to order, and only a limited number of commissions are accepted each year.</p>
+    </div>
+    <ol class="process__list" data-steps>
+      {
+        steps.map((step, i) => (
+          <li class="step">
+            <span class="step__num" aria-hidden="true">{pad(i + 1)}</span>
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__body">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- Inquiry -->
+  <section id="inquiry" class="closing" aria-labelledby="inquiry-title">
+    <div class="closing__media" aria-hidden="true">
+      <div class="closing__media-in" data-parallax>
+        <Image src={closing} alt="" widths={[960, 1440, 1920, 2688]} sizes="100vw" />
+      </div>
+    </div>
+    <div class="closing__content" data-reveal-group>
+      <div class="label">Inquiry</div>
+      <h2 id="inquiry-title" class="display h1">Commission a work</h2>
+      <p>Commissions from {site.priceFrom}. Larger works are quoted individually.</p>
+      <div class="closing__links">
+        <a class="link" href="#inquiry">Request a consultation</a>
+        <a class="link" href="#inquiry">For institutions</a>
+      </div>
+    </div>
+  </section>
+</Base>

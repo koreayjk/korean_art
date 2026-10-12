@@ -1,0 +1,35 @@
+---
+import { nav, site } from '../data/site';
+---
+
+<footer class="footer">
+  <div class="footer__cols">
+    <div class="footer__brand">
+      <div class="footer__mark">
+        <span class="seal" aria-hidden="true"><span>아</span><span>람</span></span>
+        <span class="footer__name">ARAM</span>
+      </div>
+      <p>Korean traditional embroidery by Mi-ae Park, made to commission in Gochang, Korea.</p>
+    </div>
+
+    <nav class="footer__col" aria-label="Footer">
+      {nav.map((item) => <a class="link link--plain" href={item.href}>{item.label}</a>)}
+    </nav>
+
+    <div class="footer__col">
+      <a class="link link--plain" href="#inquiry">Inquiry</a>
+      <a class="link link--plain" href="#inquiry">For institutions</a>
+      <span>{site.email}</span>
+    </div>
+
+    <div class="footer__col">
+      <a class="link" href="/" aria-current="true">English</a>
+      <a class="link link--plain" href="/" lang="ko" style="font-family: var(--korean)">한국어</a>
+    </div>
+  </div>
+
+  <div class="footer__base">
+    <div>© {new Date().getFullYear()} ARAM</div>
+    <div>{site.location}</div>
+  </div>
+</footer>
