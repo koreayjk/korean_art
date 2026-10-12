@@ -221,6 +221,9 @@ function text() {
       { opacity: 0.14, y: 16 },
       { opacity: 1, y: 0, ease: 'power2.out', stagger: 0.2, scrollTrigger },
     );
+    // The five-colour thread is drawn from left to right alongside.
+    const thread = section?.querySelector('[data-thread]');
+    if (thread) gsap.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { ...scrollTrigger, pin: false } });
   });
 
   // Headings: each line rises out of its own mask.
