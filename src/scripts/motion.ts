@@ -180,7 +180,7 @@ function heroScroll() {
   if (!hero) return;
   gsap.to('[data-hero-media]', {
     yPercent: 14,
-    scale: 1.12,
+    scale: 1.22,
     ease: 'none',
     scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
   });
@@ -288,7 +288,7 @@ function images() {
       gsap.fromTo(
         img,
         { scale: 1 },
-        { scale: 1.14, ease: 'none', scrollTrigger: { trigger: frame, start: 'top 92%', end: 'bottom top', scrub: 0.6 } },
+        { scale: 1.3, ease: 'none', scrollTrigger: { trigger: frame, start: 'top 92%', end: 'bottom top', scrub: 0.6 } },
       );
     }
   });
@@ -313,7 +313,7 @@ function images() {
     gsap.fromTo(
       closingImg,
       { scale: 1 },
-      { scale: 1.14, ease: 'none', scrollTrigger: { trigger: closing, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
+      { scale: 1.3, ease: 'none', scrollTrigger: { trigger: closing, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
     );
   }
 }
@@ -331,7 +331,7 @@ function works() {
   gsap.fromTo(
     $$('img', section),
     { scale: 1 },
-    { scale: 1.1, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
+    { scale: 1.22, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
   );
 
   gsap.from(cards, {
