@@ -180,6 +180,7 @@ function heroScroll() {
   if (!hero) return;
   gsap.to('[data-hero-media]', {
     yPercent: 14,
+    scale: 1.12,
     ease: 'none',
     scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
   });
@@ -194,33 +195,31 @@ function heroScroll() {
 /* ---------- Text ---------- */
 
 function text() {
-  // Statement: words come up to full strength as the paragraph is read.
+  const pinned = window.matchMedia('(min-width: 900px) and (min-height: 600px)').matches;
+
+  // Statement: the section holds still while the words come up to full strength,
+  // like a title card. Small screens read it as they scroll past.
   $$('[data-words]').forEach((paragraph) => {
     const split = SplitText.create(paragraph.querySelectorAll('span'), { type: 'words' });
-    gsap.fromTo(
-      split.words,
-      { opacity: 0.16 },
-      {
-        opacity: 1,
-        ease: 'none',
-        stagger: 0.05,
-        scrollTrigger: { trigger: paragraph, start: 'top 82%', end: 'bottom 55%', scrub: 0.4 },
-      },
-    );
+    const section = paragraph.closest<HTMLElement>('section');
+    const scrollTrigger =
+      pinned && section
+        ? { trigger: section, start: 'center center', end: '+=90%', pin: true, scrub: 0.5 }
+        : { trigger: paragraph, start: 'top 82%', end: 'bottom 55%', scrub: 0.4 };
+    gsap.fromTo(split.words, { opacity: 0.16 }, { opacity: 1, ease: 'none', stagger: 0.05, scrollTrigger });
   });
 
-  // "한 땀, 한 땀": one syllable at a time.
+  // "한 땀, 한 땀": one syllable at a time, with the section held in place.
   $$('[data-syllables]').forEach((line) => {
+    const section = line.closest<HTMLElement>('section');
+    const scrollTrigger =
+      pinned && section
+        ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5 }
+        : { trigger: line, start: 'top 84%', end: 'top 42%', scrub: 0.5 };
     gsap.fromTo(
       line.children,
       { opacity: 0.14, y: 16 },
-      {
-        opacity: 1,
-        y: 0,
-        ease: 'power2.out',
-        stagger: 0.2,
-        scrollTrigger: { trigger: line, start: 'top 84%', end: 'top 42%', scrub: 0.5 },
-      },
+      { opacity: 1, y: 0, ease: 'power2.out', stagger: 0.2, scrollTrigger },
     );
   });
 
@@ -264,15 +263,22 @@ function text() {
 
 function images() {
   // Wipe open from the bottom while the picture settles from a slight zoom.
+  // Tied to the scroll position, so it plays backwards when scrolling up.
   $$('[data-image]').forEach((frame) => {
     const img = frame.querySelector('img');
-    const trigger = { trigger: frame, start: 'top 85%', once: true };
+    const scrollTrigger = { trigger: frame, start: 'top 92%', end: 'top 30%', scrub: 0.6 };
     gsap.fromTo(
       frame,
       { clipPath: 'inset(100% 0% 0% 0%)' },
-      { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut', scrollTrigger: trigger },
+      { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.inOut', scrollTrigger },
     );
-    if (img) gsap.from(img, { scale: 1.2, duration: 2.4, ease: 'expo.out', scrollTrigger: trigger });
+    if (img) {
+      gsap.fromTo(
+        img,
+        { scale: 1.2 },
+        { scale: 1, ease: 'none', scrollTrigger: { trigger: frame, start: 'top 92%', end: 'bottom 20%', scrub: 0.6 } },
+      );
+    }
   });
 
   // Slow drift inside the frame while it crosses the screen.
@@ -287,6 +293,17 @@ function images() {
       },
     );
   });
+
+  // Closing photograph pushes in slowly as the page ends.
+  const closing = $('.closing');
+  const closingImg = closing?.querySelector('img');
+  if (closing && closingImg) {
+    gsap.fromTo(
+      closingImg,
+      { scale: 1.18 },
+      { scale: 1, ease: 'none', scrollTrigger: { trigger: closing, start: 'top bottom', end: 'center center', scrub: 0.6 } },
+    );
+  }
 }
 
 /* ---------- Works: sideways gallery ---------- */
