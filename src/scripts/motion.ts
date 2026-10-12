@@ -287,8 +287,8 @@ function images() {
     if (img) {
       gsap.fromTo(
         img,
-        { scale: 1.2 },
-        { scale: 1, ease: 'none', scrollTrigger: { trigger: frame, start: 'top 92%', end: 'bottom 20%', scrub: 0.6 } },
+        { scale: 1 },
+        { scale: 1.14, ease: 'none', scrollTrigger: { trigger: frame, start: 'top 92%', end: 'bottom top', scrub: 0.6 } },
       );
     }
   });
@@ -306,14 +306,14 @@ function images() {
     );
   });
 
-  // Closing photograph pushes in slowly as the page ends.
+  // Closing photograph pushes in slowly while it crosses the screen.
   const closing = $('.closing');
   const closingImg = closing?.querySelector('img');
   if (closing && closingImg) {
     gsap.fromTo(
       closingImg,
-      { scale: 1.18 },
-      { scale: 1, ease: 'none', scrollTrigger: { trigger: closing, start: 'top bottom', end: 'center center', scrub: 0.6 } },
+      { scale: 1 },
+      { scale: 1.14, ease: 'none', scrollTrigger: { trigger: closing, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
     );
   }
 }
@@ -326,6 +326,13 @@ function works() {
   const current = $('[data-works-current]');
   if (!section || !track) return;
   const cards = $$('[data-card]', section);
+
+  // Work photographs push in slightly as the section is scrolled.
+  gsap.fromTo(
+    $$('img', section),
+    { scale: 1 },
+    { scale: 1.1, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
+  );
 
   gsap.from(cards, {
     y: 100,
