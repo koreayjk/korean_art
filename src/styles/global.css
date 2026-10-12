@@ -648,8 +648,8 @@ button {
 
 .interlude__thread {
   /* One thread in the five Korean colours (obangsaek): blue, red, yellow, white, black. */
-  width: 100%;
-  height: 3px;
+  width: min(100%, 640px);
+  height: 6px;
   margin-bottom: clamp(36px, 5vw, 72px);
   transform-origin: left center;
   background: linear-gradient(

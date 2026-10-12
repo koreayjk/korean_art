@@ -180,7 +180,7 @@ function heroScroll() {
   if (!hero) return;
   gsap.to('[data-hero-media]', {
     yPercent: 14,
-    scale: 1.22,
+    scale: 1.12,
     ease: 'none',
     scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
   });
@@ -277,23 +277,20 @@ function text() {
 /* ---------- Images ---------- */
 
 function images() {
-  // Wipe open from the bottom while the picture settles from a slight zoom.
+  // The photograph grows as it is scrolled into view: a small window in the
+  // middle opens out to the full frame, rising into place at the same time.
   // Tied to the scroll position, so it plays backwards when scrolling up.
   $$('[data-image]').forEach((frame) => {
-    const img = frame.querySelector('img');
-    const scrollTrigger = { trigger: frame, start: 'top 92%', end: 'top 30%', scrub: 0.6 };
     gsap.fromTo(
       frame,
-      { clipPath: 'inset(100% 0% 0% 0%)', y: 120 },
-      { clipPath: 'inset(0% 0% 0% 0%)', y: 0, ease: 'power2.out', scrollTrigger },
+      { clipPath: 'inset(24% 20% 24% 20%)', y: 90 },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        y: 0,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: frame, start: 'top 98%', end: 'center 50%', scrub: 0.6 },
+      },
     );
-    if (img) {
-      gsap.fromTo(
-        img,
-        { scale: 1 },
-        { scale: 1.3, ease: 'none', scrollTrigger: { trigger: frame, start: 'top 92%', end: 'bottom top', scrub: 0.6 } },
-      );
-    }
   });
 
   // Slow drift inside the frame while it crosses the screen.
@@ -309,14 +306,18 @@ function images() {
     );
   });
 
-  // Closing photograph pushes in slowly while it crosses the screen.
+  // Closing photograph opens out to the full width as it arrives.
   const closing = $('.closing');
-  const closingImg = closing?.querySelector('img');
-  if (closing && closingImg) {
+  const closingMedia = closing?.querySelector('.closing__media');
+  if (closing && closingMedia) {
     gsap.fromTo(
-      closingImg,
-      { scale: 1 },
-      { scale: 1.3, ease: 'none', scrollTrigger: { trigger: closing, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
+      closingMedia,
+      { clipPath: 'inset(16% 14% 16% 14%)' },
+      {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        ease: 'power2.out',
+        scrollTrigger: { trigger: closing, start: 'top 90%', end: 'top 10%', scrub: 0.6 },
+      },
     );
   }
 }
@@ -329,13 +330,6 @@ function works() {
   const current = $('[data-works-current]');
   if (!section || !track) return;
   const cards = $$('[data-card]', section);
-
-  // Work photographs push in slightly as the section is scrolled.
-  gsap.fromTo(
-    $$('img', section),
-    { scale: 1 },
-    { scale: 1.22, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.6 } },
-  );
 
   gsap.from(cards, {
     y: 100,
