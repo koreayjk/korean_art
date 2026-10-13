@@ -102,6 +102,25 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
     </div>
   </section>
 
+  <!-- Biography and exhibitions -->
+  <section class="career career--home" aria-label={t.pages.master.career.biography.title + ' / ' + t.pages.master.career.exhibitions.title} data-reveal-group>
+    {
+      [t.pages.master.career.biography, t.pages.master.career.exhibitions].map((block) => (
+        <div class="career__block">
+          <h2 class="page__subtitle">{block.title}</h2>
+          <dl class="timeline">
+            {block.items.map(([when, what]) => (
+              <div>
+                <dt>{when}</dt>
+                <dd>{what}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))
+    }
+  </section>
+
   <!-- Interlude -->
   <section class="interlude" aria-label={t.stitch.aria}>
     <span class="interlude__thread" aria-hidden="true" data-thread></span>
