@@ -181,7 +181,7 @@ function heroScroll() {
   const hero = $('[data-hero]');
   if (!hero) return;
   gsap.to('[data-hero-media]', {
-    yPercent: 14,
+    yPercent: 7,
     ease: 'none',
     scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
   });
@@ -242,7 +242,7 @@ function text() {
   // Single elements.
   $$('[data-reveal]').forEach((el) => {
     gsap.from(el, {
-      y: 70,
+      y: 35,
       autoAlpha: 0,
       duration: 1.8,
       ease: 'expo.out',
@@ -253,7 +253,7 @@ function text() {
   // Groups: children follow one another.
   $$('[data-reveal-group]').forEach((group) => {
     gsap.from(group.children, {
-      y: 80,
+      y: 40,
       autoAlpha: 0,
       duration: 1.8,
       ease: 'expo.out',
@@ -265,7 +265,7 @@ function text() {
   // Process steps.
   $$('[data-steps]').forEach((list) => {
     gsap.from(list.children, {
-      y: 70,
+      y: 35,
       autoAlpha: 0,
       duration: 1.7,
       ease: 'expo.out',
@@ -307,11 +307,11 @@ function subjects() {
   const hero = $('[data-hero]');
   const heroSubject = $('[data-subject="hero"]');
   if (hero && heroSubject) {
-    grow(heroSubject, { trigger: hero, start: 'top top', end: 'bottom top' }, 3);
+    grow(heroSubject, { trigger: hero, start: 'top top', end: 'bottom top' }, 2);
   }
   $$('[data-subject="frame"]').forEach((img) => {
     const frame = img.closest<HTMLElement>('[data-image]');
-    if (frame) grow(img, { trigger: frame, start: 'top bottom', end: 'center 35%' }, 3.5);
+    if (frame) grow(img, { trigger: frame, start: 'top bottom', end: 'center 35%' }, 2.25);
   });
 }
 
@@ -322,14 +322,14 @@ function subjects() {
 // different speeds, like a camera moving through a scene.
 function depth() {
   const layers: [string, number][] = [
-    ['.split__body', 320],
-    ['.process__intro', 240],
-    ['.process__list', 420],
-    ['.closing__content', 320],
-    ['.interlude', 200],
-    ['.works__head', 260],
-    ['.statement__label', 180],
-    ['.statement__body', 360],
+    ['.split__body', 160],
+    ['.process__intro', 120],
+    ['.process__list', 210],
+    ['.closing__content', 160],
+    ['.interlude', 100],
+    ['.works__head', 130],
+    ['.statement__label', 90],
+    ['.statement__body', 180],
   ];
   const pinned = window.matchMedia('(min-width: 900px) and (min-height: 600px)').matches;
   layers.forEach(([selector, distance]) => {
@@ -357,7 +357,7 @@ function images() {
   $$('[data-image]').forEach((frame) => {
     gsap.fromTo(
       frame,
-      { y: 260 },
+      { y: 130 },
       { y: 0, ease: 'power2.out', scrollTrigger: { trigger: frame, start: 'top 100%', end: 'top 30%', scrub: 0.6 } },
     );
   });
@@ -386,7 +386,7 @@ function works() {
   const cards = $$('[data-card]', section);
 
   gsap.from(cards, {
-    y: 100,
+    y: 50,
     autoAlpha: 0,
     duration: 1.8,
     ease: 'expo.out',
@@ -423,7 +423,7 @@ function works() {
     // The pieces grow as they slide across; the background of each card stays put.
     cards.forEach((card) => {
       const subject = card.querySelector<HTMLElement>('[data-subject]');
-      if (subject) grow(subject, { trigger: card, containerAnimation: slide, start: 'left 100%', end: 'left 30%' }, 2.6);
+      if (subject) grow(subject, { trigger: card, containerAnimation: slide, start: 'left 100%', end: 'left 30%' }, 1.8);
     });
 
     return () => {
