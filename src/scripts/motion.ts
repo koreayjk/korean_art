@@ -228,12 +228,15 @@ function text() {
       pinned && section
         ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5, refreshPriority: 1 }
         : { trigger: stitch, start: 'top 84%', end: 'top 30%', scrub: 0.5 };
+    // The dissolves finish early (the Korean by about half-way through the scroll, the
+    // English by two thirds) and the rest of the scroll just holds the finished picture.
     const dissolve = { opacity: 0, filter: 'blur(10px)' };
-    const clear = { opacity: 1, filter: 'blur(0px)', ease: 'none', duration: 1 };
+    const clear = { opacity: 1, filter: 'blur(0px)', ease: 'none', duration: 0.5 };
     const tl = gsap.timeline({ scrollTrigger });
     tl.fromTo(stitch, dissolve, clear, 0);
-    if (english) tl.fromTo(english, dissolve, clear, 0.4);
-    if (thread) tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: 1 }, 0);
+    if (english) tl.fromTo(english, dissolve, clear, 0.2);
+    if (thread) tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: 0.6 }, 0);
+    tl.to({}, { duration: 0.35 }, 0.7);
   });
 
   // Headings: each line rises out of its own mask.
