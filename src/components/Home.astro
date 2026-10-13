@@ -5,10 +5,10 @@ import StepIcon from './StepIcon.astro';
 import ProcessObject from './ProcessObject.astro';
 import { copy, type Locale } from '../data/copy';
 import { subjects } from '../data/subjects';
+import { url } from '../data/links';
 
 import hero from '../assets/images/hero.jpg';
 import master from '../assets/images/master.jpg';
-import making from '../assets/images/making.jpg';
 import closing from '../assets/images/closing.jpg';
 import stitch from '../assets/images/stitch.png';
 import stitchEn from '../assets/images/stitch-en.png';
@@ -20,7 +20,6 @@ import work5 from '../assets/images/work5.jpg';
 
 import heroCut from '../assets/cutouts/hero.webp';
 import masterCut from '../assets/cutouts/master.webp';
-import makingCut from '../assets/cutouts/making.webp';
 import work1Cut from '../assets/cutouts/work1.webp';
 import work2Cut from '../assets/cutouts/work2.webp';
 import work3Cut from '../assets/cutouts/work3.webp';
@@ -44,7 +43,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
 
 ---
 
-<Base locale={locale}>
+<Base locale={locale} onHome>
   <!-- Hero -->
   <section class="hero" aria-labelledby="hero-title" data-hero>
     <div class="hero__media" aria-hidden="true" data-hero-media>
@@ -57,7 +56,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
     <div class="hero__content" data-hero-content>
       <div class="hero__eyebrow" data-hero-item>{t.hero.eyebrow}</div>
       <h1 id="hero-title" class="display h1 hero__title" data-hero-title>{t.hero.title}</h1>
-      <a class="link" href="#inquiry" data-hero-item>{t.hero.cta}</a>
+      <a class="link" href={url(locale, 'inquiry')} data-hero-item>{t.hero.cta}</a>
     </div>
 
     <div class="hero__corner hero__corner--left" data-hero-item>{t.hero.corner}</div>
@@ -75,7 +74,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
       <p class="statement__text" data-words>
         {t.craft.sentences.map((sentence) => <span>{sentence}</span>)}
       </p>
-      <a class="link" href="#jasu" data-reveal>{t.craft.link}</a>
+      <a class="link" href={url(locale, 'journal')} data-reveal>{t.craft.link}</a>
     </div>
   </section>
 
@@ -99,7 +98,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
       <dl class="facts">
         {t.master.facts.map(([term, value]) => <div><dt>{term}</dt><dd>{value}</dd></div>)}
       </dl>
-      <a class="link" href="#master">{t.master.link}</a>
+      <a class="link" href={url(locale, 'master')}>{t.master.link}</a>
     </div>
   </section>
 
@@ -150,24 +149,6 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
             </article>
           ))
         }
-      </div>
-    </div>
-  </section>
-
-  <!-- The making -->
-  <section class="split split--reverse" aria-labelledby="making-title">
-    <div class="split__body split__body--crimson" data-reveal-group>
-      <div class="label">
-        {t.making.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
-      </div>
-      <h2 id="making-title" class="display h2" style="max-width: 13em">{t.making.title}</h2>
-      <p>{t.making.text}</p>
-      <a class="link" href="#commission">{t.making.link}</a>
-    </div>
-    <div class="split__media" style="background: #241110" data-image>
-      <div class="split__media-in" data-parallax>
-        <Image src={making} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 66% center" />
-        <Image class="cutout" src={makingCut} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 66% center" data-subject="frame" data-cx={subjects.making[0]} data-cy={subjects.making[1]} />
       </div>
     </div>
   </section>
@@ -227,8 +208,8 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
       <h2 id="inquiry-title" class="display h1">{t.closing.title}</h2>
       <p>{t.closing.text}</p>
       <div class="closing__links">
-        <a class="link" href="#inquiry">{t.closing.consultation}</a>
-        <a class="link" href="#inquiry">{t.closing.institutions}</a>
+        <a class="link" href={url(locale, 'inquiry')}>{t.closing.consultation}</a>
+        <a class="link" href={url(locale, 'institutions')}>{t.closing.institutions}</a>
       </div>
     </div>
   </section>

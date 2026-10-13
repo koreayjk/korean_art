@@ -1,0 +1,80 @@
+---
+import { copy, type Locale } from '../data/copy';
+import { site } from '../data/site';
+
+interface Props {
+  locale: Locale;
+  kind: 'consultation' | 'institutions';
+}
+
+interface Field {
+  name: string;
+  label: string;
+  type: 'text' | 'email' | 'textarea' | 'select';
+  required: boolean;
+  options?: string[];
+}
+
+const { locale, kind } = Astro.props;
+const f = copy[locale].pages.form;
+const fields = f[kind] as Field[];
+---
+
+<form
+  class="form"
+  method="post"
+  novalidate
+  data-form
+  data-endpoint={site.formEndpoint}
+  data-kind={kind}
+  data-msg-sending={f.sending}
+  data-msg-sent={f.sent}
+  data-msg-error={f.error}
+  data-msg-not-connected={f.notConnected}
+  data-msg-invalid={f.invalid}
+>
+  <input type="hidden" name="_kind" value={kind} />
+  <input type="hidden" name="_language" value={locale} />
+  <!-- Left empty by people; automatic form-fillers tend to fill it. -->
+  <div class="form__trap" aria-hidden="true">
+    <label>Website <input type="text" name="_website" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <div class="form__grid">
+    {
+      fields.map((field) => (
+        <div class:list={['field', { 'field--wide': field.type === 'textarea' }]}>
+          <label for={`f-${field.name}`}>
+            <span>{field.label}</span>
+            <small>{field.required ? f.required : f.optional}</small>
+          </label>
+          {field.type === 'textarea' ? (
+            <textarea id={`f-${field.name}`} name={field.name} rows="4" required={field.required} />
+          ) : field.type === 'select' ? (
+            <select id={`f-${field.name}`} name={field.name} required={field.required}>
+              <option value="" />
+              {(field.options ?? []).map((o) => <option value={o}>{o}</option>)}
+            </select>
+          ) : (
+            <input
+              id={`f-${field.name}`}
+              name={field.name}
+              type={field.type}
+              required={field.required}
+              autocomplete={field.type === 'email' ? 'email' : field.name === 'name' ? 'name' : 'off'}
+            />
+          )}
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="form__foot">
+    <button class="form__send" type="submit" data-send>{f.send}</button>
+    <p class="form__status" role="status" aria-live="polite" data-status></p>
+  </div>
+</form>
+
+<script>
+  import '../scripts/inquiry.ts';
+</script>

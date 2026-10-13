@@ -30,7 +30,9 @@
 ## 현재 상태
 
 - Home 한 페이지 완성. 데스크톱(1440px)과 모바일(390px)에서 화면 확인함.
-- 메뉴 링크는 아직 Home 안의 섹션으로만 이동.
+- 하위 페이지(영어·한국어 쌍): Journal, The Master(장인 이야기), Inquiry(상담 요청), For Institutions(기관 문의). `src/components/SubPage.astro` 한 벌을 공유하고 글은 `copy.ts`의 `pages`에 있음. 주소 규칙은 `src/data/links.ts`.
+- 문의 양식은 화면과 검증까지 완성. 보내는 곳은 `site.ts`의 `formEndpoint`(비어 있으면 아무것도 전송하지 않고 방문자에게 그렇게 알림). 이메일·양식 서비스가 정해지면 채울 것.
+- 'The making'(6개월 제작) 섹션은 의뢰인 요청으로 삭제함. 대체 내용은 협의 중.
 - 한국어 홈(`/ko/`) 완성. 새 페이지를 만들 때도 영어·한국어 쌍으로 만들 것.
 - 다음 순서 제안: Works 목록과 상세 → Inquiry(작동하는 문의 양식) → The Master → Commission
   → Journal → 한국어 번역 감수 → 정식 도메인.

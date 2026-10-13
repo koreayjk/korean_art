@@ -13,15 +13,22 @@ import { copy, type Locale } from '../data/copy';
 
 interface Props {
   locale?: Locale;
+  // The home page has the opening screen and the large wordmark; other pages do not.
+  onHome?: boolean;
+  // Page-specific title, description and address (relative to the language root, e.g. 'journal/').
+  pageTitle?: string;
+  pageDescription?: string;
+  slug?: string;
 }
 
-const { locale = 'en' } = Astro.props;
+const { locale = 'en', onHome = false, pageTitle, pageDescription, slug = '' } = Astro.props;
 const t = copy[locale];
-const { title, description } = t;
+const title = pageTitle ? `${pageTitle} — ARAM` : t.title;
+const description = pageDescription ?? t.description;
 
 // Absolute addresses of both language versions, so search engines can pair them.
 const root = new URL(import.meta.env.BASE_URL, Astro.site).href;
-const addresses = { en: root, ko: new URL(copy.ko.path, root).href };
+const addresses = { en: new URL(slug, root).href, ko: new URL(`${copy.ko.path}${slug}`, root).href };
 ---
 
 <!doctype html>
@@ -67,17 +74,21 @@ const addresses = { en: root, ko: new URL(copy.ko.path, root).href };
         <feBlend in="shine-soft" in2="SourceGraphic" mode="screen" />
       </filter>
     </svg>
-    <div class="intro" aria-hidden="true" data-intro>
-      <div class="intro__name">ARAM</div>
-      <div class="intro__bar"><div class="intro__fill" data-intro-fill></div></div>
-      <div class="intro__count" data-intro-count>0</div>
-    </div>
+    {
+      onHome && (
+        <div class="intro" aria-hidden="true" data-intro>
+          <div class="intro__name">ARAM</div>
+          <div class="intro__bar"><div class="intro__fill" data-intro-fill></div></div>
+          <div class="intro__count" data-intro-count>0</div>
+        </div>
+      )
+    }
 
-    <Header locale={locale} />
+    <Header locale={locale} onHome={onHome} />
     <main id="top">
       <slot />
     </main>
-    <Footer locale={locale} />
+    <Footer locale={locale} onHome={onHome} slug={slug} />
 
     {site.tempImages && <div class="preview-badge">{t.badge}</div>}
 

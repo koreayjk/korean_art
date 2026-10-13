@@ -698,4 +698,12 @@ fontsReady.then(() => {
   ScrollTrigger.refresh();
 });
 
-window.addEventListener('load', () => ScrollTrigger.refresh());
+window.addEventListener('load', () => {
+  ScrollTrigger.refresh();
+  // Arriving from another page at an address such as /#commission.
+  const target = location.hash.length > 1 ? document.querySelector<HTMLElement>(location.hash) : null;
+  if (target) {
+    if (lenis) lenis.scrollTo(target, { immediate: true });
+    else target.scrollIntoView();
+  }
+});

@@ -4,7 +4,6 @@
 export const subjects = {
   hero: [0.537, 0.333],
   master: [0.262, 0.654],
-  making: [0.784, 0.429],
   work1: [0.54, 0.444],
   work2: [0.516, 0.394],
   work3: [0.488, 0.491],

@@ -13,4 +13,9 @@ export const site = {
   email: '[CONTACT EMAIL]',
   priceFrom: '$[PRICE]',
   deposit: '[DEPOSIT %]',
+
+  // Where the inquiry forms are sent (for example a Formspree address such as
+  // 'https://formspree.io/f/xxxxxxxx'). Until this is set the forms check the entries
+  // but do not send anything, and tell the visitor so.
+  formEndpoint: '',
 };

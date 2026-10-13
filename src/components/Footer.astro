@@ -1,12 +1,15 @@
 ---
 import { copy, type Locale } from '../data/copy';
 import { site } from '../data/site';
+import { url } from '../data/links';
 
 interface Props {
   locale: Locale;
+  onHome?: boolean;
+  slug?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, onHome = false, slug = '' } = Astro.props;
 const t = copy[locale];
 const base = import.meta.env.BASE_URL;
 ---
@@ -22,18 +25,18 @@ const base = import.meta.env.BASE_URL;
     </div>
 
     <nav class="footer__col" aria-label="Footer">
-      {t.nav.map((item) => <a class="link link--plain" href={item.href}>{item.label}</a>)}
+      {t.nav.map((item) => <a class="link link--plain" href={url(locale, item.key, onHome)}>{item.label}</a>)}
     </nav>
 
     <div class="footer__col">
-      <a class="link link--plain" href="#inquiry">{t.inquiry}</a>
-      <a class="link link--plain" href="#inquiry">{t.institutions}</a>
+      <a class="link link--plain" href={url(locale, 'inquiry')}>{t.inquiry}</a>
+      <a class="link link--plain" href={url(locale, 'institutions')}>{t.institutions}</a>
       <span>{site.email}</span>
     </div>
 
     <div class="footer__col">
-      <a class={`link${locale === 'en' ? '' : ' link--plain'}`} href={`${base}${copy.en.path}`} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>English</a>
-      <a class={`link${locale === 'ko' ? '' : ' link--plain'}`} href={`${base}${copy.ko.path}`} lang="ko" hreflang="ko" aria-current={locale === 'ko' ? 'true' : undefined} style="font-family: var(--korean)">한국어</a>
+      <a class={`link${locale === 'en' ? '' : ' link--plain'}`} href={`${base}${copy.en.path}${slug}`} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>English</a>
+      <a class={`link${locale === 'ko' ? '' : ' link--plain'}`} href={`${base}${copy.ko.path}${slug}`} lang="ko" hreflang="ko" aria-current={locale === 'ko' ? 'true' : undefined} style="font-family: var(--korean)">한국어</a>
     </div>
   </div>
 

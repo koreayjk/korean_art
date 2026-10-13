@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import InquiryForm from './InquiryForm.astro';
+import { copy, type Locale } from '../data/copy';
+import { url } from '../data/links';
+import master from '../assets/images/master.jpg';
+
+interface Props {
+  locale: Locale;
+  page: 'journal' | 'master' | 'inquiry' | 'institutions';
+}
+
+const { locale, page } = Astro.props;
+const t = copy[locale];
+const p = t.pages;
+// Marks Korean text so the right typeface is used on either language's page.
+const lang = (text: string) => (/[가-힣]/.test(text) ? 'ko' : 'en');
+const label = p[page].label;
+const title = p[page].title;
+const lead = p[page].lead;
+---
+
+<Base locale={locale} pageTitle={title} pageDescription={lead} slug={`${page}/`}>
+  <article class={`page page--${page}`}>
+    <header class="page__head" data-reveal-group>
+      <div class="label">{label.map((x) => <span lang={lang(x)}>{x}</span>)}</div>
+      <h1 class="display h1">{title}</h1>
+      {page === 'master' && <div class="page__sub" lang={lang(p.master.sub)}>{p.master.sub}</div>}
+      <p class="page__lead">{lead}</p>
+    </header>
+
+    {
+      page === 'journal' && (
+        <div class="page__body" data-reveal-group>
+          {p.journal.entries.map((entry) => (
+            <section class="entry">
+              <h2 class="display h2">{entry.title}</h2>
+              {entry.paragraphs.map((text) => <p>{text}</p>)}
+            </section>
+          ))}
+          <p class="page__more">{p.journal.more}</p>
+          <a class="link" href={url(locale, 'master')}>{p.journal.cta}</a>
+        </div>
+      )
+    }
+
+    {
+      page === 'master' && (
+        <div class="page__body page__body--split" data-reveal-group>
+          <div class="page__photo">
+            <Image src={master} alt="" widths={[600, 900]} sizes="(max-width: 860px) 100vw, 34vw" />
+          </div>
+          <div class="page__text">
+            {p.master.story.map((text) => <p>{text}</p>)}
+            <h2 class="page__subtitle">{p.master.timelineTitle}</h2>
+            <dl class="timeline">
+              {p.master.timeline.map(([when, what]) => (
+                <div>
+                  <dt>{when}</dt>
+                  <dd>{what}</dd>
+                </div>
+              ))}
+            </dl>
+            <a class="link" href={url(locale, 'inquiry')}>{p.master.cta}</a>
+          </div>
+        </div>
+      )
+    }
+
+    {
+      (page === 'inquiry' || page === 'institutions') && (
+        <div class="page__body page__body--form" data-reveal-group>
+          <p class="page__note">{p[page].note}</p>
+          <InquiryForm locale={locale} kind={page === 'inquiry' ? 'consultation' : 'institutions'} />
+          <p class="page__other">
+            {p[page].other} <a class="link" href={url(locale, page === 'inquiry' ? 'institutions' : 'inquiry')}>{p[page].otherLink}</a>
+          </p>
+        </div>
+      )
+    }
+  </article>
+</Base>
