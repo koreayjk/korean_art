@@ -677,6 +677,13 @@ button {
   /* Gold thread cut out of its cloth, so the lettering sits straight on the page. */
 }
 
+.interlude__stitch img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: url(#thread-light);
+}
+
 .interlude__en {
   /* White thread, cut out of its cloth like the Korean line above. */
   width: min(38%, 280px);
