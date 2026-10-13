@@ -669,19 +669,19 @@ button {
 
 .interlude__stitch {
   /* Gold thread cut out of its cloth, so the lettering sits straight on the page. */
-  width: min(100%, 1100px);
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+  width: min(70%, 770px);
 }
 
 .interlude__stitch img {
   display: block;
   width: 100%;
   height: auto;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
 }
 
 .interlude__en {
   /* White thread, cut out of its cloth like the Korean line above. */
-  width: min(70%, 520px);
+  width: min(49%, 364px);
   margin-top: clamp(-8px, -1vw, 0px);
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
 }
