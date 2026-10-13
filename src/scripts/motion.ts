@@ -516,7 +516,7 @@ function commission() {
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=640%',
+        end: '+=700%',
         pin: true,
         scrub: 0.9,
         refreshPriority: 1,
@@ -530,7 +530,7 @@ function commission() {
     const first = 1.0;
     // How long each scene lasts. Making is the longest, so the embroidery can be seen
     // being finished and admired before it is wrapped up.
-    const lengths = [1.3, 1.3, 3.2, 1.9];
+    const lengths = [1.3, 2.1, 3.2, 1.9];
     const starts = lengths.map((_, i) => first + lengths.slice(0, i).reduce((a, b) => a + b, 0));
     const at = (i: number) => starts[i];
 
