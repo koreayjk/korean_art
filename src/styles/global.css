@@ -1099,3 +1099,10 @@ html[lang='ko'] .display {
 html[lang='ko'] .statement__text {
   line-height: 1.45;
 }
+
+/* English headline on the first screen: Cinzel, a classical inscriptional capital face. */
+html[lang='en'] .hero__title {
+  font-family: 'Cinzel', var(--display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
