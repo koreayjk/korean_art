@@ -283,12 +283,12 @@ function images() {
   $$('[data-image]').forEach((frame) => {
     gsap.fromTo(
       frame,
-      { clipPath: 'inset(24% 20% 24% 20%)', y: 90 },
+      { clipPath: 'inset(34% 30% 34% 30%)', y: 90 },
       {
         clipPath: 'inset(0% 0% 0% 0%)',
         y: 0,
         ease: 'power2.out',
-        scrollTrigger: { trigger: frame, start: 'top 98%', end: 'center 50%', scrub: 0.6 },
+        scrollTrigger: { trigger: frame, start: 'top 100%', end: 'top 12%', scrub: 0.6 },
       },
     );
   });
@@ -312,11 +312,11 @@ function images() {
   if (closing && closingMedia) {
     gsap.fromTo(
       closingMedia,
-      { clipPath: 'inset(16% 14% 16% 14%)' },
+      { clipPath: 'inset(26% 24% 26% 24%)' },
       {
         clipPath: 'inset(0% 0% 0% 0%)',
         ease: 'power2.out',
-        scrollTrigger: { trigger: closing, start: 'top 90%', end: 'top 10%', scrub: 0.6 },
+        scrollTrigger: { trigger: closing, start: 'top 100%', end: 'top 15%', scrub: 0.6 },
       },
     );
   }
@@ -347,7 +347,7 @@ function works() {
     section.classList.add('is-pinned');
     const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
 
-    gsap.to(track, {
+    const slide = gsap.to(track, {
       x: () => -distance(),
       ease: 'none',
       scrollTrigger: {
@@ -364,6 +364,27 @@ function works() {
           current.textContent = pad(index);
         },
       },
+    });
+
+    // Each photograph opens out as it slides in from the right.
+    cards.forEach((card) => {
+      const media = card.querySelector('.card__media');
+      if (!media) return;
+      gsap.fromTo(
+        media,
+        { clipPath: 'inset(30% 26% 30% 26%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: card,
+            containerAnimation: slide,
+            start: 'left 98%',
+            end: 'left 55%',
+            scrub: 0.6,
+          },
+        },
+      );
     });
 
     return () => {

@@ -14,9 +14,9 @@
   --crimson: #3a1a19;
   --seal: #a8322b;
 
-  /* Rounded, Apple-style type: Nunito for Latin, Pretendard for Hangul. */
-  --display: 'Nunito Variable', 'Pretendard', -apple-system, system-ui, sans-serif;
-  --body: 'Nunito Variable', 'Pretendard', -apple-system, system-ui, sans-serif;
+  /* Clean, Apple-style type: Inter for Latin, Pretendard for Hangul. */
+  --display: 'Inter Variable', 'Pretendard', -apple-system, system-ui, sans-serif;
+  --body: 'Inter Variable', 'Pretendard', -apple-system, system-ui, sans-serif;
   --korean: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
 
   --gutter: clamp(20px, 4vw, 56px);
@@ -55,7 +55,7 @@ body {
   color: var(--text);
   font-family: var(--body);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -114,8 +114,8 @@ button {
 
 .display {
   font-family: var(--display);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: 1.12;
 }
 
@@ -536,7 +536,7 @@ button {
   gap: 0.7em;
   font-family: var(--display);
   font-size: clamp(21px, 2.5vw, 36px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.32;
   letter-spacing: -0.005em;
 }
@@ -861,7 +861,7 @@ button {
 .step__title {
   flex: 0 0 200px;
   font-family: var(--display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 22px;
   line-height: 1.2;
   transition: transform 700ms var(--ease-expo);
