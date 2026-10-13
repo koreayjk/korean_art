@@ -12,7 +12,7 @@ export type Locale = 'en' | 'ko';
 const en = {
   lang: 'en',
   path: '',
-  title: 'ARAM — Korean traditional embroidery by a master',
+  title: 'ARAM',
   description:
     'Traditional Korean embroidery, stitched by hand by a master in Gochang, Korea, and made to commission.',
   badge: 'Preview · temporary images',
@@ -182,7 +182,7 @@ const en = {
 const ko: typeof en = {
   lang: 'ko',
   path: 'ko/',
-  title: 'ARAM — 장인의 한국 전통 자수',
+  title: 'ARAM',
   description: '전북 고창에서 장인이 한 땀 한 땀 수놓는 한국 전통 자수. 주문을 받아 만듭니다.',
   badge: '미리보기 · 임시 이미지',
   menu: '메뉴',
