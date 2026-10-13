@@ -124,6 +124,11 @@ const en = {
         ['1990', 'Takes over the family workshop in Gochang from her mother'],
         ['2022', 'Recognised as a heritage holder, Jeonbuk'],
       ],
+      // To be filled in with Mi-ae Park: the rows below are placeholders, not facts.
+      career: {
+        biography: { title: 'Biography', items: [['[YEAR]', '[Biography entry]'], ['[YEAR]', '[Biography entry]'], ['[YEAR]', '[Biography entry]']] },
+        exhibitions: { title: 'Exhibitions', items: [['[YEAR]', '[Exhibition title], [Venue, City]'], ['[YEAR]', '[Exhibition title], [Venue, City]'], ['[YEAR]', '[Exhibition title], [Venue, City]']] },
+      },
       cta: 'Request a consultation',
     },
     inquiry: {
@@ -295,6 +300,11 @@ const ko: typeof en = {
         ['1990년', '어머니에게서 고창의 가족 공방을 이어받음'],
         ['2022년', '전북특별자치도 무형유산 보유자 인정'],
       ],
+      // 장인께 받아서 채울 것: 아래 줄들은 자리만 잡은 것이고 사실이 아님.
+      career: {
+        biography: { title: '약력', items: [['[연도]', '[약력 내용]'], ['[연도]', '[약력 내용]'], ['[연도]', '[약력 내용]']] },
+        exhibitions: { title: '전시', items: [['[연도]', '[전시명], [장소, 도시]'], ['[연도]', '[전시명], [장소, 도시]'], ['[연도]', '[전시명], [장소, 도시]']] },
+      },
       cta: '상담 요청하기',
     },
     inquiry: {

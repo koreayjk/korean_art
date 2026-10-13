@@ -1702,3 +1702,28 @@ html[lang='ko'] .page__body p,
 html[lang='ko'] .page__lead {
   word-break: keep-all;
 }
+
+/* Biography and exhibitions under the master's story. */
+.career {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 5vw, 80px);
+  max-width: 72rem;
+  margin-top: clamp(64px, 8vw, 120px);
+}
+
+.career__block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.career .page__subtitle {
+  margin-top: 0;
+}
+
+@media (max-width: 860px) {
+  .career {
+    grid-template-columns: 1fr;
+  }
+}
