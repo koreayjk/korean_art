@@ -217,21 +217,23 @@ function text() {
     gsap.fromTo(split.words, { opacity: 0.16 }, { opacity: 1, ease: 'none', stagger: 0.05, scrollTrigger });
   });
 
-  // "한 땀, 한 땀": the embroidered line dissolves in on the spot, with the section held
-  // in place (desktop) and the five-colour thread drawn alongside.
+  // "한 땀, 한 땀": the embroidered lines dissolve in on the spot, the Korean first and the
+  // English just after it, with the section held in place (desktop) and the five-colour
+  // thread drawn alongside.
   $$('[data-stitch]').forEach((stitch) => {
     const section = stitch.closest<HTMLElement>('section');
+    const english = section?.querySelector('[data-stitch-en]');
+    const thread = section?.querySelector('[data-thread]');
     const scrollTrigger =
       pinned && section
         ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5 }
-        : { trigger: stitch, start: 'top 84%', end: 'top 42%', scrub: 0.5 };
-    gsap.fromTo(
-      stitch,
-      { opacity: 0, filter: 'blur(10px)' },
-      { opacity: 1, filter: 'blur(0px)', ease: 'none', scrollTrigger },
-    );
-    const thread = section?.querySelector('[data-thread]');
-    if (thread) gsap.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { ...scrollTrigger, pin: false } });
+        : { trigger: stitch, start: 'top 84%', end: 'top 30%', scrub: 0.5 };
+    const dissolve = { opacity: 0, filter: 'blur(10px)' };
+    const clear = { opacity: 1, filter: 'blur(0px)', ease: 'none', duration: 1 };
+    const tl = gsap.timeline({ scrollTrigger });
+    tl.fromTo(stitch, dissolve, clear, 0);
+    if (english) tl.fromTo(english, dissolve, clear, 0.4);
+    if (thread) tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: 1 }, 0);
   });
 
   // Headings: each line rises out of its own mask.

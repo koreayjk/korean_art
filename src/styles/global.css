@@ -683,13 +683,13 @@ button {
   /* White thread, cut out of its cloth like the Korean line above. */
   width: min(49%, 364px);
   margin-top: clamp(-8px, -1vw, 0px);
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
 }
 
 .interlude__en img {
   display: block;
   width: 100%;
   height: auto;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
 }
 
 /* ---------- Works ---------- */
