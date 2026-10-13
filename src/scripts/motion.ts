@@ -10,7 +10,10 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// The visitor's "reduce motion" setting turns every animation off. Adding ?motion=on to
+// the address plays them anyway, so the effects can be reviewed on a device that has it set.
+const forceMotion = new URLSearchParams(location.search).get('motion') === 'on';
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !forceMotion;
 
 const $ = <T extends HTMLElement = HTMLElement>(selector: string, root: ParentNode = document) =>
   root.querySelector<T>(selector);
@@ -305,11 +308,11 @@ function subjects() {
   const hero = $('[data-hero]');
   const heroSubject = $('[data-subject="hero"]');
   if (hero && heroSubject) {
-    grow(heroSubject, { trigger: hero, start: 'top top', end: 'bottom top' }, 1.9);
+    grow(heroSubject, { trigger: hero, start: 'top top', end: 'bottom top' }, 3);
   }
   $$('[data-subject="frame"]').forEach((img) => {
     const frame = img.closest<HTMLElement>('[data-image]');
-    if (frame) grow(img, { trigger: frame, start: 'top bottom', end: 'center 35%' }, 2);
+    if (frame) grow(img, { trigger: frame, start: 'top bottom', end: 'center 35%' }, 3.5);
   });
 }
 
@@ -320,14 +323,14 @@ function subjects() {
 // different speeds, like a camera moving through a scene.
 function depth() {
   const layers: [string, number][] = [
-    ['.split__body', 110],
-    ['.process__intro', 80],
-    ['.process__list', 150],
-    ['.closing__content', 110],
-    ['.interlude', 70],
-    ['.works__head', 90],
-    ['.statement__label', 60],
-    ['.statement__body', 120],
+    ['.split__body', 320],
+    ['.process__intro', 240],
+    ['.process__list', 420],
+    ['.closing__content', 320],
+    ['.interlude', 200],
+    ['.works__head', 260],
+    ['.statement__label', 180],
+    ['.statement__body', 360],
   ];
   const pinned = window.matchMedia('(min-width: 900px) and (min-height: 600px)').matches;
   layers.forEach(([selector, distance]) => {
@@ -355,7 +358,7 @@ function images() {
   $$('[data-image]').forEach((frame) => {
     gsap.fromTo(
       frame,
-      { y: 90 },
+      { y: 260 },
       { y: 0, ease: 'power2.out', scrollTrigger: { trigger: frame, start: 'top 100%', end: 'top 30%', scrub: 0.6 } },
     );
   });
@@ -421,7 +424,7 @@ function works() {
     // The pieces grow as they slide across; the background of each card stays put.
     cards.forEach((card) => {
       const subject = card.querySelector<HTMLElement>('[data-subject]');
-      if (subject) grow(subject, { trigger: card, containerAnimation: slide, start: 'left 100%', end: 'left 30%' }, 1.7);
+      if (subject) grow(subject, { trigger: card, containerAnimation: slide, start: 'left 100%', end: 'left 30%' }, 2.6);
     });
 
     return () => {
