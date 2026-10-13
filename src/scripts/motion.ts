@@ -313,6 +313,41 @@ function subjects() {
   });
 }
 
+/* ---------- Depth: text floats on its own layer above the background ---------- */
+
+// Text travels faster than the page while it crosses the screen (and the photographs
+// travel slower), so words and backgrounds read as separate layers moving at
+// different speeds, like a camera moving through a scene.
+function depth() {
+  const layers: [string, number][] = [
+    ['.split__body', 110],
+    ['.process__intro', 80],
+    ['.process__list', 150],
+    ['.closing__content', 110],
+    ['.interlude', 70],
+    ['.works__head', 90],
+    ['.statement__label', 60],
+    ['.statement__body', 120],
+  ];
+  const pinned = window.matchMedia('(min-width: 900px) and (min-height: 600px)').matches;
+  layers.forEach(([selector, distance]) => {
+    $$(selector).forEach((el) => {
+      const section = el.closest<HTMLElement>('section') ?? el;
+      // Sections that hold still while their text fills in keep their text in place.
+      if (pinned && (el.matches('.interlude') || el.matches('.statement__label, .statement__body'))) return;
+      gsap.fromTo(
+        el,
+        { y: distance },
+        {
+          y: -distance,
+          ease: 'none',
+          scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
+        },
+      );
+    });
+  });
+}
+
 /* ---------- Images ---------- */
 
 function images() {
@@ -416,6 +451,7 @@ fontsReady.then(() => {
     text();
     images();
     subjects();
+    depth();
     works();
   } else {
     $('[data-intro]')?.remove();
