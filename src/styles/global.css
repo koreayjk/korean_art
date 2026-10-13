@@ -1105,4 +1105,11 @@ html[lang='en'] .hero__title {
   font-family: 'Cinzel', var(--display);
   font-weight: 600;
   letter-spacing: 0.04em;
+  /* A faint warm gold light on the lettering: a pale gold tint, a soft glow and a thin
+     highlight on the upper edge. */
+  color: #f3e6c8;
+  text-shadow:
+    0 -1px 0 rgba(255, 238, 196, 0.35),
+    0 0 18px rgba(222, 176, 82, 0.28),
+    0 2px 14px rgba(0, 0, 0, 0.55);
 }
