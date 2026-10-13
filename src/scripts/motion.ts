@@ -516,7 +516,7 @@ function commission() {
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=700%',
+        end: '+=740%',
         pin: true,
         scrub: 0.9,
         refreshPriority: 1,
@@ -530,7 +530,7 @@ function commission() {
     const first = 1.0;
     // How long each scene lasts. Making is the longest, so the embroidery can be seen
     // being finished and admired before it is wrapped up.
-    const lengths = [1.3, 2.1, 3.2, 1.9];
+    const lengths = [1.7, 2.1, 3.2, 1.9];
     const starts = lengths.map((_, i) => first + lengths.slice(0, i).reduce((a, b) => a + b, 0));
     const at = (i: number) => starts[i];
 
@@ -555,13 +555,13 @@ function commission() {
     tl.to(P.seal, { scale: 0, transformOrigin: '50% 50%', ease: 'power2.in', duration: 0.25 }, s1 + 0.75);
     tl.to(P.flap, { scaleY: -1, ease: 'power2.inOut', duration: 0.5 }, s1 + 0.85);
     // The paper is already inside; it only shows once the flap is open.
-    tl.set(P.sheet, { opacity: 1 }, s1 + 0.85);
+    tl.set(P.sheet, { opacity: 1 }, s1 + 1.35);
 
     // 2 Consultation: the sheet slides out, the envelope drops away and the sheet grows.
     const s2 = at(1);
     // The sheet rises out of the envelope (staying behind its front, so it comes from
     // inside), then the envelope slides down and away, fully opaque, while the sheet grows.
-    tl.to(P.sheet, { attr: { y: 30 }, ease: 'power2.out', duration: 0.8 }, s2 - 0.35);
+    tl.to(P.sheet, { attr: { y: 30 }, ease: 'power2.out', duration: 0.8 }, s2 - 0.3);
     tl.to([P.envBack, P.envFront, P.flapWrap], { y: 230, ease: 'power2.in', duration: 0.7 }, s2 + 0.45);
     tl.to([P.envBack, P.envFront, P.flapWrap], { opacity: 0, duration: 0.2 }, s2 + 0.95);
     tl.to(P.sheet, { attr: { x: 60, y: 90, width: 280, height: 220 }, ease: 'power3.inOut', duration: 0.7 }, s2 + 0.6);
