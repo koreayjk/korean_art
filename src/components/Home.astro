@@ -182,7 +182,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
     </div>
     <div class="process__track" data-process-track>
       <span class="process__thread" aria-hidden="true" data-process-thread></span>
-      <ol class="process__list" data-steps>
+      <ol class="process__list">
         {
           t.commission.steps.map((step, i) => (
             <li class="step">

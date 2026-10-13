@@ -212,7 +212,7 @@ function text() {
     const section = paragraph.closest<HTMLElement>('section');
     const scrollTrigger =
       pinned && section
-        ? { trigger: section, start: 'center center', end: '+=90%', pin: true, scrub: 0.5 }
+        ? { trigger: section, start: 'center center', end: '+=90%', pin: true, scrub: 0.5, refreshPriority: 1 }
         : { trigger: paragraph, start: 'top 82%', end: 'bottom 55%', scrub: 0.4 };
     gsap.fromTo(split.words, { opacity: 0.16 }, { opacity: 1, ease: 'none', stagger: 0.05, scrollTrigger });
   });
@@ -226,7 +226,7 @@ function text() {
     const thread = section?.querySelector('[data-thread]');
     const scrollTrigger =
       pinned && section
-        ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5 }
+        ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5, refreshPriority: 1 }
         : { trigger: stitch, start: 'top 84%', end: 'top 30%', scrub: 0.5 };
     const dissolve = { opacity: 0, filter: 'blur(10px)' };
     const clear = { opacity: 1, filter: 'blur(0px)', ease: 'none', duration: 1 };
@@ -271,21 +271,40 @@ function text() {
     });
   });
 
-  // Commission diagram: the stitched thread is drawn through the four steps as they pass.
+  // Commission diagram: one stitched thread is drawn through the four steps as the
+  // section passes, and each step comes alive just as the thread reaches it: its
+  // illustration is stitched in from left to right, then the number and words rise.
   $$('[data-process-track]').forEach((track) => {
     const thread = track.querySelector<HTMLElement>('[data-process-thread]');
-    if (!thread) return;
+    const steps = $$('.step', track);
+    if (!thread || steps.length === 0) return;
     const vertical = () => window.matchMedia('(max-width: 860px)').matches;
-    gsap.fromTo(
-      thread,
-      { scaleX: () => (vertical() ? 1 : 0), scaleY: () => (vertical() ? 0 : 1) },
-      {
-        scaleX: 1,
-        scaleY: 1,
-        ease: 'none',
-        scrollTrigger: { trigger: track, start: 'top 85%', end: 'bottom 55%', scrub: 0.6, invalidateOnRefresh: true },
-      },
-    );
+
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: track, start: 'top 78%', end: 'bottom 62%', scrub: 0.7, invalidateOnRefresh: true },
+    });
+    // Everything starts hidden; a tween placed later in the timeline would not set its
+    // starting state until the scroll reaches it, so the starting states are set here.
+    const arts = steps.map((step) => step.querySelector('.step__art')).filter(Boolean) as Element[];
+    const icons = steps.map((step) => step.querySelector('.step-icon')).filter(Boolean) as Element[];
+    gsap.set(thread, { scaleX: vertical() ? 1 : 0, scaleY: vertical() ? 0 : 1 });
+    gsap.set(arts, { scale: 0.55, opacity: 0 });
+    gsap.set(icons, { clipPath: 'inset(-10% 100% -10% -10%)' });
+    gsap.set(steps.flatMap((step) => Array.from(step.querySelectorAll('.step__num, .step__title, .step__body'))), {
+      y: 26,
+      opacity: 0,
+    });
+
+    tl.to(thread, { scaleX: 1, scaleY: 1, ease: 'none', duration: 1 }, 0);
+    steps.forEach((step, i) => {
+      const at = (i / steps.length) * 0.82;
+      const art = step.querySelector('.step__art');
+      const icon = step.querySelector('.step-icon');
+      const words = step.querySelectorAll('.step__num, .step__title, .step__body');
+      if (art) tl.to(art, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.16 }, at);
+      if (icon) tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'none', duration: 0.2 }, at + 0.02);
+      tl.to(words, { y: 0, opacity: 1, ease: 'power2.out', duration: 0.18, stagger: 0.03 }, at + 0.1);
+    });
   });
 
   // Process steps.
@@ -435,6 +454,7 @@ function works() {
         start: 'top top',
         end: () => `+=${distance()}`,
         pin: true,
+        refreshPriority: 1,
         scrub: 0.6,
         anticipatePin: 1,
         invalidateOnRefresh: true,
