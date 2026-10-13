@@ -680,8 +680,16 @@ button {
 }
 
 .interlude__en {
-  font-size: 13px;
-  color: var(--muted);
+  /* White thread, cut out of its cloth like the Korean line above. */
+  width: min(70%, 520px);
+  margin-top: clamp(-8px, -1vw, 0px);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+}
+
+.interlude__en img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /* ---------- Works ---------- */
