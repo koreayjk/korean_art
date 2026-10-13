@@ -1362,12 +1362,18 @@ html[lang='en'] .hero__title {
   }
 
   .split {
-    /* The colour block fills the whole height of the tall photograph beside it. */
-    align-items: stretch;
+    /* The colour block keeps its slim height while the photograph is taller. */
+    align-items: center;
   }
 
+  /* A tall, narrow photograph: half the width it had, the text moves in to meet it. */
   .split__media {
+    flex: 0 0 25%;
     min-height: clamp(380px, 40vw, 600px);
+  }
+
+  .split__body {
+    flex: 1 1 0;
   }
 
   .split__body {
