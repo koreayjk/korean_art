@@ -73,7 +73,7 @@ const en = {
   commission: {
     label: ['Commission', '주문'],
     title: 'How a commission works',
-    text: 'Every piece is made to order, and only a limited number of commissions are accepted each year.',
+    text: 'Every piece is made to order and can take six months or more.',
     steps: [
       { title: 'Inquiry', body: 'Tell us about the space, the occasion and the design you have in mind.' },
       { title: 'Consultation', body: 'Choose a design and agree on colour, size and any inscription. You receive a written quote.' },
@@ -249,7 +249,7 @@ const ko: typeof en = {
   commission: {
     label: ['주문', 'Commission'],
     title: '주문은 이렇게 진행됩니다',
-    text: '모든 작품은 주문을 받아 만들며, 한 해에 받을 수 있는 주문은 한정되어 있습니다.',
+    text: '모든 작품은 주문 제작되며 6개월 이상 기간이 소요될 수 있습니다.',
     steps: [
       { title: '문의', body: '작품을 놓을 공간과 용도, 마음에 두신 도안을 알려 주세요.' },
       { title: '상담', body: '도안을 고르고 색, 크기, 문구를 정합니다. 서면 견적을 받으시게 됩니다.' },
