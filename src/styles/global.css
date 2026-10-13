@@ -1154,6 +1154,8 @@ html[lang='ko'] .display {
 }
 
 html[lang='ko'] .statement__text {
+  font-family: 'Song Myung', 'Noto Serif KR', serif;
+  font-weight: 400;
   line-height: 1.45;
 }
 
