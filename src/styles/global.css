@@ -668,10 +668,9 @@ button {
 }
 
 .interlude__stitch {
-  /* The embroidered line is feathered into the page so it reads as part of it, not a box. */
-  width: min(100%, 1200px);
-  -webkit-mask-image: radial-gradient(ellipse 60% 56% at 50% 50%, #000 42%, transparent 100%);
-  mask-image: radial-gradient(ellipse 60% 56% at 50% 50%, #000 42%, transparent 100%);
+  /* Gold thread cut out of its cloth, so the lettering sits straight on the page. */
+  width: min(100%, 1100px);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
 }
 
 .interlude__stitch img {
