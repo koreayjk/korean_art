@@ -840,14 +840,14 @@ button {
 /* ---------- Process ---------- */
 
 .process {
+  --art: clamp(104px, 11vw, 160px);
   padding: clamp(120px, 14vw, 210px) var(--gutter);
   display: flex;
-  flex-wrap: wrap;
-  gap: 40px clamp(24px, 6vw, 96px);
+  flex-direction: column;
+  gap: clamp(56px, 7vw, 110px);
 }
 
 .process__intro {
-  flex: 1 1 260px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -855,48 +855,102 @@ button {
 }
 
 .process__intro p {
-  max-width: 26em;
+  max-width: 30em;
   color: var(--muted);
 }
 
+/* The four steps as a diagram: illustrations joined by one stitched thread. */
+.process__track {
+  position: relative;
+}
+
+.process__thread {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--art) / 2);
+  height: 0;
+  border-top: 2.6px dashed #e0b04a;
+  opacity: 0.8;
+  transform-origin: left center;
+}
+
 .process__list {
-  flex: 2.4 1 520px;
-  border-bottom: 1px solid var(--line);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(24px, 3.4vw, 56px);
 }
 
 .step {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 28px;
-  padding: 28px 0;
-  border-top: 1px solid var(--line);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step__art {
+  width: var(--art);
+  height: var(--art);
+  margin-bottom: 14px;
+  /* Sits on the ground colour so the thread seems to pass behind it. */
+  padding: 10px;
+  background: var(--ground);
+  border-radius: 50%;
+  transition: transform 900ms var(--ease-expo);
 }
 
 .step__num {
-  flex: 0 0 36px;
   font-size: 12px;
+  letter-spacing: 0.14em;
   color: var(--muted);
 }
 
 .step__title {
-  flex: 0 0 200px;
   font-family: var(--display);
   font-weight: 600;
-  font-size: 19px;
+  font-size: 20px;
   line-height: 1.2;
-  transition: transform 700ms var(--ease-expo);
 }
 
 .step__body {
-  flex: 1 1 280px;
+  max-width: 17em;
   font-size: 14px;
   color: var(--soft);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .step:hover .step__title {
-    transform: translateX(8px);
+  .step:hover .step__art {
+    transform: translateY(-6px);
+  }
+}
+
+@media (max-width: 860px) {
+  .process__list {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .process__thread {
+    top: 0;
+    bottom: 0;
+    left: calc(var(--art) / 2);
+    right: auto;
+    border-top: 0;
+    border-left: 2.6px dashed #e0b04a;
+    transform-origin: center top;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: var(--art) 1fr;
+    column-gap: 22px;
+    align-items: start;
+  }
+
+  .step__art {
+    grid-row: 1 / span 3;
+    margin-bottom: 0;
   }
 }
 

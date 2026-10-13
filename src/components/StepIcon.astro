@@ -1,0 +1,93 @@
+---
+// Four small illustrations for the commission steps, drawn as stitched outlines in gold
+// thread with one accent colour each (the Korean five colours). Purely decorative.
+interface Props {
+  name: 'inquiry' | 'consultation' | 'making' | 'delivery';
+}
+
+const { name } = Astro.props;
+---
+
+<svg class="step-icon" viewBox="0 0 120 120" fill="none" aria-hidden="true" focusable="false">
+  {
+    name === 'inquiry' && (
+      <>
+        <rect class="st" x="16" y="32" width="88" height="58" rx="5" />
+        <path class="st" d="M17 36 L60 68 L103 36" />
+        <circle cx="60" cy="68" r="9" fill="#b8322a" />
+        <path d="M56 68 h8 M60 64 v8" stroke="#ece6d8" stroke-width="1.8" stroke-linecap="round" />
+        <path class="st" d="M32 22 q6 -10 14 0" />
+        <path class="st" d="M74 20 q6 -10 14 0" />
+      </>
+    )
+  }
+  {
+    name === 'consultation' && (
+      <>
+        <rect class="st" x="24" y="14" width="72" height="92" rx="5" />
+        <g stroke="#e0b04a" stroke-width="2.2">
+          <circle cx="60" cy="40" r="8" />
+          <circle cx="60" cy="22" r="0.1" />
+          <circle cx="49" cy="33" r="8" />
+          <circle cx="71" cy="33" r="8" />
+          <circle cx="53" cy="48" r="8" />
+          <circle cx="67" cy="48" r="8" />
+        </g>
+        <circle cx="60" cy="40" r="5" fill="#e0b04a" />
+        <path class="st" d="M40 68 H80" />
+        <circle cx="42" cy="88" r="7" fill="#2f5fa3" />
+        <circle cx="60" cy="88" r="7" fill="#b8322a" />
+        <circle cx="78" cy="88" r="7" fill="#ece6d8" />
+      </>
+    )
+  }
+  {
+    name === 'making' && (
+      <>
+        <circle cx="56" cy="58" r="40" stroke="#ece6d8" stroke-width="3.4" />
+        <circle class="st" cx="56" cy="58" r="33" />
+        <rect x="49" y="10" width="14" height="10" rx="2" fill="#ece6d8" />
+        <g fill="#b8322a">
+          <circle cx="56" cy="46" r="7" />
+          <circle cx="46" cy="54" r="7" />
+          <circle cx="66" cy="54" r="7" />
+          <circle cx="50" cy="66" r="7" />
+          <circle cx="62" cy="66" r="7" />
+        </g>
+        <circle cx="56" cy="57" r="4.5" fill="#e0b04a" />
+        <path d="M82 38 L52 80" stroke="#ece6d8" stroke-width="3" stroke-linecap="round" />
+        <ellipse cx="80.5" cy="40" rx="1.6" ry="3.2" transform="rotate(35 80.5 40)" fill="#242120" />
+        <path class="st" d="M81 39 C92 30 100 22 108 24" />
+      </>
+    )
+  }
+  {
+    name === 'delivery' && (
+      <>
+        <rect class="st" x="18" y="48" width="84" height="56" rx="4" />
+        <path d="M60 48 V104 M18 72 H102" stroke="#b8322a" stroke-width="4.4" stroke-linecap="round" />
+        <path d="M60 48 C42 24 28 40 60 48 M60 48 C78 24 92 40 60 48" stroke="#b8322a" stroke-width="3.2" stroke-linecap="round" />
+        <circle cx="60" cy="72" r="6" fill="#e0b04a" />
+        <path class="st" d="M96 22 l4 8 9 1 -6.5 6 1.8 9 -8.3 -4.4 -8.3 4.4 1.8 -9 -6.5 -6 9 -1 z" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  .step-icon {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* Stitched outline: a running stitch in gold thread. */
+  .step-icon :global(.st) {
+    stroke: #e0b04a;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 7 6;
+  }
+</style>

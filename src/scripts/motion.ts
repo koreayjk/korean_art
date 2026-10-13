@@ -271,6 +271,23 @@ function text() {
     });
   });
 
+  // Commission diagram: the stitched thread is drawn through the four steps as they pass.
+  $$('[data-process-track]').forEach((track) => {
+    const thread = track.querySelector<HTMLElement>('[data-process-thread]');
+    if (!thread) return;
+    const vertical = () => window.matchMedia('(max-width: 860px)').matches;
+    gsap.fromTo(
+      thread,
+      { scaleX: () => (vertical() ? 1 : 0), scaleY: () => (vertical() ? 0 : 1) },
+      {
+        scaleX: 1,
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: track, start: 'top 85%', end: 'bottom 55%', scrub: 0.6, invalidateOnRefresh: true },
+      },
+    );
+  });
+
   // Process steps.
   $$('[data-steps]').forEach((list) => {
     gsap.from(list.children, {
@@ -333,7 +350,7 @@ function depth() {
   const layers: [string, number][] = [
     ['.split__body', 128],
     ['.process__intro', 96],
-    ['.process__list', 168],
+    ['.process__track', 168],
     ['.closing__content', 128],
     ['.interlude', 80],
     ['.works__head', 104],
