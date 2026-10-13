@@ -305,11 +305,11 @@ function subjects() {
   const hero = $('[data-hero]');
   const heroSubject = $('[data-subject="hero"]');
   if (hero && heroSubject) {
-    grow(heroSubject, { trigger: hero, start: 'top top', end: 'bottom top' }, 1.35);
+    grow(heroSubject, { trigger: hero, start: 'top top', end: 'bottom top' }, 1.9);
   }
   $$('[data-subject="frame"]').forEach((img) => {
     const frame = img.closest<HTMLElement>('[data-image]');
-    if (frame) grow(img, { trigger: frame, start: 'top 90%', end: 'bottom 10%' }, 1.4);
+    if (frame) grow(img, { trigger: frame, start: 'top bottom', end: 'center 35%' }, 2);
   });
 }
 
@@ -386,7 +386,7 @@ function works() {
     // The pieces grow as they slide across; the background of each card stays put.
     cards.forEach((card) => {
       const subject = card.querySelector<HTMLElement>('[data-subject]');
-      if (subject) grow(subject, { trigger: card, containerAnimation: slide, start: 'left 98%', end: 'left 15%' }, 1.3);
+      if (subject) grow(subject, { trigger: card, containerAnimation: slide, start: 'left 100%', end: 'left 30%' }, 1.7);
     });
 
     return () => {
