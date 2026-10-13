@@ -667,10 +667,11 @@ button {
 
 .interlude__ko {
   display: flex;
-  gap: 0.5em;
-  font-family: var(--korean);
-  font-size: clamp(30px, 4.6vw, 66px);
-  line-height: 1.3;
+  gap: 0.35em;
+  /* Brush-written Hangul, so the line reads as calligraphy rather than set type. */
+  font-family: 'Nanum Brush Script', var(--korean);
+  font-size: clamp(56px, 9vw, 132px);
+  line-height: 1.2;
 }
 
 .interlude__en {
