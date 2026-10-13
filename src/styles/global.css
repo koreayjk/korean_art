@@ -1167,7 +1167,8 @@ html[lang='en'] .statement__text {
 }
 
 /* English headline on the first screen: Cinzel, a classical inscriptional capital face. */
-html[lang='en'] .hero__title {
+html[lang='en'] .hero__title,
+html[lang='ko'] .hero__title {
   font-family: 'Cinzel', var(--display);
   font-weight: 600;
   letter-spacing: 0.04em;

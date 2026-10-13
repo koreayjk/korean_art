@@ -119,7 +119,7 @@ const ko: typeof en = {
   institutions: '기관 문의',
   hero: {
     eyebrow: '한국 전통 자수',
-    title: '장인의 자수',
+    title: 'A master’s embroidery',
     cta: '주문 시작하기',
     corner: '전북 고창',
     scroll: '스크롤',
