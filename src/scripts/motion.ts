@@ -512,7 +512,7 @@ function commission() {
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=560%',
+        end: '+=640%',
         pin: true,
         scrub: 0.9,
         refreshPriority: 1,
@@ -524,8 +524,11 @@ function commission() {
     tl.to(intro, { autoAlpha: 0, y: -70, scale: 1.06, filter: 'blur(14px)', ease: 'power2.in', duration: 0.5 }, 0.55);
 
     const first = 1.0;
-    const gap = 1.3;
-    const at = (i: number) => first + i * gap;
+    // How long each scene lasts. Making is the longest, so the embroidery can be seen
+    // being finished and admired before it is wrapped up.
+    const lengths = [1.3, 1.3, 3.2, 1.9];
+    const starts = lengths.map((_, i) => first + lengths.slice(0, i).reduce((a, b) => a + b, 0));
+    const at = (i: number) => starts[i];
 
     // Words and background: one scene per step.
     steps.forEach((step, i) => {
@@ -535,7 +538,7 @@ function commission() {
       tl.to(words, { y: 0, opacity: 1, ease: 'power3.out', duration: 0.45, stagger: 0.08 }, at(i) + 0.15);
       if (dots[i]) tl.to(dots[i], { opacity: 1, duration: 0.2 }, at(i));
       if (i < steps.length - 1) {
-        const out = at(i) + gap - 0.12;
+        const out = at(i) + lengths[i] - 0.12;
         tl.to(words, { y: -34, opacity: 0, ease: 'power2.in', duration: 0.3, stagger: 0.04 }, out);
         tl.set(step, { autoAlpha: 0 }, out + 0.45);
       }
@@ -564,12 +567,14 @@ function commission() {
     tl.to(P.needle, { opacity: 1, x: 0, y: 0, ease: 'power2.out', duration: 0.5 }, s3 + 0.6);
     // The needle pricks in and out as each petal is stitched.
     flowerPetals.forEach((petal, k) => {
-      const t = s3 + 0.95 + k * 0.14;
-      tl.to(P.needle, { x: -16, y: 12, ease: 'power1.in', duration: 0.06 }, t - 0.06);
-      tl.to(petal, { scale: 1, ease: 'back.out(2)', duration: 0.22 }, t);
-      tl.to(P.needle, { x: 0, y: 0, ease: 'power1.out', duration: 0.08 }, t + 0.02);
+      const t = s3 + 0.95 + k * 0.32;
+      tl.to(P.needle, { x: -16, y: 12, ease: 'power1.in', duration: 0.1 }, t - 0.1);
+      tl.to(petal, { scale: 1, ease: 'back.out(2)', duration: 0.3 }, t);
+      tl.to(P.needle, { x: 0, y: 0, ease: 'power1.out', duration: 0.12 }, t + 0.04);
     });
-    tl.to(P.needle, { x: 180, y: -130, opacity: 0, ease: 'power2.in', duration: 0.5 }, s3 + 1.75);
+    // The needle leaves and the finished piece gets a soft glint, then rests.
+    tl.to(P.needle, { x: 180, y: -130, opacity: 0, ease: 'power2.in', duration: 0.6 }, s3 + 2.65);
+    tl.to(P.ring, { stroke: '#f2d58a', strokeWidth: 5, ease: 'power1.inOut', duration: 0.35, yoyo: true, repeat: 1 }, s3 + 2.7);
 
     // 4 Delivery: the finished piece is wrapped and sent away.
     const s4 = at(3);
@@ -578,16 +583,28 @@ function commission() {
     tl.to(P.piece, { opacity: 0, duration: 0.3 }, s4 + 0.5);
     tl.set(P.speed, { opacity: 0 }, s4);
     tl.to(P.speed, { opacity: 1, duration: 0.2 }, s4 + 1.0);
+    // The parcel flies on until it touches the right edge of the window, and the timeline
+    // (and so the pinned section) ends at that moment: the page scrolls on straight away.
     tl.to(
       P.all,
-      { x: 760, y: 170, rotation: 6, scale: 0.7, ease: 'power2.in', duration: 0.9 },
+      {
+        x: () => {
+          const box = object.getBoundingClientRect();
+          // Pixels from the centre of the object to the window edge, in drawing units.
+          const toEdge = window.innerWidth - (box.left - Number(gsap.getProperty(object, 'x')) + box.width / 2);
+          return (toEdge * 400) / box.width - 40;
+        },
+        y: 140,
+        rotation: 6,
+        scale: 0.7,
+        ease: 'power2.in',
+        duration: 0.9,
+      },
       s4 + 1.0,
     );
 
     const last = at(steps.length - 1);
     if (bar) tl.to(bar, { scaleX: 1, ease: 'none', duration: last - first }, first);
-    // Hold the last scene for a moment before the page moves on.
-    tl.to({}, { duration: 0.6 }, last + 2.1);
 
     return () => {
       section.classList.remove('is-stage');
