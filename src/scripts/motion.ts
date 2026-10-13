@@ -155,18 +155,25 @@ function header() {
     onLeaveBack: () => show(true),
   });
 
-  // The wordmark starts large over the hero and settles into the header.
+  // The wordmark starts large over the hero and settles into the header. It is set in
+  // CSS at 5x its resting size and scaled down, which keeps it sharp when large.
   const logo = $('[data-logo]');
   if (logo) {
-    const startScale = () => {
+    const BIG = 5;
+    const rest = 1 / BIG;
+    // How much larger than its resting size the wordmark appears over the hero.
+    const enlarge = () => {
       const target = window.innerWidth < 820 ? window.innerWidth * 0.5 : Math.min(window.innerWidth * 0.3, 460);
-      return gsap.utils.clamp(1, 4.8, target / logo.offsetWidth);
+      return gsap.utils.clamp(1, 4.8, target / (logo.offsetWidth * rest));
     };
     gsap.fromTo(
       logo,
-      { scale: startScale, y: () => (window.innerWidth < 820 ? 28 : 44) },
       {
-        scale: 1,
+        scale: () => enlarge() * rest,
+        y: () => (window.innerWidth < 820 ? 28 : 44) + (enlarge() - 1) * 10,
+      },
+      {
+        scale: rest,
         y: 0,
         ease: 'none',
         scrollTrigger: { start: 0, end: 420, scrub: 0.4, invalidateOnRefresh: true },
@@ -210,19 +217,19 @@ function text() {
     gsap.fromTo(split.words, { opacity: 0.16 }, { opacity: 1, ease: 'none', stagger: 0.05, scrollTrigger });
   });
 
-  // "한 땀, 한 땀": one syllable at a time, with the section held in place.
-  $$('[data-syllables]').forEach((line) => {
-    const section = line.closest<HTMLElement>('section');
+  // "한 땀, 한 땀": the embroidered line is stitched in from left to right, with the
+  // section held in place (desktop) and the five-colour thread drawn alongside.
+  $$('[data-stitch]').forEach((stitch) => {
+    const section = stitch.closest<HTMLElement>('section');
     const scrollTrigger =
       pinned && section
         ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5 }
-        : { trigger: line, start: 'top 84%', end: 'top 42%', scrub: 0.5 };
+        : { trigger: stitch, start: 'top 84%', end: 'top 42%', scrub: 0.5 };
     gsap.fromTo(
-      line.children,
-      { opacity: 0.14, y: 16 },
-      { opacity: 1, y: 0, ease: 'power2.out', stagger: 0.2, scrollTrigger },
+      stitch,
+      { clipPath: 'inset(0% 100% 0% 0%)', opacity: 0.2 },
+      { clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, ease: 'none', scrollTrigger },
     );
-    // The five-colour thread is drawn from left to right alongside.
     const thread = section?.querySelector('[data-thread]');
     if (thread) gsap.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { ...scrollTrigger, pin: false } });
   });

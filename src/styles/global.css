@@ -328,14 +328,16 @@ button {
   justify-self: center;
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  height: 44px;
   padding-left: 0.32em;
   font-family: var(--display);
-  font-size: 20px;
+  /* Set at 5x its resting size and scaled down to 20px, so it stays sharp when large
+     on the hero (scaling small type up makes it blurry). */
+  font-size: 100px;
   line-height: 1;
   letter-spacing: 0.32em;
-  transform-origin: center top;
-  will-change: transform;
+  white-space: nowrap;
+  transform-origin: center center;
 }
 
 .header__side {
@@ -665,13 +667,17 @@ button {
   );
 }
 
-.interlude__ko {
-  display: flex;
-  gap: 0.35em;
-  /* Brush-written Hangul, so the line reads as calligraphy rather than set type. */
-  font-family: 'Nanum Brush Script', var(--korean);
-  font-size: clamp(56px, 9vw, 132px);
-  line-height: 1.2;
+.interlude__stitch {
+  /* The embroidered line is feathered into the page so it reads as part of it, not a box. */
+  width: min(100%, 1200px);
+  -webkit-mask-image: radial-gradient(ellipse 60% 56% at 50% 50%, #000 42%, transparent 100%);
+  mask-image: radial-gradient(ellipse 60% 56% at 50% 50%, #000 42%, transparent 100%);
+}
+
+.interlude__stitch img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .interlude__en {
