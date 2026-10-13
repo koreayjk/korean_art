@@ -1,6 +1,6 @@
 # ARAM
 
-Website for ARAM: traditional Korean silk embroidery by Mi-ae Park, made to commission.
+Website for ARAM: traditional Korean embroidery by a master (Mi-ae Park), made to commission.
 
 Built with [Astro](https://astro.build), [GSAP](https://gsap.com) and [Lenis](https://lenis.darkroom.engineering).
 

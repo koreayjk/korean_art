@@ -12,9 +12,9 @@ export type Locale = 'en' | 'ko';
 const en = {
   lang: 'en',
   path: '',
-  title: 'ARAM — Korean silk embroidery by Mi-ae Park',
+  title: 'ARAM — Korean traditional embroidery by a master',
   description:
-    'Traditional Korean silk embroidery by Mi-ae Park, stitched by hand in Gochang, Korea, and made to commission.',
+    'Traditional Korean embroidery, stitched by hand by a master in Gochang, Korea, and made to commission.',
   badge: 'Preview · temporary images',
   menu: 'Menu',
   menuClose: 'Close',
@@ -29,7 +29,7 @@ const en = {
   institutions: 'For institutions',
   hero: {
     eyebrow: 'Korean traditional embroidery',
-    title: 'Silk embroidery by Mi-ae Park, made to commission',
+    title: "A master’s embroidery",
     cta: 'Begin a commission',
     corner: 'Gochang, Korea',
     scroll: 'Scroll',
@@ -38,9 +38,9 @@ const en = {
     aria: 'The craft of jasu',
     label: ['The craft', '자수'],
     sentences: [
-      'Jasu is the Korean art of stitching coloured silk thread onto silk.',
+      'Jasu is the Korean art of embroidering with coloured thread.',
       'Recorded since the Three Kingdoms period, it grew into two traditions: gungsu, made in the royal court, and minsu, made in homes and local workshops.',
-      'Mi-ae Park carries the minsu tradition into the present.',
+      'The master carries the minsu tradition into the present.',
     ],
     link: 'Read the Journal',
   },
@@ -63,17 +63,17 @@ const en = {
     link: 'View all works',
     region: 'Works. Scroll horizontally.',
     items: [
-      { title: '[Work title]', meta: '[Size] · silk thread on silk', alt: 'Cranes and pine embroidered on indigo silk' },
-      { title: '[Work title]', meta: '[Size] · silk thread on silk', alt: 'A pair of embroidered pillow ends on crimson silk' },
-      { title: '[Work title]', meta: '[Size] · silk thread on silk', alt: 'An embroidered wrapping cloth on yellow silk' },
-      { title: '[Work title]', meta: '[Size] · silk thread on silk', alt: 'Flowers and butterflies embroidered on a jade-green screen panel' },
-      { title: '[Work title]', meta: '[Size] · silk thread on silk', alt: 'An embroidered silk pouch with a tassel' },
+      { title: '[Work title]', meta: '[Size] · embroidery', alt: 'Cranes and pine embroidered on indigo cloth' },
+      { title: '[Work title]', meta: '[Size] · embroidery', alt: 'A pair of embroidered pillow ends on crimson cloth' },
+      { title: '[Work title]', meta: '[Size] · embroidery', alt: 'An embroidered wrapping cloth in yellow' },
+      { title: '[Work title]', meta: '[Size] · embroidery', alt: 'Flowers and butterflies embroidered on a jade-green screen panel' },
+      { title: '[Work title]', meta: '[Size] · embroidery', alt: 'An embroidered pouch with a tassel' },
     ],
   },
   making: {
     label: ['The making', '제작'],
     title: 'About six months of handwork goes into every piece',
-    text: 'The design is drawn onto silk stretched on a wooden frame, then filled stitch by stitch in silk thread. Progress photographs are shared along the way.',
+    text: 'The design is drawn onto cloth stretched on a wooden frame, then filled stitch by stitch in thread. Progress photographs are shared along the way.',
     link: 'How a commission works',
   },
   commission: {
@@ -95,7 +95,7 @@ const en = {
     institutions: 'For institutions',
   },
   footer: {
-    blurb: 'Korean traditional embroidery by Mi-ae Park, made to commission in Gochang, Korea.',
+    blurb: 'Korean traditional embroidery by a master, made to commission in Gochang, Korea.',
     location: 'Gochang, Jeonbuk, Korea',
   },
 };
@@ -103,8 +103,8 @@ const en = {
 const ko: typeof en = {
   lang: 'ko',
   path: 'ko/',
-  title: 'ARAM — 박미애의 한국 전통 자수',
-  description: '박미애가 전북 고창에서 한 땀 한 땀 수놓는 한국 전통 비단 자수. 주문을 받아 만듭니다.',
+  title: 'ARAM — 장인의 한국 전통 자수',
+  description: '전북 고창에서 장인이 한 땀 한 땀 수놓는 한국 전통 자수. 주문을 받아 만듭니다.',
   badge: '미리보기 · 임시 이미지',
   menu: '메뉴',
   menuClose: '닫기',
@@ -119,7 +119,7 @@ const ko: typeof en = {
   institutions: '기관 문의',
   hero: {
     eyebrow: '한국 전통 자수',
-    title: '박미애의 비단 자수, 주문으로 완성합니다',
+    title: '장인의 자수',
     cta: '주문 시작하기',
     corner: '전북 고창',
     scroll: '스크롤',
@@ -128,9 +128,9 @@ const ko: typeof en = {
     aria: '자수 이야기',
     label: ['자수', 'The craft'],
     sentences: [
-      '자수는 색실로 비단 위에 바늘땀을 놓는 한국의 전통 공예입니다.',
+      '자수는 색실로 바늘땀을 놓아 무늬를 수놓는 한국의 전통 공예입니다.',
       '삼국시대부터 기록이 전해지며, 궁중에서 만든 궁수와 가정과 공방에서 이어 온 민수, 두 갈래로 발전했습니다.',
-      '박미애는 민수의 전통을 오늘로 잇고 있습니다.',
+      '장인은 민수의 전통을 오늘로 잇고 있습니다.',
     ],
     link: '저널 읽기',
   },
@@ -155,17 +155,17 @@ const ko: typeof en = {
     link: '모든 작품 보기',
     region: '작품 목록. 가로로 스크롤하세요.',
     items: [
-      { title: '[작품명]', meta: '[크기] · 비단에 명주실', alt: '남색 비단에 수놓은 학과 소나무' },
-      { title: '[작품명]', meta: '[크기] · 비단에 명주실', alt: '연지색 비단에 수놓은 한 쌍의 베갯모' },
-      { title: '[작품명]', meta: '[크기] · 비단에 명주실', alt: '노란 비단에 수놓은 보자기' },
-      { title: '[작품명]', meta: '[크기] · 비단에 명주실', alt: '옥색 병풍 판에 수놓은 꽃과 나비' },
-      { title: '[작품명]', meta: '[크기] · 비단에 명주실', alt: '술이 달린 수놓은 비단 주머니' },
+      { title: '[작품명]', meta: '[크기] · 자수', alt: '남색 천에 수놓은 학과 소나무' },
+      { title: '[작품명]', meta: '[크기] · 자수', alt: '연지색 천에 수놓은 한 쌍의 베갯모' },
+      { title: '[작품명]', meta: '[크기] · 자수', alt: '노란색 보자기에 놓은 수' },
+      { title: '[작품명]', meta: '[크기] · 자수', alt: '옥색 병풍 판에 수놓은 꽃과 나비' },
+      { title: '[작품명]', meta: '[크기] · 자수', alt: '술이 달린 수놓은 주머니' },
     ],
   },
   making: {
     label: ['제작', 'The making'],
     title: '작품 하나에 약 여섯 달의 손길이 들어갑니다',
-    text: '도안을 나무틀에 팽팽히 건 비단 위에 그린 뒤, 명주실로 한 땀 한 땀 채워 갑니다. 제작하는 동안 진행 사진을 보내 드립니다.',
+    text: '도안을 나무틀에 팽팽히 건 천 위에 그린 뒤, 실로 한 땀 한 땀 채워 갑니다. 제작하는 동안 진행 사진을 보내 드립니다.',
     link: '주문 과정 보기',
   },
   commission: {
@@ -187,7 +187,7 @@ const ko: typeof en = {
     institutions: '기관 문의',
   },
   footer: {
-    blurb: '박미애의 한국 전통 자수. 전북특별자치도 고창에서 주문을 받아 만듭니다.',
+    blurb: '장인의 한국 전통 자수. 전북특별자치도 고창에서 주문을 받아 만듭니다.',
     location: '전북특별자치도 고창',
   },
 };
