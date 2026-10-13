@@ -28,6 +28,12 @@ import work5Cut from '../assets/cutouts/work5.webp';
 const workImages = { work1, work2, work3, work4, work5 };
 const workCutouts = { work1: work1Cut, work2: work2Cut, work3: work3Cut, work4: work4Cut, work5: work5Cut };
 const pad = (n: number) => String(n).padStart(2, '0');
+
+// The path the needle follows while it stitches the lettering in: a running stitch,
+// dipping in and out of the cloth along the middle of the line (viewBox 1000 x 312).
+const stitchPath =
+  'M' +
+  Array.from({ length: 201 }, (_, i) => `${i * 5},${(156 + 34 * Math.sin((i * Math.PI) / 10)).toFixed(1)}`).join(' L');
 ---
 
 <Base>
@@ -102,8 +108,18 @@ const pad = (n: number) => String(n).padStart(2, '0');
   <!-- Interlude -->
   <section class="interlude" aria-label="Stitch by stitch">
     <span class="interlude__thread" aria-hidden="true" data-thread></span>
-    <div class="interlude__stitch" data-stitch>
-      <Image src={stitch} alt="한 땀, 한 땀" lang="ko" widths={[720, 1200, 1800, 2400]} sizes="(max-width: 900px) 100vw, 1200px" />
+    <div class="interlude__stitchwrap">
+      <div class="interlude__stitch" data-stitch>
+        <Image src={stitch} alt="한 땀, 한 땀" lang="ko" widths={[720, 1200, 1800, 2400]} sizes="(max-width: 900px) 100vw, 1200px" />
+      </div>
+      <svg class="interlude__needle" viewBox="0 0 1000 312" aria-hidden="true" focusable="false">
+        <path class="interlude__thread-line" d={stitchPath} data-needle-path />
+        <g class="interlude__needle-body" data-needle>
+          <line x1="-170" y1="0" x2="16" y2="0" stroke="#d9dde3" stroke-width="6" stroke-linecap="round" />
+          <line x1="-170" y1="-1.6" x2="16" y2="-1.6" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.85" />
+          <ellipse cx="-150" cy="0" rx="12" ry="2.6" fill="#242120" />
+        </g>
+      </svg>
     </div>
     <div class="interlude__en" data-stitch-en>
       <Image src={stitchEn} alt="Stitch by Stitch" widths={[480, 800, 1200]} sizes="(max-width: 900px) 70vw, 520px" />
