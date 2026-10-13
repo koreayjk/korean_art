@@ -637,27 +637,27 @@ function commission() {
       scrollTrigger: { trigger: intro, start: 'top 85%', once: true },
     });
 
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: track, start: 'top 78%', end: 'bottom 62%', scrub: 0.7, invalidateOnRefresh: true },
-    });
-    const arts = steps.map((step) => step.querySelector('.step__art')).filter(Boolean) as Element[];
-    const icons = steps.map((step) => step.querySelector('.step-icon')).filter(Boolean) as Element[];
     gsap.set(thread, { scaleX: vertical() ? 1 : 0, scaleY: vertical() ? 0 : 1 });
-    gsap.set(arts, { scale: 0.55, opacity: 0 });
-    gsap.set(icons, { clipPath: 'inset(-10% 100% -10% -10%)' });
-    gsap.set(steps.flatMap((step) => Array.from(step.querySelectorAll('.step__num, .step__title, .step__body'))), {
-      y: 26,
-      opacity: 0,
+    // The thread is drawn along with the scroll...
+    gsap.to(thread, {
+      scaleX: 1,
+      scaleY: 1,
+      ease: 'none',
+      scrollTrigger: { trigger: track, start: 'top 80%', end: 'bottom 70%', scrub: 0.5, invalidateOnRefresh: true },
     });
-    tl.to(thread, { scaleX: 1, scaleY: 1, ease: 'none', duration: 1 }, 0);
-    steps.forEach((step, i) => {
-      const at = (i / steps.length) * 0.82;
+    // ...and each step comes alive as soon as it enters the screen, not after it has passed
+    // the middle, so the words are never waiting for the reader.
+    steps.forEach((step) => {
       const art = step.querySelector('.step__art');
       const icon = step.querySelector('.step-icon');
       const words = step.querySelectorAll('.step__num, .step__title, .step__body');
-      if (art) tl.to(art, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.16 }, at);
-      if (icon) tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'none', duration: 0.2 }, at + 0.02);
-      tl.to(words, { y: 0, opacity: 1, ease: 'power2.out', duration: 0.18, stagger: 0.03 }, at + 0.1);
+      gsap.set(art, { scale: 0.55, opacity: 0 });
+      gsap.set(icon, { clipPath: 'inset(-10% 100% -10% -10%)' });
+      gsap.set(words, { y: 24, opacity: 0 });
+      const tl = gsap.timeline({ scrollTrigger: { trigger: step, start: 'top 96%', once: true } });
+      tl.to(art, { scale: 1, opacity: 1, ease: 'expo.out', duration: 0.9 }, 0);
+      tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'power2.out', duration: 0.9 }, 0.05);
+      tl.to(words, { y: 0, opacity: 1, ease: 'expo.out', duration: 1, stagger: 0.07 }, 0.1);
     });
   });
 }
