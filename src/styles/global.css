@@ -1353,3 +1353,55 @@ html[lang='en'] .hero__title {
 .process.is-stage .step__art {
   display: none;
 }
+
+/* ---------- The master / the making as slim bands ---------- */
+
+@media (min-width: 861px) {
+  .split {
+    margin: clamp(56px, 7vw, 120px) 0;
+  }
+
+  .split__media {
+    min-height: clamp(260px, 25vw, 380px);
+  }
+
+  .split__body {
+    padding: clamp(32px, 3.6vw, 56px) clamp(20px, 6vw, 110px);
+    gap: 14px;
+  }
+
+  .split__body p {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .split__body .h2 {
+    font-size: clamp(22px, 2.3vw, 34px);
+  }
+
+  .split__body .label {
+    flex-direction: row;
+    gap: 12px;
+    align-items: baseline;
+  }
+
+  /* The three facts sit side by side instead of stacked. */
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    gap: 0 28px;
+    max-width: none;
+    border-bottom: 0;
+  }
+
+  .facts div {
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 0 0;
+  }
+
+  .facts dd {
+    text-align: left;
+  }
+}
