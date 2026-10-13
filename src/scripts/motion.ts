@@ -43,7 +43,7 @@ function setMenu(open: boolean) {
   if (!menu || !toggle) return;
   menu.classList.toggle('is-open', open);
   toggle.setAttribute('aria-expanded', String(open));
-  toggle.textContent = open ? 'Close' : 'Menu';
+  toggle.textContent = (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) ?? '';
   if (open) lenis?.stop();
   else lenis?.start();
 }

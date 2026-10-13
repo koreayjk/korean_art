@@ -1,5 +1,11 @@
 ---
-import { nav } from '../data/site';
+import { copy, type Locale } from '../data/copy';
+
+interface Props {
+  locale: Locale;
+}
+
+const t = copy[Astro.props.locale];
 ---
 
 <header class="header" data-header>
@@ -7,18 +13,25 @@ import { nav } from '../data/site';
   <div class="header__progress" aria-hidden="true" data-progress></div>
 
   <nav class="header__nav" aria-label="Main">
-    {nav.map((item) => <a class="link link--plain" href={item.href}>{item.label}</a>)}
+    {t.nav.map((item) => <a class="link link--plain" href={item.href}>{item.label}</a>)}
   </nav>
-  <button class="header__menu" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>Menu</button>
+  <button
+    class="header__menu"
+    type="button"
+    aria-expanded="false"
+    aria-controls="menu"
+    data-menu-toggle
+    data-label-open={t.menu}
+    data-label-close={t.menuClose}>{t.menu}</button>
 
-  <a class="header__logo" href="#top" aria-label="ARAM, home" data-logo>ARAM</a>
+  <a class="header__logo" href="#top" aria-label={t.homeLabel} data-logo>ARAM</a>
 
   <div class="header__side">
-    <a class="link link--plain" href="#inquiry">Inquiry</a>
+    <a class="link link--plain" href="#inquiry">{t.inquiry}</a>
   </div>
 </header>
 
 <div class="menu" id="menu" data-menu>
-  {nav.map((item) => <a href={item.href}>{item.label}</a>)}
-  <a href="#inquiry">Inquiry</a>
+  {t.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+  <a href="#inquiry">{t.inquiry}</a>
 </div>

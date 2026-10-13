@@ -1,5 +1,14 @@
 ---
-import { nav, site } from '../data/site';
+import { copy, type Locale } from '../data/copy';
+import { site } from '../data/site';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = copy[locale];
+const base = import.meta.env.BASE_URL;
 ---
 
 <footer class="footer">
@@ -9,27 +18,27 @@ import { nav, site } from '../data/site';
         <span class="seal" aria-hidden="true"><span>아</span><span>람</span></span>
         <span class="footer__name">ARAM</span>
       </div>
-      <p>Korean traditional embroidery by Mi-ae Park, made to commission in Gochang, Korea.</p>
+      <p>{t.footer.blurb}</p>
     </div>
 
     <nav class="footer__col" aria-label="Footer">
-      {nav.map((item) => <a class="link link--plain" href={item.href}>{item.label}</a>)}
+      {t.nav.map((item) => <a class="link link--plain" href={item.href}>{item.label}</a>)}
     </nav>
 
     <div class="footer__col">
-      <a class="link link--plain" href="#inquiry">Inquiry</a>
-      <a class="link link--plain" href="#inquiry">For institutions</a>
+      <a class="link link--plain" href="#inquiry">{t.inquiry}</a>
+      <a class="link link--plain" href="#inquiry">{t.institutions}</a>
       <span>{site.email}</span>
     </div>
 
     <div class="footer__col">
-      <a class="link" href={import.meta.env.BASE_URL} aria-current="true">English</a>
-      <a class="link link--plain" href={import.meta.env.BASE_URL} lang="ko" style="font-family: var(--korean)">한국어</a>
+      <a class={`link${locale === 'en' ? '' : ' link--plain'}`} href={`${base}${copy.en.path}`} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>English</a>
+      <a class={`link${locale === 'ko' ? '' : ' link--plain'}`} href={`${base}${copy.ko.path}`} lang="ko" hreflang="ko" aria-current={locale === 'ko' ? 'true' : undefined} style="font-family: var(--korean)">한국어</a>
     </div>
   </div>
 
   <div class="footer__base">
     <div>© {new Date().getFullYear()} ARAM</div>
-    <div>{site.location}</div>
+    <div>{t.footer.location}</div>
   </div>
 </footer>

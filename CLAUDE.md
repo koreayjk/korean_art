@@ -12,7 +12,8 @@
 - 이름: 작가명 Mi-ae Park, 브랜드 표식 ARAM(장인의 호 '아람').
 - 페이지 계획: Home, The Master, Works, Commission, For Institutions, Journal, Inquiry.
   판매된 작품은 구매자 동의 후 "Collected Works"로 기록.
-- 언어: 영어 기본, 한국어 보조.
+- 언어: 영어 기본(`/`), 한국어 보조(`/ko/`). 글은 `src/data/copy.ts`에 언어별로 분리, 디자인·모션은 `Home.astro` 한 벌을 공유.
+  한국어 문구는 초안이므로 원어민과 본인 확인 필요(`CONFIRM` 표시 참고).
 
 ## 디자인 원칙 (의뢰인 피드백으로 확정된 것)
 
@@ -30,8 +31,9 @@
 
 - Home 한 페이지 완성. 데스크톱(1440px)과 모바일(390px)에서 화면 확인함.
 - 메뉴 링크는 아직 Home 안의 섹션으로만 이동.
+- 한국어 홈(`/ko/`) 완성. 새 페이지를 만들 때도 영어·한국어 쌍으로 만들 것.
 - 다음 순서 제안: Works 목록과 상세 → Inquiry(작동하는 문의 양식) → The Master → Commission
-  → Journal → 한국어 버전 → 배포.
+  → Journal → 한국어 번역 감수 → 정식 도메인.
 
 ## 반드시 지킬 것
 

@@ -7,17 +7,23 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
+import { copy, type Locale } from '../data/copy';
 
 interface Props {
-  title?: string;
-  description?: string;
+  locale?: Locale;
 }
 
-const { title = site.title, description = site.description } = Astro.props;
+const { locale = 'en' } = Astro.props;
+const t = copy[locale];
+const { title, description } = t;
+
+// Absolute addresses of both language versions, so search engines can pair them.
+const root = new URL(import.meta.env.BASE_URL, Astro.site).href;
+const addresses = { en: root, ko: new URL(copy.ko.path, root).href };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={t.lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,6 +34,11 @@ const { title = site.title, description = site.description } = Astro.props;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locale === 'ko' ? 'ko_KR' : 'en_US'} />
+    <link rel="canonical" href={addresses[locale]} />
+    <link rel="alternate" hreflang="en" href={addresses.en} />
+    <link rel="alternate" hreflang="ko" href={addresses.ko} />
+    <link rel="alternate" hreflang="x-default" href={addresses.en} />
     <!-- Marks the page as script-enabled before first paint, so the intro
          screen only ever shows when the script that removes it can run. -->
     <script is:inline>
@@ -60,13 +71,13 @@ const { title = site.title, description = site.description } = Astro.props;
       <div class="intro__count" data-intro-count>0</div>
     </div>
 
-    <Header />
+    <Header locale={locale} />
     <main id="top">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
 
-    {site.tempImages && <div class="preview-badge">Preview · temporary images</div>}
+    {site.tempImages && <div class="preview-badge">{t.badge}</div>}
 
     <script>
       import '../scripts/motion.ts';

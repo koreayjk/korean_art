@@ -1,0 +1,211 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { copy, type Locale } from '../data/copy';
+import { subjects } from '../data/subjects';
+
+import hero from '../assets/images/hero.jpg';
+import master from '../assets/images/master.jpg';
+import making from '../assets/images/making.jpg';
+import closing from '../assets/images/closing.jpg';
+import stitch from '../assets/images/stitch.png';
+import stitchEn from '../assets/images/stitch-en.png';
+import work1 from '../assets/images/work1.jpg';
+import work2 from '../assets/images/work2.jpg';
+import work3 from '../assets/images/work3.jpg';
+import work4 from '../assets/images/work4.jpg';
+import work5 from '../assets/images/work5.jpg';
+
+import heroCut from '../assets/cutouts/hero.webp';
+import masterCut from '../assets/cutouts/master.webp';
+import makingCut from '../assets/cutouts/making.webp';
+import work1Cut from '../assets/cutouts/work1.webp';
+import work2Cut from '../assets/cutouts/work2.webp';
+import work3Cut from '../assets/cutouts/work3.webp';
+import work4Cut from '../assets/cutouts/work4.webp';
+import work5Cut from '../assets/cutouts/work5.webp';
+
+const workImages = { work1, work2, work3, work4, work5 };
+const workCutouts = { work1: work1Cut, work2: work2Cut, work3: work3Cut, work4: work4Cut, work5: work5Cut };
+const pad = (n: number) => String(n).padStart(2, '0');
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = copy[locale];
+const workKeys = ['work1', 'work2', 'work3', 'work4', 'work5'] as const;
+// Marks the Korean label first on the Korean page, with the English as its small companion.
+const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko' : 'en' });
+
+---
+
+<Base locale={locale}>
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title" data-hero>
+    <div class="hero__media" aria-hidden="true" data-hero-media>
+      <div class="hero__media-in" data-hero-image>
+        <Image src={hero} alt="" widths={[960, 1440, 1920, 2688]} sizes="100vw" loading="eager" fetchpriority="high" />
+        <Image class="cutout" src={heroCut} alt="" widths={[960, 1440, 1920, 2688]} sizes="100vw" loading="eager" data-subject="hero" data-cx={subjects.hero[0]} data-cy={subjects.hero[1]} />
+      </div>
+    </div>
+
+    <div class="hero__content" data-hero-content>
+      <div class="hero__eyebrow" data-hero-item>{t.hero.eyebrow}</div>
+      <h1 id="hero-title" class="display h1 hero__title" data-hero-title>{t.hero.title}</h1>
+      <a class="link" href="#inquiry" data-hero-item>{t.hero.cta}</a>
+    </div>
+
+    <div class="hero__corner hero__corner--left" data-hero-item>{t.hero.corner}</div>
+    <div class="hero__corner hero__corner--right" aria-hidden="true" data-hero-item>
+      {t.hero.scroll} <span class="hero__cue"><span></span></span>
+    </div>
+  </section>
+
+  <!-- The craft -->
+  <section id="jasu" class="statement" aria-label={t.craft.aria}>
+    <div class="label statement__label" data-reveal>
+      {t.craft.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
+    </div>
+    <div class="statement__body">
+      <p class="statement__text" data-words>
+        {t.craft.sentences.map((sentence) => <span>{sentence}</span>)}
+      </p>
+      <a class="link" href="#jasu" data-reveal>{t.craft.link}</a>
+    </div>
+  </section>
+
+  <!-- The master -->
+  <section id="master" class="split" aria-labelledby="master-title">
+    <div class="split__media" style="background: #10151f" data-image>
+      <div class="split__media-in" data-parallax>
+        <Image src={master} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 8% center" />
+        <Image class="cutout" src={masterCut} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 8% center" data-subject="frame" data-cx={subjects.master[0]} data-cy={subjects.master[1]} />
+      </div>
+    </div>
+    <div class="split__body split__body--indigo" data-reveal-group>
+      <div class="label">
+        {t.master.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
+      </div>
+      <div class="name">
+        <h2 id="master-title" class="display h2">{t.master.name}</h2>
+        <div class="hangul" lang="ko">{t.master.nameSub}</div>
+      </div>
+      <p>{t.master.text}</p>
+      <dl class="facts">
+        {t.master.facts.map(([term, value]) => <div><dt>{term}</dt><dd>{value}</dd></div>)}
+      </dl>
+      <a class="link" href="#master">{t.master.link}</a>
+    </div>
+  </section>
+
+  <!-- Interlude -->
+  <section class="interlude" aria-label={t.stitch.aria}>
+    <span class="interlude__thread" aria-hidden="true" data-thread></span>
+    <div class="interlude__stitchwrap">
+      <div class="interlude__stitch" data-stitch>
+        <Image src={stitch} alt={t.stitch.ko} lang="ko" widths={[720, 1200, 1800, 2400]} sizes="(max-width: 900px) 100vw, 1200px" />
+      </div>
+    </div>
+    <div class="interlude__en" data-stitch-en>
+      <Image src={stitchEn} alt={t.stitch.en} lang="en" widths={[480, 800, 1200]} sizes="(max-width: 900px) 70vw, 520px" />
+    </div>
+  </section>
+
+  <!-- Works -->
+  <section id="works" class="works" aria-labelledby="works-title" data-works>
+    <div class="works__head" data-reveal>
+      <div class="works__title">
+        <div class="label">
+          {t.works.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
+        </div>
+        <h2 id="works-title" class="display h2">{t.works.title}</h2>
+      </div>
+      <div class="works__tools">
+        <span class="works__count" aria-hidden="true"><span data-works-current>01</span> — {pad(workKeys.length)}</span>
+        <a class="link" href="#works">{t.works.link}</a>
+      </div>
+    </div>
+
+    <div class="works__viewport" role="region" aria-label={t.works.region} tabindex="0" data-works-viewport>
+      <div class="works__track" data-works-track>
+        {
+          t.works.items.map((work, i) => (
+            <article class="card" data-card>
+              <div class="card__media">
+                <Image src={workImages[workKeys[i]]} alt={work.alt} widths={[480, 800]} sizes="(max-width: 900px) 70vw, 30vw" />
+                <Image class="cutout" src={workCutouts[workKeys[i]]} alt="" widths={[480, 800]} sizes="(max-width: 900px) 70vw, 30vw" data-subject="card" data-cx={subjects[workKeys[i]][0]} data-cy={subjects[workKeys[i]][1]} />
+              </div>
+              <div>
+                <div class="card__row">
+                  <h3 class="card__title">{work.title}</h3>
+                  <span class="card__num" aria-hidden="true">{pad(i + 1)}</span>
+                </div>
+                <div class="card__meta">{work.meta}</div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- The making -->
+  <section class="split split--reverse" aria-labelledby="making-title">
+    <div class="split__body split__body--crimson" data-reveal-group>
+      <div class="label">
+        {t.making.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
+      </div>
+      <h2 id="making-title" class="display h2" style="max-width: 13em">{t.making.title}</h2>
+      <p>{t.making.text}</p>
+      <a class="link" href="#commission">{t.making.link}</a>
+    </div>
+    <div class="split__media" style="background: #241110" data-image>
+      <div class="split__media-in" data-parallax>
+        <Image src={making} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 66% center" />
+        <Image class="cutout" src={makingCut} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 66% center" data-subject="frame" data-cx={subjects.making[0]} data-cy={subjects.making[1]} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Commission -->
+  <section id="commission" class="process" aria-labelledby="commission-title">
+    <div class="process__intro" data-reveal-group>
+      <div class="label">
+        {t.commission.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
+      </div>
+      <h2 id="commission-title" class="display h2">{t.commission.title}</h2>
+      <p>{t.commission.text}</p>
+    </div>
+    <ol class="process__list" data-steps>
+      {
+        t.commission.steps.map((step, i) => (
+          <li class="step">
+            <span class="step__num" aria-hidden="true">{pad(i + 1)}</span>
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__body">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- Inquiry -->
+  <section id="inquiry" class="closing" aria-labelledby="inquiry-title">
+    <div class="closing__media" aria-hidden="true">
+      <div class="closing__media-in" data-parallax>
+        <Image src={closing} alt="" widths={[960, 1440, 1920, 2688]} sizes="100vw" />
+      </div>
+    </div>
+    <div class="closing__content" data-reveal-group>
+      <div class="label">{t.closing.label}</div>
+      <h2 id="inquiry-title" class="display h1">{t.closing.title}</h2>
+      <p>{t.closing.text}</p>
+      <div class="closing__links">
+        <a class="link" href="#inquiry">{t.closing.consultation}</a>
+        <a class="link" href="#inquiry">{t.closing.institutions}</a>
+      </div>
+    </div>
+  </section>
+</Base>

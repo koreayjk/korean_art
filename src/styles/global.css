@@ -1084,3 +1084,18 @@ button {
   transition: none !important;
   will-change: transform;
 }
+
+/* Korean: break lines between words, not inside them, and give Hangul a little more air. */
+html[lang='ko'] body {
+  word-break: keep-all;
+  line-break: strict;
+}
+
+html[lang='ko'] .display {
+  letter-spacing: -0.01em;
+  line-height: 1.28;
+}
+
+html[lang='ko'] .statement__text {
+  line-height: 1.45;
+}
