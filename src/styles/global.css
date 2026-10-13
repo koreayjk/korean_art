@@ -1368,8 +1368,8 @@ html[lang='en'] .hero__title {
 
   /* A tall, narrow photograph: half the width it had, the text moves in to meet it. */
   .split__media {
-    flex: 0 0 25%;
-    min-height: clamp(380px, 40vw, 600px);
+    flex: 0 0 30%;
+    min-height: clamp(456px, 48vw, 768px);
   }
 
   .split__body {
