@@ -1361,8 +1361,13 @@ html[lang='en'] .hero__title {
     margin: clamp(56px, 7vw, 120px) 0;
   }
 
+  .split {
+    /* The colour block keeps its slim height while the photograph is taller. */
+    align-items: center;
+  }
+
   .split__media {
-    min-height: clamp(260px, 25vw, 380px);
+    min-height: clamp(380px, 40vw, 600px);
   }
 
   .split__body {
