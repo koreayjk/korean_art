@@ -555,9 +555,12 @@ function commission() {
 
     // 2 Consultation: the sheet slides out, the envelope drops away and the sheet grows.
     const s2 = at(1);
-    tl.to(P.sheet, { attr: { y: 50 }, ease: 'power2.out', duration: 0.7 }, s2 - 0.3);
-    tl.to([P.envBack, P.envFront], { y: 90, opacity: 0, scale: 0.9, ease: 'power2.in', duration: 0.55 }, s2 + 0.3);
-    tl.to(P.sheet, { attr: { x: 60, y: 90, width: 280, height: 220 }, ease: 'power3.inOut', duration: 0.7 }, s2 + 0.35);
+    // The sheet rises out of the envelope (staying behind its front, so it comes from
+    // inside), then the envelope slides down and away, fully opaque, while the sheet grows.
+    tl.to(P.sheet, { attr: { y: 30 }, ease: 'power2.out', duration: 0.8 }, s2 - 0.35);
+    tl.to([P.envBack, P.envFront], { y: 230, ease: 'power2.in', duration: 0.7 }, s2 + 0.45);
+    tl.to([P.envBack, P.envFront], { opacity: 0, duration: 0.2 }, s2 + 0.95);
+    tl.to(P.sheet, { attr: { x: 60, y: 90, width: 280, height: 220 }, ease: 'power3.inOut', duration: 0.7 }, s2 + 0.6);
     tl.to(P.motif, { opacity: 1, duration: 0.4 }, s2 + 0.8);
 
     // 3 Making: the sheet turns into a hoop and the flower is stitched in with a needle.
