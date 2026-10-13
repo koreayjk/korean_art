@@ -6,10 +6,9 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import Lenis from 'lenis';
 
-gsap.registerPlugin(ScrollTrigger, SplitText, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 // Motion plays for everyone, including visitors whose device is set to "reduce motion":
 // the site is built around it. Adding ?motion=off to the address turns it off.
@@ -218,46 +217,22 @@ function text() {
     gsap.fromTo(split.words, { opacity: 0.16 }, { opacity: 1, ease: 'none', stagger: 0.05, scrollTrigger });
   });
 
-  // "한 땀, 한 땀": a needle runs a thread across the line in a running stitch and the
-  // gold lettering appears behind it; the English line then dissolves in on the spot.
-  // The section is held in place (desktop) and the five-colour thread is drawn alongside.
+  // "한 땀, 한 땀": the embroidered lines dissolve in on the spot, the Korean first and the
+  // English just after it, with the section held in place (desktop) and the five-colour
+  // thread drawn alongside.
   $$('[data-stitch]').forEach((stitch) => {
     const section = stitch.closest<HTMLElement>('section');
     const english = section?.querySelector('[data-stitch-en]');
     const thread = section?.querySelector('[data-thread]');
-    const needle = section?.querySelector<SVGGElement>('[data-needle]');
-    const line = section?.querySelector<SVGPathElement>('[data-needle-path]');
     const scrollTrigger =
       pinned && section
-        ? { trigger: section, start: 'center center', end: '+=90%', pin: true, scrub: 0.5 }
-        : { trigger: stitch, start: 'top 84%', end: 'top 25%', scrub: 0.5 };
+        ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5 }
+        : { trigger: stitch, start: 'top 84%', end: 'top 30%', scrub: 0.5 };
+    const dissolve = { opacity: 0, filter: 'blur(10px)' };
+    const clear = { opacity: 1, filter: 'blur(0px)', ease: 'none', duration: 1 };
     const tl = gsap.timeline({ scrollTrigger });
-
-    // The lettering is revealed just behind the needle.
-    tl.fromTo(stitch, { '--p': 0 }, { '--p': 1, ease: 'none', duration: 1 }, 0);
-
-    if (needle && line) {
-      const length = line.getTotalLength();
-      gsap.set(line, { strokeDasharray: length, strokeDashoffset: length });
-      tl.to(line, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0);
-      tl.to(needle, { opacity: 1, duration: 0.04 }, 0);
-      tl.to(
-        needle,
-        {
-          motionPath: { path: line, align: line, alignOrigin: [0.95, 0.5], autoRotate: true },
-          ease: 'none',
-          duration: 1,
-        },
-        0,
-      );
-      // Needle and loose thread leave once the line is stitched.
-      tl.to([needle, line], { opacity: 0, duration: 0.08 }, 0.96);
-    }
-
-    if (english) {
-      const dissolve = { opacity: 0, filter: 'blur(10px)' };
-      tl.fromTo(english, dissolve, { opacity: 1, filter: 'blur(0px)', ease: 'none', duration: 0.5 }, 0.95);
-    }
+    tl.fromTo(stitch, dissolve, clear, 0);
+    if (english) tl.fromTo(english, dissolve, clear, 0.4);
     if (thread) tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: 1 }, 0);
   });
 
