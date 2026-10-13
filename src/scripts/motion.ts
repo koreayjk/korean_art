@@ -475,6 +475,7 @@ function commission() {
       envFront: po('env-front'),
       pocket: po('pocket'),
       flap: po('flap'),
+      flapWrap: po('flap-wrap'),
       seal: po('seal'),
       piece: po('piece'),
       sheet: po('sheet'),
@@ -499,9 +500,10 @@ function commission() {
     gsap.set(dots, { opacity: 0.35 });
     if (bar) gsap.set(bar, { scaleX: 0 });
     gsap.set(object, { autoAlpha: 0 });
-    gsap.set([P.envBack, P.envFront], { opacity: 0, scale: 0.6, transformOrigin: '50% 50%' });
+    gsap.set([P.envBack, P.envFront, P.flapWrap], { opacity: 0, scale: 0.6, transformOrigin: '50% 50%' });
     gsap.set(P.flap, { transformOrigin: '50% 0%', scaleY: 1 });
     gsap.set(P.motif, { opacity: 0 });
+    gsap.set(P.sheet, { opacity: 0 });
     gsap.set([P.hoop, P.needle, P.parcel], { opacity: 0 });
     gsap.set(flowerPetals, { scale: 0, transformOrigin: '50% 50%' });
     gsap.set(P.piece, { transformOrigin: '50% 50%' });
@@ -549,17 +551,19 @@ function commission() {
     // The object. 1 Inquiry: an envelope arrives and its flap opens.
     const s1 = at(0);
     tl.to(object, { autoAlpha: 1, duration: 0.3 }, s1);
-    tl.to([P.envBack, P.envFront], { opacity: 1, scale: 1, ease: 'back.out(1.4)', duration: 0.6 }, s1);
+    tl.to([P.envBack, P.envFront, P.flapWrap], { opacity: 1, scale: 1, ease: 'back.out(1.4)', duration: 0.6 }, s1);
     tl.to(P.seal, { scale: 0, transformOrigin: '50% 50%', ease: 'power2.in', duration: 0.25 }, s1 + 0.75);
     tl.to(P.flap, { scaleY: -1, ease: 'power2.inOut', duration: 0.5 }, s1 + 0.85);
+    // The paper is already inside; it only shows once the flap is open.
+    tl.set(P.sheet, { opacity: 1 }, s1 + 0.85);
 
     // 2 Consultation: the sheet slides out, the envelope drops away and the sheet grows.
     const s2 = at(1);
     // The sheet rises out of the envelope (staying behind its front, so it comes from
     // inside), then the envelope slides down and away, fully opaque, while the sheet grows.
     tl.to(P.sheet, { attr: { y: 30 }, ease: 'power2.out', duration: 0.8 }, s2 - 0.35);
-    tl.to([P.envBack, P.envFront], { y: 230, ease: 'power2.in', duration: 0.7 }, s2 + 0.45);
-    tl.to([P.envBack, P.envFront], { opacity: 0, duration: 0.2 }, s2 + 0.95);
+    tl.to([P.envBack, P.envFront, P.flapWrap], { y: 230, ease: 'power2.in', duration: 0.7 }, s2 + 0.45);
+    tl.to([P.envBack, P.envFront, P.flapWrap], { opacity: 0, duration: 0.2 }, s2 + 0.95);
     tl.to(P.sheet, { attr: { x: 60, y: 90, width: 280, height: 220 }, ease: 'power3.inOut', duration: 0.7 }, s2 + 0.6);
     tl.to(P.motif, { opacity: 1, duration: 0.4 }, s2 + 0.8);
 

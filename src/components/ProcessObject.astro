@@ -10,6 +10,11 @@
     <!-- 1. Envelope: the back, then (later in the stack) the pocket, flap and seal. -->
     <rect class="po-env st" data-po="env-back" x="60" y="130" width="280" height="190" rx="8" />
 
+    <!-- The flap sits behind the sheet: closed it covers the sheet, open it folds back. -->
+    <g data-po="flap-wrap">
+      <path class="po-env st" data-po="flap" d="M60 130 L340 130 L200 240 Z" />
+    </g>
+
     <!-- The sheet / hoop. Starts hidden inside the envelope. -->
     <g data-po="piece">
       <rect class="st po-sheet" data-po="sheet" x="90" y="178" width="220" height="140" rx="6" />
@@ -25,7 +30,7 @@
         <path class="st" d="M120 205 H280" />
         <circle cx="150" cy="248" r="14" fill="#2f5fa3" />
         <circle cx="200" cy="248" r="14" fill="#b8322a" />
-        <circle cx="250" cy="248" r="14" fill="#ece6d8" />
+        <circle cx="250" cy="248" r="14" fill="#ece6d8" stroke="#b9ae95" stroke-width="2" />
       </g>
       <g data-po="hoop-parts">
         <circle class="st" data-po="inner-ring" cx="200" cy="200" r="90" />
@@ -43,7 +48,6 @@
 
     <g data-po="env-front">
       <path class="po-env st" data-po="pocket" d="M60 138 L60 320 Q60 328 68 328 L332 328 Q340 328 340 320 L340 138 L200 240 Z" />
-      <path class="po-env st" data-po="flap" d="M60 130 L340 130 L200 240 Z" />
       <g data-po="seal">
         <circle cx="200" cy="236" r="15" fill="#b8322a" />
         <path d="M193 236 h14 M200 229 v14" stroke="#ece6d8" stroke-width="3" stroke-linecap="round" />
@@ -94,8 +98,12 @@
     stroke-dasharray: 8 7;
   }
 
-  .process-object :global(.po-env),
-  .process-object :global(.po-sheet) {
+  .process-object :global(.po-env) {
     fill: #2e2a28;
+  }
+
+  /* The sheet of paper is white, so it reads clearly against the envelope. */
+  .process-object :global(.po-sheet) {
+    fill: #f4efe4;
   }
 </style>
