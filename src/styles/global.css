@@ -1362,8 +1362,8 @@ html[lang='en'] .hero__title {
   }
 
   .split {
-    /* The colour block keeps its slim height while the photograph is taller. */
-    align-items: center;
+    /* The colour block fills the whole height of the tall photograph beside it. */
+    align-items: stretch;
   }
 
   .split__media {
