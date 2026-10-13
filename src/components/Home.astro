@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import StepIcon from './StepIcon.astro';
+import ProcessObject from './ProcessObject.astro';
 import { copy, type Locale } from '../data/copy';
 import { subjects } from '../data/subjects';
 
@@ -182,6 +183,9 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
     </div>
     <div class="process__track" data-process-track>
       <span class="process__thread" aria-hidden="true" data-process-thread></span>
+      <div class="process__object">
+        <ProcessObject />
+      </div>
       <ol class="process__list">
         {
           t.commission.steps.map((step, i) => (

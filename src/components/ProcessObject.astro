@@ -1,0 +1,98 @@
+---
+// One object that changes through the four commission steps: an envelope opens, a
+// sheet slides out, becomes the embroidery hoop, and is wrapped and sent away. The
+// parts are moved by motion.ts (commission()); this is only the drawing, in stitched
+// gold outline with the Korean five colours as accents. Purely decorative.
+---
+
+<svg class="process-object" viewBox="0 0 400 400" fill="none" aria-hidden="true" focusable="false" data-process-object>
+  <g data-po="all">
+    <!-- 1. Envelope: the back, then (later in the stack) the pocket, flap and seal. -->
+    <rect class="po-env st" data-po="env-back" x="60" y="130" width="280" height="190" rx="8" />
+
+    <!-- The sheet / hoop. Starts hidden inside the envelope. -->
+    <g data-po="piece">
+      <rect class="st po-sheet" data-po="sheet" x="90" y="178" width="220" height="140" rx="6" />
+      <g data-po="motif">
+        <g stroke="#e0b04a" stroke-width="3">
+          <circle cx="200" cy="150" r="14" />
+          <circle cx="178" cy="136" r="14" />
+          <circle cx="222" cy="136" r="14" />
+          <circle cx="184" cy="164" r="14" />
+          <circle cx="216" cy="164" r="14" />
+        </g>
+        <circle cx="200" cy="150" r="9" fill="#e0b04a" />
+        <path class="st" d="M120 205 H280" />
+        <circle cx="150" cy="248" r="14" fill="#2f5fa3" />
+        <circle cx="200" cy="248" r="14" fill="#b8322a" />
+        <circle cx="250" cy="248" r="14" fill="#ece6d8" />
+      </g>
+      <g data-po="hoop-parts">
+        <circle class="st" data-po="inner-ring" cx="200" cy="200" r="90" />
+        <rect data-po="screw" x="186" y="84" width="28" height="18" rx="3" fill="#ece6d8" />
+        <g data-po="flower" fill="#b8322a">
+          <circle cx="200" cy="170" r="21" />
+          <circle cx="172" cy="192" r="21" />
+          <circle cx="228" cy="192" r="21" />
+          <circle cx="182" cy="226" r="21" />
+          <circle cx="218" cy="226" r="21" />
+          <circle cx="200" cy="203" r="13" fill="#e0b04a" />
+        </g>
+      </g>
+    </g>
+
+    <g data-po="env-front">
+      <path class="po-env st" data-po="pocket" d="M60 138 L60 320 Q60 328 68 328 L332 328 Q340 328 340 320 L340 138 L200 240 Z" />
+      <path class="po-env st" data-po="flap" d="M60 130 L340 130 L200 240 Z" />
+      <g data-po="seal">
+        <circle cx="200" cy="236" r="15" fill="#b8322a" />
+        <path d="M193 236 h14 M200 229 v14" stroke="#ece6d8" stroke-width="3" stroke-linecap="round" />
+      </g>
+    </g>
+
+    <!-- 3. Needle that stitches the flower: tip down-left, eye and thread up-right. -->
+    <g transform="translate(236 214) rotate(-38)">
+      <g data-po="needle">
+        <path d="M0 0 L110 0" stroke="#ece6d8" stroke-width="6" stroke-linecap="round" />
+        <path d="M2 -2 L108 -2" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.8" />
+        <ellipse cx="98" cy="0" rx="10" ry="2.4" fill="#242120" />
+        <path class="st" d="M100 0 C140 -34 170 22 214 -10" />
+      </g>
+    </g>
+
+    <!-- 4. Wrapped parcel and its speed lines. -->
+    <g data-po="parcel">
+      <rect class="st" x="110" y="150" width="180" height="130" rx="6" />
+      <path d="M200 150 V280 M110 215 H290" stroke="#b8322a" stroke-width="8" stroke-linecap="round" />
+      <path d="M200 150 C168 100 140 134 200 150 M200 150 C232 100 260 134 200 150" stroke="#b8322a" stroke-width="6" stroke-linecap="round" />
+      <circle cx="200" cy="215" r="11" fill="#e0b04a" />
+      <g data-po="speed" stroke="#e0b04a" stroke-width="4" stroke-linecap="round">
+        <path d="M60 170 H96" />
+        <path d="M40 215 H96" />
+        <path d="M60 260 H96" />
+      </g>
+    </g>
+  </g>
+</svg>
+
+<style>
+  .process-object {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .process-object :global(.st) {
+    stroke: #e0b04a;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 8 7;
+  }
+
+  .process-object :global(.po-env),
+  .process-object :global(.po-sheet) {
+    fill: #2e2a28;
+  }
+</style>

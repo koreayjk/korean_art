@@ -1173,13 +1173,14 @@ html[lang='en'] .hero__title {
 
 /* ---------- Commission as a staged sequence (large screens) ---------- */
 
-.process__progress {
+.process__progress,
+.process__object {
   display: none;
 }
 
 .process.is-stage {
   --stage-pad: max(var(--gutter), calc((100vw - 1180px) / 2));
-  --art: clamp(220px, 25vw, 360px);
+  --art: clamp(280px, 31vw, 450px);
   position: relative;
   height: 100vh;
   min-height: 620px;
@@ -1335,4 +1336,20 @@ html[lang='en'] .hero__title {
 .process.is-stage .process__intro .h2 * {
   text-align: center !important;
   margin-inline: auto;
+}
+
+/* The one object that travels through the four steps. */
+.process.is-stage .process__object {
+  display: block;
+  position: absolute;
+  left: var(--stage-pad);
+  top: 50%;
+  width: var(--art);
+  height: var(--art);
+  transform: translateY(-56%);
+  pointer-events: none;
+}
+
+.process.is-stage .step__art {
+  display: none;
 }

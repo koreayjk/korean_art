@@ -465,26 +465,56 @@ function commission() {
     section.classList.add('is-stage');
     const bar = $('[data-process-bar]', section);
     const dots = $$('[data-process-dot]', section);
+    const object = $('.process__object', section);
     const colours = ['#242120', '#1a2638', '#3a1a19', '#242120'];
     const wordsOf = (step: HTMLElement) => Array.from(step.querySelectorAll('.step__num, .step__title, .step__body'));
+    const po = (name: string) => section.querySelector<SVGElement>(`[data-po="${name}"]`);
+    const parts = {
+      all: po('all'),
+      envBack: po('env-back'),
+      envFront: po('env-front'),
+      pocket: po('pocket'),
+      flap: po('flap'),
+      seal: po('seal'),
+      piece: po('piece'),
+      sheet: po('sheet'),
+      motif: po('motif'),
+      hoop: po('hoop-parts'),
+      ring: po('inner-ring'),
+      screw: po('screw'),
+      flower: po('flower'),
+      needle: po('needle'),
+      parcel: po('parcel'),
+      speed: po('speed'),
+    };
+    if (!object || Object.values(parts).some((part) => !part)) return;
+    const P = parts as Record<keyof typeof parts, SVGElement>;
+    const flowerPetals = Array.from(P.flower.children);
 
+    // Starting states.
     gsap.set(section, { backgroundColor: colours[0] });
     gsap.set(steps, { autoAlpha: 0 });
-    steps.forEach((step) => {
-      gsap.set(step.querySelector('.step__art'), { scale: 0.6, x: 140, opacity: 0, filter: 'blur(10px)' });
-      gsap.set(step.querySelector('.step-icon'), { clipPath: 'inset(-10% 100% -10% -10%)' });
-      gsap.set(wordsOf(step), { y: 36, opacity: 0 });
-    });
+    steps.forEach((step) => gsap.set(wordsOf(step), { y: 36, opacity: 0 }));
     gsap.set(dots, { opacity: 0.35 });
     if (bar) gsap.set(bar, { scaleX: 0 });
+    gsap.set(object, { autoAlpha: 0 });
+    gsap.set([P.envBack, P.envFront], { opacity: 0, scale: 0.6, transformOrigin: '50% 50%' });
+    gsap.set(P.flap, { transformOrigin: '50% 0%', scaleY: 1 });
+    gsap.set(P.motif, { opacity: 0 });
+    gsap.set([P.hoop, P.needle, P.parcel], { opacity: 0 });
+    gsap.set(flowerPetals, { scale: 0, transformOrigin: '50% 50%' });
+    gsap.set(P.piece, { transformOrigin: '50% 50%' });
+    gsap.set(P.needle, { x: 40, y: -30 });
+    gsap.set(P.parcel, { scale: 0.7, transformOrigin: '50% 50%' });
+    gsap.set(P.all, { transformOrigin: '50% 50%' });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: 'top top',
-        end: '+=440%',
+        end: '+=560%',
         pin: true,
-        scrub: 0.8,
+        scrub: 0.9,
         refreshPriority: 1,
         invalidateOnRefresh: true,
       },
@@ -494,37 +524,74 @@ function commission() {
     tl.to(intro, { autoAlpha: 0, y: -70, scale: 1.06, filter: 'blur(14px)', ease: 'power2.in', duration: 0.5 }, 0.55);
 
     const first = 1.0;
-    const gap = 1.05;
+    const gap = 1.3;
+    const at = (i: number) => first + i * gap;
+
+    // Words and background: one scene per step.
     steps.forEach((step, i) => {
-      const at = first + i * gap;
-      const art = step.querySelector('.step__art');
-      const icon = step.querySelector('.step-icon');
       const words = wordsOf(step);
-
-      tl.set(step, { autoAlpha: 1 }, at);
-      tl.to(section, { backgroundColor: colours[i], ease: 'none', duration: 0.55 }, at);
-      if (art) tl.to(art, { scale: 1, x: 0, opacity: 1, filter: 'blur(0px)', ease: 'power3.out', duration: 0.6 }, at);
-      if (icon) tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'none', duration: 0.55 }, at + 0.05);
-      tl.to(words, { y: 0, opacity: 1, ease: 'power3.out', duration: 0.45, stagger: 0.08 }, at + 0.18);
-      if (dots[i]) tl.to(dots[i], { opacity: 1, duration: 0.2 }, at);
-
+      tl.set(step, { autoAlpha: 1 }, at(i));
+      tl.to(section, { backgroundColor: colours[i], ease: 'none', duration: 0.6 }, at(i));
+      tl.to(words, { y: 0, opacity: 1, ease: 'power3.out', duration: 0.45, stagger: 0.08 }, at(i) + 0.15);
+      if (dots[i]) tl.to(dots[i], { opacity: 1, duration: 0.2 }, at(i));
       if (i < steps.length - 1) {
-        // Cut: this scene slides away to the left as the next one arrives from the right.
-        const out = at + gap - 0.1;
-        if (art) tl.to(art, { x: -160, scale: 1.12, opacity: 0, filter: 'blur(12px)', ease: 'power2.in', duration: 0.4 }, out);
+        const out = at(i) + gap - 0.12;
         tl.to(words, { y: -34, opacity: 0, ease: 'power2.in', duration: 0.3, stagger: 0.04 }, out);
         tl.set(step, { autoAlpha: 0 }, out + 0.45);
       }
     });
 
-    const last = first + (steps.length - 1) * gap;
+    // The object. 1 Inquiry: an envelope arrives and its flap opens.
+    const s1 = at(0);
+    tl.to(object, { autoAlpha: 1, duration: 0.3 }, s1);
+    tl.to([P.envBack, P.envFront], { opacity: 1, scale: 1, ease: 'back.out(1.4)', duration: 0.6 }, s1);
+    tl.to(P.seal, { scale: 0, transformOrigin: '50% 50%', ease: 'power2.in', duration: 0.25 }, s1 + 0.75);
+    tl.to(P.flap, { scaleY: -1, ease: 'power2.inOut', duration: 0.5 }, s1 + 0.85);
+
+    // 2 Consultation: the sheet slides out, the envelope drops away and the sheet grows.
+    const s2 = at(1);
+    tl.to(P.sheet, { attr: { y: 50 }, ease: 'power2.out', duration: 0.7 }, s2 - 0.3);
+    tl.to([P.envBack, P.envFront], { y: 90, opacity: 0, scale: 0.9, ease: 'power2.in', duration: 0.55 }, s2 + 0.3);
+    tl.to(P.sheet, { attr: { x: 60, y: 90, width: 280, height: 220 }, ease: 'power3.inOut', duration: 0.7 }, s2 + 0.35);
+    tl.to(P.motif, { opacity: 1, duration: 0.4 }, s2 + 0.8);
+
+    // 3 Making: the sheet turns into a hoop and the flower is stitched in with a needle.
+    const s3 = at(2);
+    tl.to(P.motif, { opacity: 0, duration: 0.3 }, s3 - 0.1);
+    tl.to(P.sheet, { attr: { x: 95, y: 95, width: 210, height: 210, rx: 105 }, stroke: '#ece6d8', strokeWidth: 8, fill: 'rgba(46,42,40,0)', ease: 'power3.inOut', duration: 0.8 }, s3);
+    tl.set(P.sheet, { strokeDasharray: '1 0' }, s3 + 0.4);
+    tl.to(P.hoop, { opacity: 1, duration: 0.3 }, s3 + 0.55);
+    tl.to(P.needle, { opacity: 1, x: 0, y: 0, ease: 'power2.out', duration: 0.5 }, s3 + 0.6);
+    // The needle pricks in and out as each petal is stitched.
+    flowerPetals.forEach((petal, k) => {
+      const t = s3 + 0.95 + k * 0.14;
+      tl.to(P.needle, { x: -16, y: 12, ease: 'power1.in', duration: 0.06 }, t - 0.06);
+      tl.to(petal, { scale: 1, ease: 'back.out(2)', duration: 0.22 }, t);
+      tl.to(P.needle, { x: 0, y: 0, ease: 'power1.out', duration: 0.08 }, t + 0.02);
+    });
+    tl.to(P.needle, { x: 180, y: -130, opacity: 0, ease: 'power2.in', duration: 0.5 }, s3 + 1.75);
+
+    // 4 Delivery: the finished piece is wrapped and sent away.
+    const s4 = at(3);
+    tl.to(P.piece, { scale: 0.55, ease: 'power3.inOut', duration: 0.6 }, s4);
+    tl.to(P.parcel, { opacity: 1, scale: 1, ease: 'back.out(1.6)', duration: 0.6 }, s4 + 0.25);
+    tl.to(P.piece, { opacity: 0, duration: 0.3 }, s4 + 0.5);
+    tl.set(P.speed, { opacity: 0 }, s4);
+    tl.to(P.speed, { opacity: 1, duration: 0.2 }, s4 + 1.0);
+    tl.to(
+      P.all,
+      { x: 760, y: 170, rotation: 6, scale: 0.7, ease: 'power2.in', duration: 0.9 },
+      s4 + 1.0,
+    );
+
+    const last = at(steps.length - 1);
     if (bar) tl.to(bar, { scaleX: 1, ease: 'none', duration: last - first }, first);
     // Hold the last scene for a moment before the page moves on.
-    tl.to({}, { duration: 0.7 }, last + 0.6);
+    tl.to({}, { duration: 0.6 }, last + 2.1);
 
     return () => {
       section.classList.remove('is-stage');
-      gsap.set([section, steps, intro, track], { clearProps: 'all' });
+      gsap.set([section, steps, intro, track, object, Object.values(P)], { clearProps: 'all' });
     };
   });
 
