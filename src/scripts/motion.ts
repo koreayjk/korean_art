@@ -274,42 +274,6 @@ function text() {
     });
   });
 
-  // Commission diagram: one stitched thread is drawn through the four steps as the
-  // section passes, and each step comes alive just as the thread reaches it: its
-  // illustration is stitched in from left to right, then the number and words rise.
-  $$('[data-process-track]').forEach((track) => {
-    const thread = track.querySelector<HTMLElement>('[data-process-thread]');
-    const steps = $$('.step', track);
-    if (!thread || steps.length === 0) return;
-    const vertical = () => window.matchMedia('(max-width: 860px)').matches;
-
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: track, start: 'top 78%', end: 'bottom 62%', scrub: 0.7, invalidateOnRefresh: true },
-    });
-    // Everything starts hidden; a tween placed later in the timeline would not set its
-    // starting state until the scroll reaches it, so the starting states are set here.
-    const arts = steps.map((step) => step.querySelector('.step__art')).filter(Boolean) as Element[];
-    const icons = steps.map((step) => step.querySelector('.step-icon')).filter(Boolean) as Element[];
-    gsap.set(thread, { scaleX: vertical() ? 1 : 0, scaleY: vertical() ? 0 : 1 });
-    gsap.set(arts, { scale: 0.55, opacity: 0 });
-    gsap.set(icons, { clipPath: 'inset(-10% 100% -10% -10%)' });
-    gsap.set(steps.flatMap((step) => Array.from(step.querySelectorAll('.step__num, .step__title, .step__body'))), {
-      y: 26,
-      opacity: 0,
-    });
-
-    tl.to(thread, { scaleX: 1, scaleY: 1, ease: 'none', duration: 1 }, 0);
-    steps.forEach((step, i) => {
-      const at = (i / steps.length) * 0.82;
-      const art = step.querySelector('.step__art');
-      const icon = step.querySelector('.step-icon');
-      const words = step.querySelectorAll('.step__num, .step__title, .step__body');
-      if (art) tl.to(art, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.16 }, at);
-      if (icon) tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'none', duration: 0.2 }, at + 0.02);
-      tl.to(words, { y: 0, opacity: 1, ease: 'power2.out', duration: 0.18, stagger: 0.03 }, at + 0.1);
-    });
-  });
-
   // Process steps.
   $$('[data-steps]').forEach((list) => {
     gsap.from(list.children, {
@@ -384,6 +348,7 @@ function depth() {
     $$(selector).forEach((el) => {
       const section = el.closest<HTMLElement>('section') ?? el;
       // Sections that hold still while their text fills in keep their text in place.
+      if (pinned && el.matches('.process__intro, .process__track')) return;
       if (pinned && (el.matches('.interlude') || el.matches('.statement__label, .statement__body'))) return;
       gsap.fromTo(
         el,
@@ -482,6 +447,126 @@ function works() {
   });
 }
 
+/* ---------- Commission: four scenes that cut into one another ---------- */
+
+function commission() {
+  const section = $('#commission');
+  const track = $('[data-process-track]');
+  const intro = $('[data-process-intro]');
+  if (!section || !track || !intro) return;
+  const steps = $$('.step', track);
+  const thread = $('[data-process-thread]', track);
+  const mm = gsap.matchMedia();
+
+  // Large screens: the section holds still and plays like a short film. The title
+  // fades out, then each step arrives as its own scene (the illustration is stitched
+  // in, the words rise, the background turns to the step's colour) and cuts to the next.
+  mm.add('(min-width: 900px) and (min-height: 600px)', () => {
+    section.classList.add('is-stage');
+    const bar = $('[data-process-bar]', section);
+    const dots = $$('[data-process-dot]', section);
+    const colours = ['#242120', '#1a2638', '#3a1a19', '#242120'];
+    const wordsOf = (step: HTMLElement) => Array.from(step.querySelectorAll('.step__num, .step__title, .step__body'));
+
+    gsap.set(section, { backgroundColor: colours[0] });
+    gsap.set(steps, { autoAlpha: 0 });
+    steps.forEach((step) => {
+      gsap.set(step.querySelector('.step__art'), { scale: 0.6, x: 140, opacity: 0, filter: 'blur(10px)' });
+      gsap.set(step.querySelector('.step-icon'), { clipPath: 'inset(-10% 100% -10% -10%)' });
+      gsap.set(wordsOf(step), { y: 36, opacity: 0 });
+    });
+    gsap.set(dots, { opacity: 0.35 });
+    if (bar) gsap.set(bar, { scaleX: 0 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: '+=440%',
+        pin: true,
+        scrub: 0.8,
+        refreshPriority: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    // The title leaves first.
+    tl.to(intro, { autoAlpha: 0, y: -70, scale: 1.06, filter: 'blur(14px)', ease: 'power2.in', duration: 0.5 }, 0.55);
+
+    const first = 1.0;
+    const gap = 1.05;
+    steps.forEach((step, i) => {
+      const at = first + i * gap;
+      const art = step.querySelector('.step__art');
+      const icon = step.querySelector('.step-icon');
+      const words = wordsOf(step);
+
+      tl.set(step, { autoAlpha: 1 }, at);
+      tl.to(section, { backgroundColor: colours[i], ease: 'none', duration: 0.55 }, at);
+      if (art) tl.to(art, { scale: 1, x: 0, opacity: 1, filter: 'blur(0px)', ease: 'power3.out', duration: 0.6 }, at);
+      if (icon) tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'none', duration: 0.55 }, at + 0.05);
+      tl.to(words, { y: 0, opacity: 1, ease: 'power3.out', duration: 0.45, stagger: 0.08 }, at + 0.18);
+      if (dots[i]) tl.to(dots[i], { opacity: 1, duration: 0.2 }, at);
+
+      if (i < steps.length - 1) {
+        // Cut: this scene slides away to the left as the next one arrives from the right.
+        const out = at + gap - 0.1;
+        if (art) tl.to(art, { x: -160, scale: 1.12, opacity: 0, filter: 'blur(12px)', ease: 'power2.in', duration: 0.4 }, out);
+        tl.to(words, { y: -34, opacity: 0, ease: 'power2.in', duration: 0.3, stagger: 0.04 }, out);
+        tl.set(step, { autoAlpha: 0 }, out + 0.45);
+      }
+    });
+
+    const last = first + (steps.length - 1) * gap;
+    if (bar) tl.to(bar, { scaleX: 1, ease: 'none', duration: last - first }, first);
+    // Hold the last scene for a moment before the page moves on.
+    tl.to({}, { duration: 0.7 }, last + 0.6);
+
+    return () => {
+      section.classList.remove('is-stage');
+      gsap.set([section, steps, intro, track], { clearProps: 'all' });
+    };
+  });
+
+  // Small screens and short windows: the four steps stay on the page as a diagram, and
+  // a stitched thread is drawn through them while each one comes alive in turn.
+  mm.add('(max-width: 899px), (max-height: 599px)', () => {
+    if (!thread || steps.length === 0) return;
+    const vertical = () => window.matchMedia('(max-width: 860px)').matches;
+    gsap.from(intro.children, {
+      y: 36,
+      autoAlpha: 0,
+      duration: 1.6,
+      ease: 'expo.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: intro, start: 'top 85%', once: true },
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger: track, start: 'top 78%', end: 'bottom 62%', scrub: 0.7, invalidateOnRefresh: true },
+    });
+    const arts = steps.map((step) => step.querySelector('.step__art')).filter(Boolean) as Element[];
+    const icons = steps.map((step) => step.querySelector('.step-icon')).filter(Boolean) as Element[];
+    gsap.set(thread, { scaleX: vertical() ? 1 : 0, scaleY: vertical() ? 0 : 1 });
+    gsap.set(arts, { scale: 0.55, opacity: 0 });
+    gsap.set(icons, { clipPath: 'inset(-10% 100% -10% -10%)' });
+    gsap.set(steps.flatMap((step) => Array.from(step.querySelectorAll('.step__num, .step__title, .step__body'))), {
+      y: 26,
+      opacity: 0,
+    });
+    tl.to(thread, { scaleX: 1, scaleY: 1, ease: 'none', duration: 1 }, 0);
+    steps.forEach((step, i) => {
+      const at = (i / steps.length) * 0.82;
+      const art = step.querySelector('.step__art');
+      const icon = step.querySelector('.step-icon');
+      const words = step.querySelectorAll('.step__num, .step__title, .step__body');
+      if (art) tl.to(art, { scale: 1, opacity: 1, ease: 'power2.out', duration: 0.16 }, at);
+      if (icon) tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'none', duration: 0.2 }, at + 0.02);
+      tl.to(words, { y: 0, opacity: 1, ease: 'power2.out', duration: 0.18, stagger: 0.03 }, at + 0.1);
+    });
+  });
+}
+
 /* ---------- Start ---------- */
 
 history.scrollRestoration = 'manual';
@@ -504,6 +589,7 @@ fontsReady.then(() => {
     subjects();
     depth();
     works();
+    commission();
   } else {
     $('[data-intro]')?.remove();
   }

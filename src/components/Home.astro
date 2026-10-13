@@ -173,7 +173,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
 
   <!-- Commission -->
   <section id="commission" class="process" aria-labelledby="commission-title">
-    <div class="process__intro" data-reveal-group>
+    <div class="process__intro" data-process-intro>
       <div class="label">
         {t.commission.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
       </div>
@@ -196,6 +196,18 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
           ))
         }
       </ol>
+      <div class="process__progress" aria-hidden="true">
+        <span class="process__rail"></span>
+        <span class="process__bar" data-process-bar></span>
+        {
+          t.commission.steps.map((step, i) => (
+            <span class="process__dot" data-process-dot>
+              <i></i>
+              <b>{pad(i + 1)} {step.title}</b>
+            </span>
+          ))
+        }
+      </div>
     </div>
   </section>
 
