@@ -669,7 +669,7 @@ button {
 
 .interlude__stitch {
   /* Gold thread cut out of its cloth, so the lettering sits straight on the page. */
-  width: min(70%, 770px);
+  width: min(60%, 650px);
 }
 
 .interlude__stitch img {
@@ -682,7 +682,7 @@ button {
 .interlude__en {
   /* White thread, cut out of its cloth like the Korean line above. */
   width: min(38%, 280px);
-  margin-top: clamp(-8px, -1vw, 0px);
+  margin-top: clamp(20px, 3vw, 44px);
 }
 
 .interlude__en img {
