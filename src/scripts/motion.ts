@@ -10,10 +10,9 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-// The visitor's "reduce motion" setting turns every animation off. Adding ?motion=on to
-// the address plays them anyway, so the effects can be reviewed on a device that has it set.
-const forceMotion = new URLSearchParams(location.search).get('motion') === 'on';
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !forceMotion;
+// Motion plays for everyone, including visitors whose device is set to "reduce motion":
+// the site is built around it. Adding ?motion=off to the address turns it off.
+const reduce = new URLSearchParams(location.search).get('motion') === 'off';
 
 const $ = <T extends HTMLElement = HTMLElement>(selector: string, root: ParentNode = document) =>
   root.querySelector<T>(selector);

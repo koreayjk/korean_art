@@ -1054,15 +1054,6 @@ button {
 
 /* ---------- Reduced motion ---------- */
 
-@media (prefers-reduced-motion: reduce) {
-  .hero__cue span {
-    animation: none;
-  }
-  .js .intro {
-    display: none;
-  }
-}
-
 /* The cut-out subject sits exactly over its photograph and grows on scroll. */
 .cutout {
   position: absolute;
