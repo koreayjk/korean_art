@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { site, steps, works } from '../data/site';
+import { subjects } from '../data/subjects';
 
 import hero from '../assets/images/hero.jpg';
 import master from '../assets/images/master.jpg';
@@ -13,7 +14,17 @@ import work3 from '../assets/images/work3.jpg';
 import work4 from '../assets/images/work4.jpg';
 import work5 from '../assets/images/work5.jpg';
 
+import heroCut from '../assets/cutouts/hero.webp';
+import masterCut from '../assets/cutouts/master.webp';
+import makingCut from '../assets/cutouts/making.webp';
+import work1Cut from '../assets/cutouts/work1.webp';
+import work2Cut from '../assets/cutouts/work2.webp';
+import work3Cut from '../assets/cutouts/work3.webp';
+import work4Cut from '../assets/cutouts/work4.webp';
+import work5Cut from '../assets/cutouts/work5.webp';
+
 const workImages = { work1, work2, work3, work4, work5 };
+const workCutouts = { work1: work1Cut, work2: work2Cut, work3: work3Cut, work4: work4Cut, work5: work5Cut };
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
@@ -23,6 +34,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <div class="hero__media" aria-hidden="true" data-hero-media>
       <div class="hero__media-in" data-hero-image>
         <Image src={hero} alt="" widths={[960, 1440, 1920, 2688]} sizes="100vw" loading="eager" fetchpriority="high" />
+        <Image class="cutout" src={heroCut} alt="" widths={[960, 1440, 1920, 2688]} sizes="100vw" loading="eager" data-subject="hero" data-cx={subjects.hero[0]} data-cy={subjects.hero[1]} />
       </div>
     </div>
 
@@ -59,6 +71,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <div class="split__media" style="background: #10151f" data-image>
       <div class="split__media-in" data-parallax>
         <Image src={master} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 8% center" />
+        <Image class="cutout" src={masterCut} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 8% center" data-subject="frame" data-cx={subjects.master[0]} data-cy={subjects.master[1]} />
       </div>
     </div>
     <div class="split__body split__body--indigo" data-reveal-group>
@@ -116,6 +129,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <article class="card" data-card>
               <div class="card__media">
                 <Image src={workImages[work.key]} alt={work.alt} widths={[480, 800]} sizes="(max-width: 900px) 70vw, 30vw" />
+                <Image class="cutout" src={workCutouts[work.key]} alt="" widths={[480, 800]} sizes="(max-width: 900px) 70vw, 30vw" data-subject="card" data-cx={subjects[work.key][0]} data-cy={subjects[work.key][1]} />
               </div>
               <div>
                 <div class="card__row">
@@ -148,6 +162,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <div class="split__media" style="background: #241110" data-image>
       <div class="split__media-in" data-parallax>
         <Image src={making} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 66% center" />
+        <Image class="cutout" src={makingCut} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 66% center" data-subject="frame" data-cx={subjects.making[0]} data-cy={subjects.making[1]} />
       </div>
     </div>
   </section>

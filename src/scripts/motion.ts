@@ -180,7 +180,6 @@ function heroScroll() {
   if (!hero) return;
   gsap.to('[data-hero-media]', {
     yPercent: 14,
-    scale: 1.12,
     ease: 'none',
     scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
   });
@@ -274,22 +273,55 @@ function text() {
   });
 }
 
+/* ---------- Subjects: the piece or the hands grow, the background stays ---------- */
+
+// Where the subject sits inside the element once object-fit: cover has cropped it,
+// so it grows from its own centre rather than from the middle of the frame.
+function subjectOrigin(img: HTMLElement) {
+  const cx = Number(img.dataset.cx);
+  const cy = Number(img.dataset.cy);
+  const nw = Number(img.getAttribute('width')) || 1;
+  const nh = Number(img.getAttribute('height')) || 1;
+  const bw = img.clientWidth;
+  const bh = img.clientHeight;
+  const scale = Math.max(bw / nw, bh / nh);
+  const [px, py] = getComputedStyle(img)
+    .objectPosition.split(' ')
+    .map((v) => parseFloat(v) / 100);
+  const dw = nw * scale;
+  const dh = nh * scale;
+  return `${(bw - dw) * px + cx * dw}px ${(bh - dh) * py + cy * dh}px`;
+}
+
+function grow(img: HTMLElement, trigger: ScrollTrigger.Vars, to: number) {
+  gsap.fromTo(
+    img,
+    { scale: 1, transformOrigin: () => subjectOrigin(img) },
+    { scale: to, ease: 'none', scrollTrigger: { ...trigger, scrub: 0.6, invalidateOnRefresh: true } },
+  );
+}
+
+function subjects() {
+  const hero = $('[data-hero]');
+  const heroSubject = $('[data-subject="hero"]');
+  if (hero && heroSubject) {
+    grow(heroSubject, { trigger: hero, start: 'top top', end: 'bottom top' }, 1.35);
+  }
+  $$('[data-subject="frame"]').forEach((img) => {
+    const frame = img.closest<HTMLElement>('[data-image]');
+    if (frame) grow(img, { trigger: frame, start: 'top 90%', end: 'bottom 10%' }, 1.4);
+  });
+}
+
 /* ---------- Images ---------- */
 
 function images() {
-  // The photograph grows as it is scrolled into view: a small window in the
-  // middle opens out to the full frame, rising into place at the same time.
-  // Tied to the scroll position, so it plays backwards when scrolling up.
+  // Each frame rises into place; the subject inside grows (see subjects()).
   $$('[data-image]').forEach((frame) => {
     gsap.fromTo(
       frame,
-      { clipPath: 'inset(34% 30% 34% 30%)', y: 90 },
-      {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        y: 0,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: frame, start: 'top 100%', end: 'top 12%', scrub: 0.6 },
-      },
+      { y: 90 },
+      { y: 0, ease: 'power2.out', scrollTrigger: { trigger: frame, start: 'top 100%', end: 'top 30%', scrub: 0.6 } },
     );
   });
 
@@ -305,21 +337,6 @@ function images() {
       },
     );
   });
-
-  // Closing photograph opens out to the full width as it arrives.
-  const closing = $('.closing');
-  const closingMedia = closing?.querySelector('.closing__media');
-  if (closing && closingMedia) {
-    gsap.fromTo(
-      closingMedia,
-      { clipPath: 'inset(26% 24% 26% 24%)' },
-      {
-        clipPath: 'inset(0% 0% 0% 0%)',
-        ease: 'power2.out',
-        scrollTrigger: { trigger: closing, start: 'top 100%', end: 'top 15%', scrub: 0.6 },
-      },
-    );
-  }
 }
 
 /* ---------- Works: sideways gallery ---------- */
@@ -366,25 +383,10 @@ function works() {
       },
     });
 
-    // Each photograph opens out as it slides in from the right.
+    // The pieces grow as they slide across; the background of each card stays put.
     cards.forEach((card) => {
-      const media = card.querySelector('.card__media');
-      if (!media) return;
-      gsap.fromTo(
-        media,
-        { clipPath: 'inset(30% 26% 30% 26%)' },
-        {
-          clipPath: 'inset(0% 0% 0% 0%)',
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: slide,
-            start: 'left 98%',
-            end: 'left 55%',
-            scrub: 0.6,
-          },
-        },
-      );
+      const subject = card.querySelector<HTMLElement>('[data-subject]');
+      if (subject) grow(subject, { trigger: card, containerAnimation: slide, start: 'left 98%', end: 'left 15%' }, 1.3);
     });
 
     return () => {
@@ -413,6 +415,7 @@ fontsReady.then(() => {
     heroScroll();
     text();
     images();
+    subjects();
     works();
   } else {
     $('[data-intro]')?.remove();
