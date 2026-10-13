@@ -485,6 +485,7 @@ function commission() {
       flower: po('flower'),
       needle: po('needle'),
       parcel: po('parcel'),
+      knot: po('knot'),
       speed: po('speed'),
     };
     if (!object || Object.values(parts).some((part) => !part)) return;
@@ -504,6 +505,7 @@ function commission() {
     gsap.set([P.hoop, P.needle, P.parcel], { opacity: 0 });
     gsap.set(flowerPetals, { scale: 0, transformOrigin: '50% 50%' });
     gsap.set(P.piece, { transformOrigin: '50% 50%' });
+    gsap.set(P.knot, { attr: { cx: 200, cy: 203, r: 13 }, opacity: 0 });
     gsap.set(P.needle, { x: 40, y: -30 });
     gsap.set(P.parcel, { scale: 0.7, transformOrigin: '50% 50%' });
     gsap.set(P.all, { transformOrigin: '50% 50%' });
@@ -578,6 +580,12 @@ function commission() {
 
     // 4 Delivery: the finished piece is wrapped and sent away.
     const s4 = at(3);
+    // The flower's gold centre is handed over to a copy that stays put while the rest of
+    // the piece shrinks away, then settles into the knot of the ribbon.
+    const centre = flowerPetals[flowerPetals.length - 1];
+    tl.set(P.knot, { opacity: 1 }, s4);
+    tl.set(centre, { opacity: 0 }, s4);
+    tl.to(P.knot, { attr: { cy: 215, r: 11 }, ease: 'power3.inOut', duration: 0.7 }, s4 + 0.3);
     tl.to(P.piece, { scale: 0.55, ease: 'power3.inOut', duration: 0.6 }, s4);
     tl.to(P.parcel, { opacity: 1, scale: 1, ease: 'back.out(1.6)', duration: 0.6 }, s4 + 0.25);
     tl.to(P.piece, { opacity: 0, duration: 0.3 }, s4 + 0.5);
