@@ -235,7 +235,8 @@ function text() {
     const tl = gsap.timeline({ scrollTrigger });
     tl.fromTo(stitch, dissolve, clear, 0);
     if (english) tl.fromTo(english, dissolve, clear, 0.2);
-    if (thread) tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: 0.6 }, 0);
+    // The five-colour thread slows as it nears the end, so it settles instead of stopping short.
+    if (thread) tl.fromTo(thread, { scaleX: 0 }, { scaleX: 1, ease: 'power3.out', duration: 0.85 }, 0);
     tl.to({}, { duration: 0.35 }, 0.7);
   });
 
