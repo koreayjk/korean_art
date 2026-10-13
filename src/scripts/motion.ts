@@ -213,7 +213,7 @@ function text() {
     const scrollTrigger =
       pinned && section
         ? { trigger: section, start: 'center center', end: '+=90%', pin: true, scrub: 0.5, refreshPriority: 1 }
-        : { trigger: paragraph, start: 'top 82%', end: 'bottom 55%', scrub: 0.4 };
+        : { trigger: paragraph, start: 'top 98%', end: 'bottom 78%', scrub: 0.4 };
     gsap.fromTo(split.words, { opacity: 0.16 }, { opacity: 1, ease: 'none', stagger: 0.05, scrollTrigger });
   });
 
@@ -227,7 +227,7 @@ function text() {
     const scrollTrigger =
       pinned && section
         ? { trigger: section, start: 'center center', end: '+=70%', pin: true, scrub: 0.5, refreshPriority: 1 }
-        : { trigger: stitch, start: 'top 84%', end: 'top 30%', scrub: 0.5 };
+        : { trigger: stitch, start: 'top 98%', end: 'top 55%', scrub: 0.5 };
     // The dissolves finish early (the Korean by about half-way through the scroll, the
     // English by two thirds) and the rest of the scroll just holds the finished picture.
     const dissolve = { opacity: 0, filter: 'blur(10px)' };
@@ -239,6 +239,9 @@ function text() {
     tl.to({}, { duration: 0.35 }, 0.7);
   });
 
+  // On phones the reveals fire as the element enters, so it is nearly complete by the lower quarter.
+  const small = window.matchMedia('(max-width: 860px)').matches;
+
   // Headings: each line rises out of its own mask.
   $$('h2.display').forEach((heading) => {
     const split = SplitText.create(heading, { type: 'lines', mask: 'lines' });
@@ -247,7 +250,7 @@ function text() {
       duration: 1.8,
       ease: 'expo.out',
       stagger: 0.12,
-      scrollTrigger: { trigger: heading, start: 'top 92%', once: true },
+      scrollTrigger: { trigger: heading, start: small ? 'top 100%' : 'top 92%', once: true },
     });
   });
 
@@ -258,7 +261,7 @@ function text() {
       autoAlpha: 0,
       duration: 1.8,
       ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 96%', once: true },
+      scrollTrigger: { trigger: el, start: small ? 'top 100%' : 'top 96%', once: true },
     });
   });
 
@@ -270,7 +273,7 @@ function text() {
       duration: 1.8,
       ease: 'expo.out',
       stagger: 0.12,
-      scrollTrigger: { trigger: group, start: 'top 88%', once: true },
+      scrollTrigger: { trigger: group, start: small ? 'top 100%' : 'top 88%', once: true },
     });
   });
 
@@ -282,7 +285,7 @@ function text() {
       duration: 1.7,
       ease: 'expo.out',
       stagger: 0.14,
-      scrollTrigger: { trigger: list, start: 'top 90%', once: true },
+      scrollTrigger: { trigger: list, start: small ? 'top 100%' : 'top 90%', once: true },
     });
   });
 }
@@ -658,7 +661,7 @@ function commission() {
       gsap.set(art, { scale: 0.55, opacity: 0 });
       gsap.set(icon, { clipPath: 'inset(-10% 100% -10% -10%)' });
       gsap.set(words, { y: 24, opacity: 0 });
-      const tl = gsap.timeline({ scrollTrigger: { trigger: step, start: 'top 96%', once: true } });
+      const tl = gsap.timeline({ scrollTrigger: { trigger: step, start: 'top 78%', once: true } });
       tl.to(art, { scale: 1, opacity: 1, ease: 'expo.out', duration: 0.9 }, 0);
       tl.to(icon, { clipPath: 'inset(-10% -10% -10% -10%)', ease: 'power2.out', duration: 0.9 }, 0.05);
       tl.to(words, { y: 0, opacity: 1, ease: 'expo.out', duration: 1, stagger: 0.07 }, 0.1);
