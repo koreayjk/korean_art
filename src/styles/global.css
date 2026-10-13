@@ -676,12 +676,12 @@ button {
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+  filter: url(#thread-light) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
 }
 
 .interlude__en {
   /* White thread, cut out of its cloth like the Korean line above. */
-  width: min(49%, 364px);
+  width: min(38%, 280px);
   margin-top: clamp(-8px, -1vw, 0px);
 }
 
@@ -689,7 +689,7 @@ button {
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.45));
+  filter: url(#thread-light) drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5)) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
 }
 
 /* ---------- Works ---------- */

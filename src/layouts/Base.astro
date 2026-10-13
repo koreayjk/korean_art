@@ -35,6 +35,25 @@ const { title = site.title, description = site.description } = Astro.props;
     </script>
   </head>
   <body>
+    <!-- Soft raised-thread lighting for the embroidered lettering: the brightness of the
+         photograph is read as relief and lit from the upper left. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <filter id="thread-light" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.3 0.59 0.11 0 0" result="relief" />
+        <feGaussianBlur in="relief" stdDeviation="2.2" result="soft" />
+        <feSpecularLighting in="soft" surfaceScale="5" specularConstant="0.95" specularExponent="26" lighting-color="#fff4dc" result="shine">
+          <feDistantLight azimuth="225" elevation="38" />
+        </feSpecularLighting>
+        <feComposite in="shine" in2="SourceAlpha" operator="in" result="shine-in" />
+        <feComponentTransfer in="shine-in" result="shine-soft">
+          <feFuncA type="linear" slope="0.55" />
+          <feFuncR type="linear" slope="0.55" />
+          <feFuncG type="linear" slope="0.55" />
+          <feFuncB type="linear" slope="0.55" />
+        </feComponentTransfer>
+        <feBlend in="shine-soft" in2="SourceGraphic" mode="screen" />
+      </filter>
+    </svg>
     <div class="intro" aria-hidden="true" data-intro>
       <div class="intro__name">ARAM</div>
       <div class="intro__bar"><div class="intro__fill" data-intro-fill></div></div>
