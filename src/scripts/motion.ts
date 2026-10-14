@@ -351,6 +351,8 @@ function depth() {
   layers.forEach(([selector, distance]) => {
     $$(selector).forEach((el) => {
       const section = el.closest<HTMLElement>('section') ?? el;
+      // The master header band stays put, so it lines up with its photograph.
+      if (el.closest('.split--head')) return;
       // Sections that hold still while their text fills in keep their text in place.
       if (pinned && el.matches('.process__intro, .process__track')) return;
       if (pinned && (el.matches('.interlude') || el.matches('.statement__label, .statement__body'))) return;
@@ -372,6 +374,7 @@ function depth() {
 function images() {
   // Each frame rises into place; the subject inside grows (see subjects()).
   $$('[data-image]').forEach((frame) => {
+    if (frame.closest('.split--head')) return;
     gsap.fromTo(
       frame,
       { y: 104 },
@@ -670,6 +673,32 @@ function commission() {
   });
 }
 
+/* ---------- Biography line: the line fills down the page and each year lights up ---------- */
+function lifeline() {
+  const list = $('[data-life]');
+  const fill = $('[data-life-fill]');
+  if (!list || !fill) return;
+
+  gsap.fromTo(
+    fill,
+    { scaleY: 0 },
+    {
+      scaleY: 1,
+      ease: 'none',
+      scrollTrigger: { trigger: list, start: 'top 62%', end: 'bottom 62%', scrub: 0.6 },
+    },
+  );
+
+  $$('[data-life-row]', list).forEach((row) => {
+    ScrollTrigger.create({
+      trigger: row,
+      start: 'top 62%',
+      onEnter: () => row.classList.add('is-on'),
+      onLeaveBack: () => row.classList.remove('is-on'),
+    });
+  });
+}
+
 /* ---------- Start ---------- */
 
 history.scrollRestoration = 'manual';
@@ -693,6 +722,7 @@ fontsReady.then(() => {
     depth();
     works();
     commission();
+    lifeline();
   } else {
     $('[data-intro]')?.remove();
   }

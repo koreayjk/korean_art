@@ -36,6 +36,12 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = copy[locale];
+const career = t.pages.master.career;
+// Biography and exhibitions on one line of years: filled dots for biography, hollow for exhibitions.
+const lifeline = [
+  ...career.biography.items.map(([when, what]) => ({ when, what, type: 'bio' })),
+  ...career.exhibitions.items.map(([when, what]) => ({ when, what, type: 'exh' })),
+].sort((a, b) => parseInt(a.when) - parseInt(b.when));
 const workKeys = ['work1', 'work2', 'work3', 'work4', 'work5'] as const;
 const stepIcons = ['inquiry', 'consultation', 'making', 'delivery'] as const;
 // Marks the Korean label first on the Korean page, with the English as its small companion.
@@ -79,7 +85,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
   </section>
 
   <!-- The master -->
-  <section id="master" class="split" aria-labelledby="master-title">
+  <section id="master" class="split split--head" aria-labelledby="master-title">
     <div class="split__media" style="background: #10151f" data-image>
       <div class="split__media-in" data-parallax>
         <Image src={master} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 8% center" />
@@ -98,25 +104,29 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
       <dl class="facts">
         {t.master.facts.map(([term, value]) => <div><dt>{term}</dt><dd>{value}</dd></div>)}
       </dl>
-      <div class="career career--in">
-      {
-        [t.pages.master.career.biography, t.pages.master.career.exhibitions].map((block) => (
-          <div class="career__block">
-            <h2 class="page__subtitle">{block.title}</h2>
-            <dl class="timeline">
-              {block.items.map(([when, what]) => (
-                <div>
-                  <dt>{when}</dt>
-                  <dd>{what}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        ))
-      }
-      </div>
       <a class="link" href={url(locale, 'master')}>{t.master.link}</a>
     </div>
+  </section>
+
+  <!-- Biography and exhibitions as one line down the page -->
+  <section class="life" aria-label={`${career.biography.title} / ${career.exhibitions.title}`}>
+    <div class="life__key" data-reveal>
+      <span class="life__key-item"><i class="life__dot life__dot--bio"></i>{career.biography.title}</span>
+      <span class="life__key-item"><i class="life__dot life__dot--exh"></i>{career.exhibitions.title}</span>
+    </div>
+    <ol class="life__list" data-life>
+      <span class="life__rail" aria-hidden="true"></span>
+      <span class="life__fill" aria-hidden="true" data-life-fill></span>
+      {
+        lifeline.map((item) => (
+          <li class={`life__row life__row--${item.type}`} data-life-row>
+            <span class="life__year">{item.when}</span>
+            <i class={`life__dot life__dot--${item.type}`} aria-hidden="true"></i>
+            <p class="life__text">{item.what}</p>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 
   <!-- Interlude -->
