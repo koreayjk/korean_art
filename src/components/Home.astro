@@ -86,7 +86,7 @@ const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko'
         <Image class="cutout" src={masterCut} alt="" widths={[720, 1080, 1600]} sizes="(max-width: 860px) 100vw, 50vw" style="object-position: 8% center" data-subject="frame" data-cx={subjects.master[0]} data-cy={subjects.master[1]} />
       </div>
     </div>
-    <div class="split__body is-paper" data-reveal-group>
+    <div class="split__body split__body--indigo" data-reveal-group>
       <div class="label">
         {t.master.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
       </div>
