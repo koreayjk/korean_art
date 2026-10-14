@@ -1823,3 +1823,28 @@ html[lang='ko'] .page__lead {
 .is-paper :focus-visible {
   outline-color: var(--ink);
 }
+
+/* Korean pages: the whole text is set in Song Myung (single weight, so no faux bold). */
+html[lang='ko'] {
+  --display: 'Song Myung', 'Noto Serif KR', serif;
+  --body: 'Song Myung', 'Noto Serif KR', serif;
+  --korean: 'Song Myung', 'Noto Serif KR', serif;
+}
+
+html[lang='ko'] .display,
+html[lang='ko'] .step__title,
+html[lang='ko'] .card__title {
+  font-weight: 400;
+}
+
+/* The English title on the Korean home keeps its own typeface. */
+html[lang='ko'] .hero__title {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+}
+
+/* The wordmark stays Latin. */
+html[lang='ko'] .header__logo,
+html[lang='ko'] .intro__name {
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+}
