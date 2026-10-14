@@ -1463,7 +1463,7 @@ html[lang='ko'] .hero__title {
   min-height: 70vh;
 }
 
-/* Paper pages sit below the header so the torn top edge shows, and the padding clears the edges. */
+/* Paper pages sit below the header so the faded top edge shows, and the padding clears the edges. */
 .page.is-paper {
   margin-top: var(--header-h);
   padding-top: clamp(72px, 9vw, 130px);
@@ -1774,16 +1774,10 @@ html[lang='ko'] .page__lead {
   background-image: url('../assets/paper/hanji.webp');
   background-size: 640px 640px;
   color: var(--ink);
-  /* The top and bottom edges are torn, with a fibrous fringe, like a sheet laid on the dark. */
-  --edge: 44px;
-  -webkit-mask-image: url('../assets/paper/edge-top.png'), url('../assets/paper/edge-bottom.png'), linear-gradient(#000, #000);
-  mask-image: url('../assets/paper/edge-top.png'), url('../assets/paper/edge-bottom.png'), linear-gradient(#000, #000);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: top left, bottom left, 0 calc(var(--edge) - 2px);
-  mask-position: top left, bottom left, 0 calc(var(--edge) - 2px);
-  -webkit-mask-size: 100% var(--edge), 100% var(--edge), 100% calc(100% - var(--edge) * 2 + 4px);
-  mask-size: 100% var(--edge), 100% var(--edge), 100% calc(100% - var(--edge) * 2 + 4px);
+  /* The top and bottom edges fade softly into the dark ground. */
+  --edge: 56px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--edge), #000 calc(100% - var(--edge)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--edge), #000 calc(100% - var(--edge)), transparent);
 }
 
 .is-paper ::selection {
