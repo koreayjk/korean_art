@@ -1463,6 +1463,13 @@ html[lang='ko'] .hero__title {
   min-height: 70vh;
 }
 
+/* Paper pages sit below the header so the torn top edge shows, and the padding clears the edges. */
+.page.is-paper {
+  margin-top: var(--header-h);
+  padding-top: clamp(72px, 9vw, 130px);
+  padding-bottom: clamp(96px, 11vw, 160px);
+}
+
 .page__head {
   display: flex;
   flex-direction: column;
@@ -1762,8 +1769,21 @@ html[lang='ko'] .page__lead {
   --soft: #4a443d;
   --muted: #6f675c;
   --line: rgba(36, 33, 32, 0.18);
-  background: var(--paper);
+  background-color: var(--paper);
+  /* Hanji: soft mottling and long fibres over the ivory. */
+  background-image: url('../assets/paper/hanji.webp');
+  background-size: 640px 640px;
   color: var(--ink);
+  /* The top and bottom edges are torn, with a fibrous fringe, like a sheet laid on the dark. */
+  --edge: 44px;
+  -webkit-mask-image: url('../assets/paper/edge-top.png'), url('../assets/paper/edge-bottom.png'), linear-gradient(#000, #000);
+  mask-image: url('../assets/paper/edge-top.png'), url('../assets/paper/edge-bottom.png'), linear-gradient(#000, #000);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: top left, bottom left, 0 calc(var(--edge) - 2px);
+  mask-position: top left, bottom left, 0 calc(var(--edge) - 2px);
+  -webkit-mask-size: 100% var(--edge), 100% var(--edge), 100% calc(100% - var(--edge) * 2 + 4px);
+  mask-size: 100% var(--edge), 100% var(--edge), 100% calc(100% - var(--edge) * 2 + 4px);
 }
 
 .is-paper ::selection {
