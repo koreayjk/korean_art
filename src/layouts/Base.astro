@@ -54,7 +54,7 @@ const addresses = { en: new URL(slug, root).href, ko: new URL(`${copy.ko.path}${
       document.documentElement.classList.add('js');
     </script>
   </head>
-  <body>
+  <body class:list={[onHome ? 'is-home' : 'is-page', slug && `page-${slug.replace('/', '')}`]}>
     <!-- Soft raised-thread lighting for the embroidered lettering: the brightness of the
          photograph is read as relief and lit from the upper left. -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">

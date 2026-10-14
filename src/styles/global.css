@@ -1834,83 +1834,58 @@ html[lang='ko'] .page__lead {
   outline-color: var(--ink);
 }
 
-/* Korean pages: the whole text is set in Song Myung (single weight, so no faux bold). */
-html[lang='ko'] {
+/* Korean sub-pages: the whole text is set in Song Myung (single weight, so no faux bold).
+   The home page keeps Pretendard, with Song Myung only on the craft statement. */
+html[lang='ko'] body:not(.is-home) {
   --display: 'Song Myung', 'Noto Serif KR', serif;
   --body: 'Song Myung', 'Noto Serif KR', serif;
   --korean: 'Song Myung', 'Noto Serif KR', serif;
 }
 
-html[lang='ko'] .display,
-html[lang='ko'] .step__title,
-html[lang='ko'] .card__title {
+html[lang='ko'] body:not(.is-home) .display,
+html[lang='ko'] body:not(.is-home) .step__title,
+html[lang='ko'] body:not(.is-home) .card__title {
   font-weight: 400;
 }
 
-/* The English title on the Korean home keeps its own typeface. */
-html[lang='ko'] .hero__title {
-  font-family: 'Cinzel', serif;
-  font-weight: 600;
-}
-
 /* The wordmark stays Latin. */
-html[lang='ko'] .header__logo,
-html[lang='ko'] .intro__name {
+html[lang='ko'] body:not(.is-home) .header__logo {
   font-family: 'Inter Variable', 'Inter', sans-serif;
 }
 
-/* English pages: all text in Zeyada (a pen hand). The hero title stays Cinzel and the wordmark Inter. */
-html[lang='en'] {
+/* English journal and master pages: all text in Zeyada (a pen hand). The wordmark stays Inter. */
+html[lang='en'] body.page-journal,
+html[lang='en'] body.page-master {
   --display: 'Zeyada Fit', 'Zeyada', cursive;
   --body: 'Zeyada Fit', 'Zeyada', cursive;
 }
 
-html[lang='en'] .display,
-html[lang='en'] .step__title,
-html[lang='en'] .card__title,
-html[lang='en'] .statement__text {
+html[lang='en'] :is(.page-journal, .page-master) .display,
+html[lang='en'] :is(.page-journal, .page-master) .statement__text {
   font-weight: 400;
   letter-spacing: 0;
 }
 
-html[lang='en'] .label,
-html[lang='en'] .header__nav .link,
-html[lang='en'] .header__side .link {
+html[lang='en'] :is(.page-journal, .page-master) .label,
+html[lang='en'] :is(.page-journal, .page-master) .header__nav .link,
+html[lang='en'] :is(.page-journal, .page-master) .header__side .link {
   text-transform: none;
   letter-spacing: 0.02em;
 }
 
-html[lang='en'] .hero__title {
-  font-family: 'Cinzel', serif;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-html[lang='en'] .header__logo,
-html[lang='en'] .intro__name {
+html[lang='en'] :is(.page-journal, .page-master) .header__logo {
   font-family: 'Inter Variable', 'Inter', sans-serif;
 }
 
-/* Zeyada is thin, so the small text is a little larger on the English pages. */
-html[lang='en'] .header__nav .link,
-html[lang='en'] .header__side .link,
-html[lang='en'] .header__menu,
-html[lang='en'] .link,
-html[lang='en'] .footer {
+/* Zeyada is thin, so the small text is a little larger on those pages. */
+html[lang='en'] :is(.page-journal, .page-master) .header__nav .link,
+html[lang='en'] :is(.page-journal, .page-master) .header__side .link,
+html[lang='en'] :is(.page-journal, .page-master) .header__menu,
+html[lang='en'] :is(.page-journal, .page-master) .link,
+html[lang='en'] :is(.page-journal, .page-master) .footer {
   font-size: 16px;
 }
 
-html[lang='en'] .label {
+html[lang='en'] :is(.page-journal, .page-master) .label {
   font-size: 15px;
-}
-
-html[lang='en'] .field label,
-html[lang='en'] .field small,
-html[lang='en'] .form__status,
-html[lang='en'] .form__send {
-  font-size: 16px;
-}
-
-html[lang='en'] .preview-badge {
-  font-size: 14px;
 }
