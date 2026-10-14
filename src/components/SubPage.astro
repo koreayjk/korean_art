@@ -22,7 +22,7 @@ const lead = p[page].lead;
 ---
 
 <Base locale={locale} pageTitle={title} pageDescription={lead} slug={`${page}/`}>
-  <article class={`page page--${page}`}>
+  <article class:list={['page', `page--${page}`, { 'is-paper': page !== 'journal' }]}>
     <header class="page__head" data-reveal-group>
       <div class="label">{label.map((x) => <span lang={lang(x)}>{x}</span>)}</div>
       <h1 class="display h1">{title}</h1>

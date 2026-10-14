@@ -13,6 +13,8 @@
   --indigo: #1a2638;
   --crimson: #3a1a19;
   --seal: #a8322b;
+  --paper: #efe8da;
+  --ink: #242120;
 
   /* Clean, Apple-style type: Inter for Latin, Pretendard for Hangul. */
   --display: 'Inter Variable', 'Pretendard', -apple-system, system-ui, sans-serif;
@@ -1749,4 +1751,61 @@ html[lang='ko'] .page__lead {
   .career--in {
     grid-template-columns: 1fr;
   }
+}
+
+/* ---------- Light (hanji) surfaces ----------
+   Warm ivory with the ground colour as ink, mixed in among the dark scenes. Anything on
+   one reads the colours below instead of the dark-theme ones. */
+
+.is-paper {
+  --text: var(--ink);
+  --soft: #4a443d;
+  --muted: #6f675c;
+  --line: rgba(36, 33, 32, 0.18);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.is-paper ::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.is-paper .label,
+.is-paper .facts dt,
+.is-paper .hangul,
+.is-paper .page__subtitle,
+.is-paper .timeline dt {
+  color: var(--muted);
+}
+
+.is-paper .facts,
+.is-paper .facts div,
+.is-paper .timeline,
+.is-paper .timeline div,
+.is-paper .entry {
+  border-color: var(--line);
+}
+
+.is-paper .field input,
+.is-paper .field textarea,
+.is-paper .field select {
+  border-bottom-color: rgba(36, 33, 32, 0.35);
+}
+
+.is-paper .field select option {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.is-paper .field [aria-invalid] {
+  border-bottom-color: var(--seal);
+}
+
+.is-paper .form__status[data-tone='error'] {
+  color: var(--seal);
+}
+
+.is-paper :focus-visible {
+  outline-color: var(--ink);
 }
