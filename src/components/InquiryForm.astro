@@ -4,7 +4,6 @@ import { site } from '../data/site';
 
 interface Props {
   locale: Locale;
-  kind: 'consultation' | 'institutions';
 }
 
 interface Field {
@@ -15,9 +14,14 @@ interface Field {
   options?: string[];
 }
 
-const { locale, kind } = Astro.props;
-const f = copy[locale].pages.form;
-const fields = f[kind] as Field[];
+const { locale } = Astro.props;
+const t = copy[locale].pages;
+const f = t.form;
+const tabs = t.inquiry.tabs;
+const groups = [
+  { kind: 'consultation', fields: f.consultation as Field[], tab: tabs[0] },
+  { kind: 'institutions', fields: f.institutions as Field[], tab: tabs[1] },
+] as const;
 ---
 
 <form
@@ -26,48 +30,64 @@ const fields = f[kind] as Field[];
   novalidate
   data-form
   data-endpoint={site.formEndpoint}
-  data-kind={kind}
+  data-kind="consultation"
   data-msg-sending={f.sending}
   data-msg-sent={f.sent}
   data-msg-error={f.error}
   data-msg-not-connected={f.notConnected}
   data-msg-invalid={f.invalid}
 >
-  <input type="hidden" name="_kind" value={kind} />
+  <input type="hidden" name="_kind" value="consultation" data-kind-input />
   <input type="hidden" name="_language" value={locale} />
   <!-- Left empty by people; automatic form-fillers tend to fill it. -->
   <div class="form__trap" aria-hidden="true">
     <label>Website <input type="text" name="_website" tabindex="-1" autocomplete="off" /></label>
   </div>
 
-  <div class="form__grid">
+  <div class="form__tabs" role="tablist">
     {
-      fields.map((field) => (
-        <div class:list={['field', { 'field--wide': field.type === 'textarea' }]}>
-          <label for={`f-${field.name}`}>
-            <span>{field.label}</span>
-            <small>{field.required ? f.required : f.optional}</small>
-          </label>
-          {field.type === 'textarea' ? (
-            <textarea id={`f-${field.name}`} name={field.name} rows="4" required={field.required} />
-          ) : field.type === 'select' ? (
-            <select id={`f-${field.name}`} name={field.name} required={field.required}>
-              <option value="" />
-              {(field.options ?? []).map((o) => <option value={o}>{o}</option>)}
-            </select>
-          ) : (
-            <input
-              id={`f-${field.name}`}
-              name={field.name}
-              type={field.type}
-              required={field.required}
-              autocomplete={field.type === 'email' ? 'email' : field.name === 'name' ? 'name' : 'off'}
-            />
-          )}
-        </div>
+      groups.map((g, i) => (
+        <button type="button" role="tab" class="form__tab" aria-selected={i === 0 ? 'true' : 'false'} data-tab={g.kind}>
+          {g.tab.label}
+        </button>
       ))
     }
   </div>
+
+  {
+    groups.map((g, i) => (
+      <div class="form__group" data-group={g.kind} hidden={i !== 0}>
+        <p class="form__note">{g.tab.note}</p>
+        <div class="form__grid">
+          {g.fields.map((field) => (
+            <div class:list={['field', { 'field--wide': field.type === 'textarea' }]}>
+              <label for={`f-${g.kind}-${field.name}`}>
+                <span>{field.label}</span>
+                <small>{field.required ? f.required : f.optional}</small>
+              </label>
+              {field.type === 'textarea' ? (
+                <textarea id={`f-${g.kind}-${field.name}`} name={field.name} rows="4" required={field.required} disabled={i !== 0} />
+              ) : field.type === 'select' ? (
+                <select id={`f-${g.kind}-${field.name}`} name={field.name} required={field.required} disabled={i !== 0}>
+                  <option value="" />
+                  {(field.options ?? []).map((o) => <option value={o}>{o}</option>)}
+                </select>
+              ) : (
+                <input
+                  id={`f-${g.kind}-${field.name}`}
+                  name={field.name}
+                  type={field.type}
+                  required={field.required}
+                  disabled={i !== 0}
+                  autocomplete={field.type === 'email' ? 'email' : field.name === 'name' ? 'name' : 'off'}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    ))
+  }
 
   <div class="form__foot">
     <button class="form__send" type="submit" data-send>{f.send}</button>

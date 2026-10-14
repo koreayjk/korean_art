@@ -2,13 +2,14 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import InquiryForm from './InquiryForm.astro';
+import Process from './Process.astro';
 import { copy, type Locale } from '../data/copy';
 import { url } from '../data/links';
 import master from '../assets/images/master.jpg';
 
 interface Props {
   locale: Locale;
-  page: 'journal' | 'master' | 'inquiry' | 'institutions';
+  page: 'journal' | 'master' | 'inquiry';
 }
 
 const { locale, page } = Astro.props;
@@ -22,7 +23,7 @@ const lead = p[page].lead;
 ---
 
 <Base locale={locale} pageTitle={title} pageDescription={lead} slug={`${page}/`}>
-  <article class:list={['page', `page--${page}`, { 'is-paper': page !== 'journal' }]}>
+  <article class:list={['page', `page--${page}`, { 'is-paper': page === 'master' }]}>
     <header class="page__head" data-reveal-group>
       <div class="label">{label.map((x) => <span lang={lang(x)}>{x}</span>)}</div>
       <h1 class="display h1">{title}</h1>
@@ -91,16 +92,21 @@ const lead = p[page].lead;
       )
     }
 
-    {
-      (page === 'inquiry' || page === 'institutions') && (
-        <div class="page__body page__body--form" data-reveal-group>
-          <p class="page__note">{p[page].note}</p>
-          <InquiryForm locale={locale} kind={page === 'inquiry' ? 'consultation' : 'institutions'} />
-          <p class="page__other">
-            {p[page].other} <a class="link" href={url(locale, page === 'inquiry' ? 'institutions' : 'inquiry')}>{p[page].otherLink}</a>
-          </p>
-        </div>
-      )
-    }
   </article>
+
+  {
+    page === 'inquiry' && (
+      <>
+        <Process locale={locale} />
+        <section class="page page--form is-paper" id="inquiry-form" aria-labelledby="form-title">
+          <span id="institution" class="page__anchor"></span>
+          <div class="page__body page__body--form" data-reveal-group>
+            <h2 id="form-title" class="display h2">{p.inquiry.formTitle}</h2>
+            <p class="page__note">{p.inquiry.note}</p>
+            <InquiryForm locale={locale} />
+          </div>
+        </section>
+      </>
+    )
+  }
 </Base>

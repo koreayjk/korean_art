@@ -31,7 +31,7 @@
 ## 현재 상태
 
 - Home 한 페이지 완성. 데스크톱(1440px)과 모바일(390px)에서 화면 확인함.
-- 하위 페이지(영어·한국어 쌍): Journal, The Master(장인 이야기), Inquiry(상담 요청), For Institutions(기관 문의). `src/components/SubPage.astro` 한 벌을 공유하고 글은 `copy.ts`의 `pages`에 있음. 주소 규칙은 `src/data/links.ts`.
+- 하위 페이지(영어·한국어 쌍): Journal, The Master(장인 이야기), Inquiry(상담 요청 + 주문 과정 영상 + 개인·기관 탭이 있는 양식 하나). 기관 문의 주소는 `/inquiry/#institution`으로 이어지고 옛 `/institutions/`는 자동 이동. `src/components/SubPage.astro` 한 벌을 공유하고 글은 `copy.ts`의 `pages`에 있음. 주소 규칙은 `src/data/links.ts`.
 - 장인 약력·전시·계보·저널 글은 <대동문화> 137호 기사(2023)와 고창군 블로그 기자단 기사(2024.11.27)를 바탕으로 `copy.ts`에 넣음. 전부 본인 확인(CONFIRM) 필요. 블로그·기사 사진은 저작권과 동의 문제로 쓰지 않음.
 - 문의 양식은 화면과 검증까지 완성. 보내는 곳은 `site.ts`의 `formEndpoint`(비어 있으면 아무것도 전송하지 않고 방문자에게 그렇게 알림). 이메일·양식 서비스가 정해지면 채울 것.
 - 'The making'(6개월 제작) 섹션은 의뢰인 요청으로 삭제함. 대체 내용은 협의 중.

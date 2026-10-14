@@ -12,9 +12,33 @@ for (const form of forms) {
     status.dataset.tone = tone;
   };
 
+  // One form for both kinds of inquiry: the tabs switch which fields are live.
+  const tabs = Array.from(form.querySelectorAll<HTMLButtonElement>('[data-tab]'));
+  const groups = Array.from(form.querySelectorAll<HTMLElement>('[data-group]'));
+  const kindInput = form.querySelector<HTMLInputElement>('[data-kind-input]');
+  const choose = (kind: string) => {
+    form.dataset.kind = kind;
+    if (kindInput) kindInput.value = kind;
+    tabs.forEach((tab) => tab.setAttribute('aria-selected', String(tab.dataset.tab === kind)));
+    groups.forEach((group) => {
+      const on = group.dataset.group === kind;
+      group.hidden = !on;
+      group.querySelectorAll<HTMLInputElement>('input, textarea, select').forEach((el) => {
+        el.disabled = !on;
+      });
+    });
+    say('');
+  };
+  tabs.forEach((tab) => tab.addEventListener('click', () => choose(tab.dataset.tab ?? 'consultation')));
+  const fromHash = () => {
+    if (location.hash === '#institution') choose('institutions');
+  };
+  fromHash();
+  window.addEventListener('hashchange', fromHash);
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const required = Array.from(form.querySelectorAll<HTMLInputElement>('[required]'));
+    const required = Array.from(form.querySelectorAll<HTMLInputElement>('[required]:not(:disabled)'));
     let ok = true;
     for (const el of required) {
       const bad = !el.value.trim() || (el.type === 'email' && !el.validity.valid && !/^\S+@\S+\.\S+$/.test(el.value));

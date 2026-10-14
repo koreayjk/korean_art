@@ -1,0 +1,56 @@
+---
+import StepIcon from './StepIcon.astro';
+import ProcessObject from './ProcessObject.astro';
+import { copy, type Locale } from '../data/copy';
+
+interface Props {
+  locale: Locale;
+}
+
+const t = copy[Astro.props.locale];
+const pad = (n: number) => String(n).padStart(2, '0');
+const stepIcons = ['inquiry', 'consultation', 'making', 'delivery'] as const;
+const labelSpan = (text: string) => ({ text, lang: /[가-힣]/.test(text) ? 'ko' : 'en' });
+---
+
+<section id="commission" class="process" aria-labelledby="commission-title">
+  <div class="process__intro" data-process-intro>
+    <div class="label">
+      {t.commission.label.map((x) => <span lang={labelSpan(x).lang}>{x}</span>)}
+    </div>
+    <h2 id="commission-title" class="display h2">{t.commission.title}</h2>
+    <p>{t.commission.text}</p>
+  </div>
+  <div class="process__track" data-process-track>
+    <span class="process__thread" aria-hidden="true" data-process-thread></span>
+    <div class="process__object">
+      <ProcessObject />
+    </div>
+    <ol class="process__list">
+      {
+        t.commission.steps.map((step, i) => (
+          <li class="step">
+            <div class="step__art">
+              <StepIcon name={stepIcons[i]} />
+            </div>
+            <span class="step__num" aria-hidden="true">{pad(i + 1)}</span>
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__body">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <div class="process__progress" aria-hidden="true">
+      <span class="process__rail"></span>
+      <span class="process__bar" data-process-bar></span>
+      {
+        t.commission.steps.map((step, i) => (
+          <span class="process__dot" data-process-dot>
+            <i></i>
+            <b>{pad(i + 1)} {step.title}</b>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>

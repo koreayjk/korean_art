@@ -192,16 +192,11 @@ const en = {
       label: ['Inquiry', '문의'],
       lead: 'Tell us about the space, the occasion and the design you have in mind. We reply by email, and a written quote follows the consultation.',
       note: `Commissions from ${site.priceFrom}. Larger works are quoted individually.`,
-      other: 'For museums, universities and companies',
-      otherLink: 'For institutions',
-    },
-    institutions: {
-      title: 'For institutions',
-      label: ['For institutions', '기관 문의'],
-      lead: 'For museums, universities and companies. Tell us about the place the work is intended for and what you need.',
-      note: 'Every piece is made to order, and only a limited number of commissions are accepted each year.',
-      other: 'Commissioning for yourself or a private collection',
-      otherLink: 'Request a consultation',
+      formTitle: 'Send an inquiry',
+      tabs: [
+        { label: 'For yourself or a collection', note: 'Tell us about the space, the occasion and the design you have in mind.' },
+        { label: 'For an institution', note: 'For museums, universities and companies. Tell us about the place the work is intended for and what you need.' },
+      ],
     },
     form: {
       required: 'Required',
@@ -423,16 +418,11 @@ const ko: typeof en = {
       label: ['문의', 'Inquiry'],
       lead: '작품을 놓을 공간과 용도, 마음에 두신 도안을 알려 주세요. 이메일로 답을 드리고, 상담 뒤에 서면 견적을 보내 드립니다.',
       note: `주문은 ${site.priceFrom}부터 시작합니다. 더 큰 작품은 따로 견적을 드립니다.`,
-      other: '박물관, 대학, 기업의 경우',
-      otherLink: '기관 문의',
-    },
-    institutions: {
-      title: '기관 문의',
-      label: ['기관 문의', 'For institutions'],
-      lead: '박물관, 대학, 기업을 위한 문의입니다. 작품이 놓일 장소와 필요하신 내용을 알려 주세요.',
-      note: '모든 작품은 주문을 받아 만들며, 한 해에 받을 수 있는 주문은 한정되어 있습니다.',
-      other: '개인이나 소장용 주문은',
-      otherLink: '상담 요청하기',
+      formTitle: '문의 보내기',
+      tabs: [
+        { label: '개인·소장용', note: '작품을 놓을 공간과 용도, 마음에 두신 도안을 알려 주세요.' },
+        { label: '기관', note: '박물관, 대학, 기업을 위한 문의입니다. 작품이 놓일 장소와 필요하신 내용을 알려 주세요.' },
+      ],
     },
     form: {
       required: '필수',

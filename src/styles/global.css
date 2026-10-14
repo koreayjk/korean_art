@@ -2072,3 +2072,62 @@ html[lang='en'] :is(.page-journal, .page-master) .label {
     padding-top: 0;
   }
 }
+
+/* ---------- One inquiry form with two tabs ---------- */
+
+.form__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+}
+
+.form__tab {
+  padding: 0 0 6px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  font-size: 16px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 300ms var(--ease-out), border-color 300ms var(--ease-out);
+}
+
+.form__tab[aria-selected='true'] {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+.form__group[hidden] {
+  display: none;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form__note {
+  color: var(--soft);
+}
+
+/* The inquiry page: a dark head, the process film, then the paper form. */
+.page--inquiry {
+  min-height: 0;
+  padding-bottom: clamp(32px, 4vw, 64px);
+}
+
+.page--form {
+  min-height: 0;
+  padding-top: clamp(72px, 9vw, 130px);
+}
+
+.page--form .page__body--form {
+  gap: 20px;
+}
+
+.page__anchor {
+  display: block;
+  height: 0;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
