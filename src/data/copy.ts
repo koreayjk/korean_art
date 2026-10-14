@@ -103,6 +103,38 @@ const en = {
             'Mi-ae Park carries the minsu tradition into the present, in the family workshop in Gochang.',
           ],
         },
+        // The entries below were written from press coverage and a Gochang County blog report.
+        // CONFIRM each fact with Mi-ae Park before the site goes public.
+        {
+          title: 'Three generations in Gochang',
+          paragraphs: [
+            'The Gochang line of embroidery began with Kang Ji-san, passed to her daughter Choi In-sun, and then to Park Mi-ae. Together they span more than a century.',
+            'Choi In-sun first learned embroidery at school in 1940 and trained in Seoul, where she opened a workshop in 1964. In 1972 she returned to Gochang and opened a workshop in a converted hanok, employing around twenty local women.',
+            'Park Mi-ae began learning in her mother’s workshop in 1977, helped run it from 1978, and took it over in 1990. Four successors now carry the line.',
+          ],
+        },
+        {
+          title: 'Gungsu and minsu, both',
+          paragraphs: [
+            'Minsu was the first thing she learned. It was embroidered by women outside the court for pictures, screens and pillow ends: everyday pieces without polish, but with a plain, honest charm.',
+            'Gungsu, the court tradition, came through her older sister Park Seong-hui, who trained under Han Yeong-hwa and Han Sang-soo. Gungsu was made by the royal embroidery office, to strict patterns and with great precision.',
+            'Park Mi-ae later worked in both masters’ workshops, restoring court embroidery. Few makers can restore both traditions.',
+          ],
+        },
+        {
+          title: 'The third public demonstration, 2024',
+          paragraphs: [
+            'From 25 to 29 November 2024, Mi-ae Park and her successors held their third public demonstration at the Gochang Culture Hall, under the title “Dreaming of the student surpassing the teacher”. Entry was free.',
+            'The exhibition showed court and folk pieces side by side: eight-panel screens, pillows, rank badges, knotted tassels and sewing boxes, with work by the successors alongside.',
+          ],
+        },
+        {
+          title: 'Still to be stitched',
+          paragraphs: [
+            'There are pieces she has not yet embroidered. She hopes to restore court screens such as the eight-panel flower-and-bird screen and the bookshelf screen, and to recreate the rank badges once sewn onto Joseon officials’ robes.',
+            'She also wants to remake the wedding pillows of the folk tradition, and to put the story of the Gochang line into a book.',
+          ],
+        },
       ],
       more: 'More entries will follow.',
       cta: 'Meet the master',
@@ -118,16 +150,40 @@ const en = {
         'In 1990 she took over the family workshop in Gochang from her mother. She trained under Han Sang-soo, the first embroidery master named a holder of Korea’s national intangible heritage.',
         'In 2022 she was recognised as a heritage holder of embroidery in Jeonbuk.',
       ],
-      timelineTitle: 'In brief',
+      quote: { text: 'Embroidery is my whole life.', source: 'Mi-ae Park, Daedong Munhwa, no. 137 (2023)' },
+      timelineTitle: 'Lineage',
       timeline: [
-        ['Over 45 years', 'Practice of traditional embroidery'],
-        ['1990', 'Takes over the family workshop in Gochang from her mother'],
-        ['2022', 'Recognised as a heritage holder, Jeonbuk'],
+        ['First generation', 'Kang Ji-san, her grandmother'],
+        ['Second generation', 'Choi In-sun, her mother'],
+        ['Third generation', 'Park Mi-ae'],
+        ['Today', 'Four successors carry the line'],
       ],
-      // To be filled in with Mi-ae Park: the rows below are placeholders, not facts.
+      // From press coverage and a Gochang County blog report. CONFIRM with Mi-ae Park.
       career: {
-        biography: { title: 'Biography', items: [['[YEAR]', '[Biography entry]'], ['[YEAR]', '[Biography entry]'], ['[YEAR]', '[Biography entry]']] },
-        exhibitions: { title: 'Exhibitions', items: [['[YEAR]', '[Exhibition title], [Venue, City]'], ['[YEAR]', '[Exhibition title], [Venue, City]'], ['[YEAR]', '[Exhibition title], [Venue, City]']] },
+        biography: {
+          title: 'Biography',
+          items: [
+            ['1977', 'Begins learning embroidery and knotting in her mother’s workshop'],
+            ['1983', 'Works in Han Yeong-hwa’s workshop on court embroidery'],
+            ['1987', 'Works in Han Sang-soo’s workshop on court and original pieces'],
+            ['1990', 'Takes over the Gochang workshop from her mother'],
+            ['2019', 'Registers the business as Gochang Traditional Embroidery'],
+            ['2022', 'Designated a heritage holder of embroidery, Jeonbuk'],
+            ['2022', 'Certified a Thousand-Year Family House of Jeonbuk'],
+          ],
+        },
+        exhibitions: {
+          title: 'Exhibitions',
+          items: [
+            ['1984–2019', 'Six family exhibitions'],
+            ['1996', 'Kintetsu Department Store, Osaka, Japan'],
+            ['1998', 'Korea Trade Fair, Qingdao, China'],
+            ['2019', 'Jeonbuk–New Jersey sister-state exhibition, New Jersey, USA'],
+            ['2019', 'Solo show, “Gochang Traditional Embroidery with a Story”'],
+            ['2021', 'Solo show, “Stitch by Stitch, Carrying On the Master’s Path”'],
+            ['2024', 'Third public demonstration, Gochang Culture Hall'],
+          ],
+        },
       },
       cta: 'Request a consultation',
     },
@@ -279,6 +335,37 @@ const ko: typeof en = {
             '박미애 장인은 고창의 가족 공방에서 민수의 전통을 오늘로 잇고 있습니다.',
           ],
         },
+        // 아래 글은 언론 보도와 고창군 블로그 기사를 바탕으로 썼습니다. 공개 전에 박미애 장인께 사실 확인(CONFIRM) 필요.
+        {
+          title: '고창에서 이어진 3대',
+          paragraphs: [
+            '고창 자수의 맥은 외할머니 강지산 선생에서 어머니 최인순 선생으로, 그리고 박미애 장인으로 이어졌습니다. 100년이 넘는 세월입니다.',
+            '최인순 선생은 1940년 학교에서 처음 자수를 배웠고, 서울에서 정식으로 자수를 익혀 1964년 공방을 열었습니다. 1972년 고창으로 돌아와 한옥을 고쳐 공방을 열고, 고창 주변의 여성 20여 명과 함께 일했습니다.',
+            '박미애 장인은 1977년 어머니의 공방에서 본격적으로 자수를 배우기 시작해 1978년부터 공방 운영에 참여했고, 1990년 공방을 이어받았습니다. 지금은 4명의 이수자가 그 맥을 잇고 있습니다.',
+          ],
+        },
+        {
+          title: '민수와 궁수를 모두',
+          paragraphs: [
+            '처음 배운 것은 민수였습니다. 민수는 궁궐 밖 부녀자들이 액자와 병풍, 베갯모 등에 놓던 자수로, 세련됨보다는 소박하고 단순한 아름다움이 있습니다.',
+            '궁수는 언니 박성희 선생을 통해 배웠습니다. 박성희 선생은 한영화, 한상수 선생에게 궁수를 배운 분입니다. 궁수는 궁중의 수방에서 조선시대 내내 이어진 기술로, 정해진 양식에 따라 정교하고 치밀하게 수를 놓았습니다.',
+            '박미애 장인은 이후 두 선생의 공방에서 일하며 궁수 유물 복원 작업을 했습니다. 민수와 궁수를 모두 복원할 수 있는 장인은 많지 않습니다.',
+          ],
+        },
+        {
+          title: '제3회 공개시연회, 2024',
+          paragraphs: [
+            '2024년 11월 25일부터 29일까지 고창 문화의 전당에서 박미애 장인과 이수자들의 제3회 공개시연회가 열렸습니다. 주제는 ‘청출어람을 꿈꾸며’였고, 관람은 무료였습니다.',
+            '전시장에는 궁중과 민가의 자수가 함께 놓였습니다. 8폭 병풍, 베개, 흉배, 노리개, 반짇고리와 함께 이수자들의 작품도 만날 수 있었습니다.',
+          ],
+        },
+        {
+          title: '아직 수놓지 못한 작품',
+          paragraphs: [
+            '아직 수놓지 못한 작품이 있습니다. 화조 8폭 병풍과 책가도 같은 궁중 병풍 유물을 복원하고, 조선시대 관복에 붙이던 흉배를 재현해 보고 싶다고 합니다.',
+            '또 민수의 혼수 전통베개를 다시 만들고, 고창 자수의 이야기를 한 권의 책으로 엮는 것도 바라고 있습니다.',
+          ],
+        },
       ],
       more: '앞으로 글이 더 올라옵니다.',
       cta: '장인 만나기',
@@ -294,16 +381,40 @@ const ko: typeof en = {
         '1990년 어머니에게서 고창의 가족 공방을 이어받았습니다. 국가무형유산 자수장 보유자로 처음 인정된 한상수 선생에게 사사했습니다.',
         '2022년 전북특별자치도 자수 보유자로 인정되었습니다.',
       ],
-      timelineTitle: '한눈에 보기',
+      quote: { text: '자수는 제 삶의 전부입니다.', source: '박미애, <대동문화> 137호 (2023)' },
+      timelineTitle: '계보',
       timeline: [
-        ['45년 이상', '전통 자수 수련'],
-        ['1990년', '어머니에게서 고창의 가족 공방을 이어받음'],
-        ['2022년', '전북특별자치도 무형유산 보유자 인정'],
+        ['1대', '외할머니 강지산'],
+        ['2대', '어머니 최인순'],
+        ['3대', '박미애'],
+        ['현재', '4명의 이수자가 맥을 잇고 있음'],
       ],
-      // 장인께 받아서 채울 것: 아래 줄들은 자리만 잡은 것이고 사실이 아님.
+      // 언론 보도와 고창군 블로그 기사 기준. 박미애 장인께 확인(CONFIRM) 필요.
       career: {
-        biography: { title: '약력', items: [['[연도]', '[약력 내용]'], ['[연도]', '[약력 내용]'], ['[연도]', '[약력 내용]']] },
-        exhibitions: { title: '전시', items: [['[연도]', '[전시명], [장소, 도시]'], ['[연도]', '[전시명], [장소, 도시]'], ['[연도]', '[전시명], [장소, 도시]']] },
+        biography: {
+          title: '약력',
+          items: [
+            ['1977', '어머니의 공방에서 전통자수와 전통매듭을 배우기 시작'],
+            ['1983', '한영화 선생 공방에서 궁수 유물 복원과 작품 제작'],
+            ['1987', '한상수 선생 공방에서 궁수와 창작품 제작'],
+            ['1990', '어머니에게서 고창 자수 공방을 인수'],
+            ['2019', '‘고창전통자수’로 사업자 등록'],
+            ['2022', '전북특별자치도 무형유산 자수장 보유자 인정'],
+            ['2022', '전북 천년명가 인증'],
+          ],
+        },
+        exhibitions: {
+          title: '전시',
+          items: [
+            ['1984–2019', '가족전 6회'],
+            ['1996', '일본 오사카 긴테츠백화점'],
+            ['1998', '중국 칭다오 한국무역박람회'],
+            ['2019', '미국 뉴저지-전북 자매결연 한스타일 전시회'],
+            ['2019', '개인전 ‘이야기가 있는 고창 전통자수’'],
+            ['2021', '개인전 ‘한땀 한땀 장인의 길을 잇다’'],
+            ['2024', '제3회 공개시연회, 고창 문화의 전당'],
+          ],
+        },
       },
       cta: '상담 요청하기',
     },

@@ -1889,3 +1889,30 @@ html[lang='en'] :is(.page-journal, .page-master) .footer {
 html[lang='en'] :is(.page-journal, .page-master) .label {
   font-size: 15px;
 }
+
+/* Master page: a pull quote and the full biography and exhibition lists. */
+.pullquote {
+  margin: clamp(56px, 7vw, 110px) 0 0;
+  max-width: 44rem;
+}
+
+.pullquote blockquote {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.25;
+}
+
+.pullquote figcaption {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.career--page {
+  margin-top: clamp(48px, 6vw, 96px);
+}
+
+.timeline dt {
+  white-space: nowrap;
+}
