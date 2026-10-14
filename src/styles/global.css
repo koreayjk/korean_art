@@ -969,6 +969,7 @@ button {
 /* ---------- Closing ---------- */
 
 .closing {
+  margin-top: clamp(72px, 9vw, 150px);
   position: relative;
   overflow: clip;
   min-height: clamp(480px, 46vw, 720px);
