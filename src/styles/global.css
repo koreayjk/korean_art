@@ -3,6 +3,16 @@
    photographs (indigo, crimson). Motion is added by src/scripts/motion.ts;
    everything here must read correctly with JavaScript turned off. */
 
+/* Zeyada is small for its size, so it is enlarged (size-adjust) to sit with the other type. */
+@font-face {
+  font-family: 'Zeyada Fit';
+  src: url('../../node_modules/@fontsource/zeyada/files/zeyada-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  size-adjust: 135%;
+}
+
 :root {
   --ground: #242120;
   --ground-2: #2e2a28;
@@ -1847,4 +1857,60 @@ html[lang='ko'] .hero__title {
 html[lang='ko'] .header__logo,
 html[lang='ko'] .intro__name {
   font-family: 'Inter Variable', 'Inter', sans-serif;
+}
+
+/* English pages: all text in Zeyada (a pen hand). The hero title stays Cinzel and the wordmark Inter. */
+html[lang='en'] {
+  --display: 'Zeyada Fit', 'Zeyada', cursive;
+  --body: 'Zeyada Fit', 'Zeyada', cursive;
+}
+
+html[lang='en'] .display,
+html[lang='en'] .step__title,
+html[lang='en'] .card__title,
+html[lang='en'] .statement__text {
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+html[lang='en'] .label,
+html[lang='en'] .header__nav .link,
+html[lang='en'] .header__side .link {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+html[lang='en'] .hero__title {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+html[lang='en'] .header__logo,
+html[lang='en'] .intro__name {
+  font-family: 'Inter Variable', 'Inter', sans-serif;
+}
+
+/* Zeyada is thin, so the small text is a little larger on the English pages. */
+html[lang='en'] .header__nav .link,
+html[lang='en'] .header__side .link,
+html[lang='en'] .header__menu,
+html[lang='en'] .link,
+html[lang='en'] .footer {
+  font-size: 16px;
+}
+
+html[lang='en'] .label {
+  font-size: 15px;
+}
+
+html[lang='en'] .field label,
+html[lang='en'] .field small,
+html[lang='en'] .form__status,
+html[lang='en'] .form__send {
+  font-size: 16px;
+}
+
+html[lang='en'] .preview-badge {
+  font-size: 14px;
 }
