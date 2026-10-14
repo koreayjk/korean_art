@@ -26,7 +26,6 @@ const en = {
     { label: 'Journal', key: 'journal' },
   ],
   inquiry: 'Inquiry',
-  institutions: 'For institutions',
   hero: {
     eyebrow: 'Korean traditional embroidery',
     title: "A master’s embroidery",
@@ -86,7 +85,6 @@ const en = {
     title: 'Commission a work',
     text: `Commissions from ${site.priceFrom}. Larger works are quoted individually.`,
     consultation: 'Request a consultation',
-    institutions: 'For institutions',
   },
   pages: {
     back: 'Back to home',
@@ -251,7 +249,6 @@ const ko: typeof en = {
     { label: '저널', key: 'journal' },
   ],
   inquiry: '문의',
-  institutions: '기관 문의',
   hero: {
     eyebrow: '한국 전통 자수',
     title: 'A master’s embroidery',
@@ -313,7 +310,6 @@ const ko: typeof en = {
     title: '작품 주문하기',
     text: `주문은 ${site.priceFrom}부터 시작합니다. 더 큰 작품은 따로 견적을 드립니다.`,
     consultation: '상담 요청하기',
-    institutions: '기관 문의',
   },
   pages: {
     back: '홈으로',
