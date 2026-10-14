@@ -1775,7 +1775,7 @@ html[lang='ko'] .page__lead {
   background-size: 640px 640px;
   color: var(--ink);
   /* The top and bottom edges fade softly into the dark ground. */
-  --edge: 56px;
+  --edge: 16px;
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--edge), #000 calc(100% - var(--edge)), transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 var(--edge), #000 calc(100% - var(--edge)), transparent);
 }
